@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Terms & Conditions for HTML Full Mastery. Guidelines and disclaimers for using the platform.">
+  <meta property="og:title" content="Terms & Conditions | HTML Full Mastery">
+  <meta property="og:type" content="website">
+  <title>Terms & Conditions | HTML Full Mastery</title>
+  <link rel="icon" href="terms_logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#07080f;--bg2:#111827;--bg3:#1f2937;--text:#f1f5f9;--text2:#94a3b8;--accent:#818cf8;--accent2:#34d399;--accent3:#f472b6;--border:rgba(255,255,255,0.08);--hdrBg:linear-gradient(135deg,#b45309,#d97706,#f59e0b)}
+    [data-theme="light"]{--bg:#f8fafc;--bg2:#fff;--bg3:#e2e8f0;--text:#0f172a;--text2:#475569;--accent:#6366f1;--accent2:#059669;--accent3:#ec4899;--border:rgba(0,0,0,0.1);--hdrBg:linear-gradient(135deg,#d97706,#f59e0b,#fbbf24)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s,color 0.4s}
+    .theme-btn{position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:12px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:all 0.3s;backdrop-filter:blur(10px)}
+    .theme-btn:hover{transform:scale(1.1);border-color:var(--accent)}
+    nav{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+    nav a{color:var(--text2);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
+    nav a:hover{color:var(--accent)}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;color:var(--text)!important}
+    .nav-logo img{width:30px;border-radius:6px}
+    .nav-links{display:flex;gap:20px}
+    .nav-active{color:var(--accent)!important;font-weight:700}
+    .hero{background:var(--hdrBg);padding:60px 24px 50px;text-align:center;position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--bg))}
+    .hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:10px}
+    .hero p{color:rgba(255,255,255,0.85);font-size:1.05rem}
+    .meta-bar{max-width:900px;margin:-16px auto 0;padding:0 24px;position:relative;z-index:2;display:flex;gap:12px;flex-wrap:wrap}
+    .meta-pill{padding:8px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;font-size:0.82rem;font-weight:600;backdrop-filter:blur(10px)}
+
+    .content{max-width:900px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:200px 1fr;gap:40px}
+    .toc{position:sticky;top:24px;align-self:start}
+    .toc h3{font-size:0.82rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:12px;font-weight:700}
+    .toc a{display:block;padding:8px 12px;color:var(--text2);text-decoration:none;font-size:0.82rem;border-left:2px solid var(--border);transition:all 0.2s;margin-bottom:2px}
+    .toc a:hover,.toc a.active{color:var(--accent);border-color:var(--accent);background:rgba(129,140,248,0.05)}
+
+    .policy-section{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:20px;scroll-margin-top:24px}
+    .s-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .s-num{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;flex-shrink:0}
+    .s-header h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:700}
+    .policy-section p{color:var(--text2);line-height:1.8;font-size:0.92rem;margin-bottom:10px}
+    .policy-section ul{color:var(--text2);padding-left:20px;line-height:1.8;font-size:0.92rem;margin-bottom:10px}
+
+    /* Accept */
+    .accept-box{background:linear-gradient(135deg,rgba(129,140,248,0.08),rgba(52,211,153,0.08));border:1px solid var(--border);border-radius:18px;padding:28px;text-align:center;margin-top:12px}
+    .accept-box label{display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;font-weight:600;font-size:1rem;margin-bottom:16px}
+    .accept-box input[type="checkbox"]{width:20px;height:20px;accent-color:var(--accent2);cursor:pointer}
+    .accept-btn{padding:14px 36px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:12px;font-size:1rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:not-allowed;transition:all 0.3s;opacity:0.5}
+    .accept-btn.enabled{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;cursor:pointer;opacity:1;box-shadow:0 6px 20px rgba(129,140,248,0.3)}
+    .accept-btn.enabled:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(129,140,248,0.4)}
+    .accepted-msg{display:none;color:var(--accent2);font-weight:700;font-size:1.1rem;margin-top:12px}
+
+    /* Print */
+    .print-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:inherit;margin-top:20px}
+    .print-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+    @media print{.theme-btn,nav,.hero,.meta-bar,.toc,.print-btn,.accept-box{display:none!important}.content{grid-template-columns:1fr!important;padding:0!important}.policy-section{border:1px solid #ccc!important;break-inside:avoid}body{background:#fff!important;color:#000!important}.policy-section p,.policy-section ul{color:#333!important}}
+
+    .footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:48px;color:var(--text2);font-size:0.85rem}
+    @media(max-width:768px){.content{grid-template-columns:1fr}.toc{position:static;display:flex;flex-wrap:wrap;gap:6px}.toc a{border-left:none;border-bottom:2px solid var(--border);padding:6px 10px;font-size:0.78rem}.toc h3{width:100%}.meta-bar{justify-content:center}}
+  </style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleTheme()">🌙</button>
+
+<nav>
+  <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html" class="nav-active">Terms</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>📜 Terms & Conditions</h1>
+  <p>Please review the terms governing your use of the HTML Full Mastery platform.</p>
+</div>
+<div class="meta-bar">
+  <span class="meta-pill">📅 Effective: January 1, 2026</span>
+  <span class="meta-pill">🔄 Last Updated: May 15, 2026</span>
+  <span class="meta-pill">📌 Version 2.0</span>
+</div>
+
+<div class="content">
+  <div class="toc">
+    <h3>Contents</h3>
+    <a href="#t1" class="active">Educational Purpose</a>
+    <a href="#t2">Intellectual Property</a>
+    <a href="#t3">License & Usage</a>
+    <a href="#t4">User Conduct</a>
+    <a href="#t5">Disclaimer</a>
+    <a href="#t6">E-Book Terms</a>
+    <a href="#t7">Modifications</a>
+    <a href="#t8">Contact</a>
+  </div>
+
+  <div class="sections">
+    <div class="policy-section" id="t1">
+      <div class="s-header"><div class="s-num">1</div><h2>Educational Purpose</h2></div>
+      <p>HTML Full Mastery is provided <strong>exclusively for educational purposes</strong>. While we strive for 100% accuracy based on the latest HTML Living Standards, the rapidly evolving nature of web technologies means some information may change over time.</p>
+      <p>This platform is not a substitute for official documentation (MDN, WHATWG). We recommend cross-referencing critical information for production use.</p>
+    </div>
+
+    <div class="policy-section" id="t2">
+      <div class="s-header"><div class="s-num">2</div><h2>Intellectual Property</h2></div>
+      <p>All content, interactive demos, design systems, code architecture, and educational material are the intellectual property of <strong>Sanskar Yadav</strong>.</p>
+      <p>This includes but is not limited to:</p>
+      <ul>
+        <li>The HTML tag documentation and explanations</li>
+        <li>The custom theme engine and 25+ premium presets</li>
+        <li>The Pro Code Editor (playground) system</li>
+        <li>All accompanying pages, logos, and SVG assets</li>
+        <li>E-books and premium content sold via Gumroad</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="t3">
+      <div class="s-header"><div class="s-num">3</div><h2>License & Permitted Use</h2></div>
+      <p>You are granted a <strong>non-exclusive, non-transferable license</strong> to:</p>
+      <ul>
+        <li>✅ Use the platform for personal learning and reference</li>
+        <li>✅ Use code snippets from examples in your own projects</li>
+        <li>✅ Share links to the platform with others</li>
+        <li>✅ Use the platform offline via PWA installation</li>
+      </ul>
+      <p>You may <strong>NOT</strong>:</p>
+      <ul>
+        <li>❌ Redistribute or resell the platform or its content</li>
+        <li>❌ Remove attribution or claim the content as your own</li>
+        <li>❌ Use the platform for competing commercial products</li>
+        <li>❌ Scrape or automate data extraction from the platform</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="t4">
+      <div class="s-header"><div class="s-num">4</div><h2>User Conduct</h2></div>
+      <p>When using the support channels or interacting with the community, you agree to:</p>
+      <ul>
+        <li>Be respectful and constructive in communications</li>
+        <li>Report bugs and issues in good faith</li>
+        <li>Not attempt to exploit, hack, or reverse-engineer the platform</li>
+        <li>Not use the support channels for spam or unsolicited marketing</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="t5">
+      <div class="s-header"><div class="s-num">5</div><h2>Disclaimer of Liability</h2></div>
+      <p>Sanskar Yadav is <strong>not responsible</strong> for any issues arising from the use of code snippets, techniques, or information learned through this application.</p>
+      <p>The platform is provided "as is" without warranties of any kind, express or implied. Always test code in a secure environment before deploying to production.</p>
+    </div>
+
+    <div class="policy-section" id="t6">
+      <div class="s-header"><div class="s-num">6</div><h2>E-Book & Gumroad Terms</h2></div>
+      <p>E-books and premium content purchased via <a href="https://ramsandesh.gumroad.com" style="color:var(--accent)" target="_blank">Gumroad</a> are subject to Gumroad's terms of service in addition to these terms.</p>
+      <ul>
+        <li>E-books are for personal use only</li>
+        <li>No redistribution or sharing of purchased content</li>
+        <li>Refund policies follow Gumroad's standard refund policy</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="t7">
+      <div class="s-header"><div class="s-num">7</div><h2>Modifications</h2></div>
+      <p>We reserve the right to modify these terms at any time. Changes will be reflected by updating the "Last Updated" date at the top of this page.</p>
+      <p>Your continued use of the platform after changes constitutes acceptance of the revised terms.</p>
+    </div>
+
+    <div class="policy-section" id="t8">
+      <div class="s-header"><div class="s-num">8</div><h2>Contact</h2></div>
+      <p>For questions about these terms, contact us at:</p>
+      <p>📧 <a href="mailto:sanskaryadavfrom2012to2026@gmail.com" style="color:var(--accent)">sanskaryadavfrom2012to2026@gmail.com</a></p>
+      <p>📧 <a href="mailto:supportramsandesh@gmail.com" style="color:var(--accent)">supportramsandesh@gmail.com</a></p>
+    </div>
+
+    <div class="accept-box">
+      <label><input type="checkbox" id="acceptCheck" onchange="toggleAcceptBtn()">I have read and agree to the Terms & Conditions</label>
+      <button class="accept-btn" id="acceptBtn" onclick="acceptTerms()">Accept Terms</button>
+      <div class="accepted-msg" id="acceptedMsg">✅ Terms Accepted — Thank you!</div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Print This Page</button>
+  </div>
+</div>
+
+<div class="footer"><p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p></div>
+
+<script>
+  const st=localStorage.getItem('htmlMasteryTheme')||'dark';
+  document.documentElement.setAttribute('data-theme',st);
+  document.querySelector('.theme-btn').textContent=st==='dark'?'☀️':'🌙';
+  function toggleTheme(){const c=document.documentElement.getAttribute('data-theme'),n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('htmlMasteryTheme',n);document.querySelector('.theme-btn').textContent=n==='dark'?'☀️':'🌙'}
+
+  // TOC highlight
+  const secs=document.querySelectorAll('.policy-section');
+  const tLinks=document.querySelectorAll('.toc a');
+  const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tLinks.forEach(l=>l.classList.remove('active'));const id=e.target.id;const l=document.querySelector(`.toc a[href="#${id}"]`);if(l)l.classList.add('active')}})},{threshold:0.3,rootMargin:'-20% 0px -60% 0px'});
+  secs.forEach(s=>ob.observe(s));
+
+  // Accept
+  if(localStorage.getItem('termsAccepted')){document.getElementById('acceptedMsg').style.display='block';document.querySelector('.accept-box label').style.display='none';document.getElementById('acceptBtn').style.display='none'}
+  function toggleAcceptBtn(){const btn=document.getElementById('acceptBtn');const checked=document.getElementById('acceptCheck').checked;btn.classList.toggle('enabled',checked)}
+  function acceptTerms(){if(!document.getElementById('acceptCheck').checked)return;localStorage.setItem('termsAccepted','true');document.getElementById('acceptedMsg').style.display='block';document.querySelector('.accept-box label').style.display='none';document.getElementById('acceptBtn').style.display='none'}
+</script>
+</body>
+</html>
