@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thank You — Your action was successful.">
+  <title>Thank You | HTML Full Mastery</title>
+  <link rel="icon" href="html_logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080f;
+      --bg2: #111827;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --accent: #818cf8;
+      --accent2: #34d399;
+      --accent3: #f472b6;
+      --border: rgba(255, 255, 255, 0.08);
+      --success: #10b981;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg2: #ffffff;
+      --text: #0f172a;
+      --text2: #475569;
+      --accent: #6366f1;
+      --accent2: #059669;
+      --accent3: #ec4899;
+      --border: rgba(0, 0, 0, 0.1);
+      --success: #059669;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      background: var(--accent);
+      top: -20px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    /* Glowing Background Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--success);
+      top: -100px;
+      right: -100px;
+      animation: pulse 8s alternate infinite;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      bottom: -100px;
+      left: -100px;
+      animation: pulse 12s alternate infinite;
+    }
+
+    @keyframes pulse {
+      to {
+        transform: scale(1.2);
+        opacity: 0.3;
+      }
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 50px 40px;
+      max-width: 600px;
+      background: color-mix(in srgb, var(--bg2) 80%, transparent);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Success Checkmark */
+    .checkmark-wrap {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--success) 15%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid color-mix(in srgb, var(--success) 40%, transparent);
+      box-shadow: 0 0 30px color-mix(in srgb, var(--success) 30%, transparent);
+      animation: bounceIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .checkmark-wrap svg {
+      width: 50px;
+      height: 50px;
+      color: var(--success);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--success), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 8px 30px rgba(129, 140, 248, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(129, 140, 248, 0.4);
+    }
+
+    /* Theme toggle */
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="confetti-container" id="confetti"></div>
+
+  <div class="container">
+    <div class="checkmark-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h1>Thank You!</h1>
+    <p class="subtitle">Your action was completed successfully. We deeply appreciate your support and involvement in
+      making this community better.</p>
+    <a href="HTML Mastery.html" class="btn">🏠 Return to Dashboard</a>
+  </div>
+
+  <script>
+    // Theme setup
+    const savedTheme = localStorage.getItem('htmlMasteryTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeBtn();
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('htmlMasteryTheme', next);
+      updateThemeBtn();
+    }
+
+    function updateThemeBtn() {
+      const btn = document.querySelector('.theme-btn');
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Confetti generator
+    const colors = ['#818cf8', '#34d399', '#f472b6', '#fcd34d', '#60a5fa'];
+    const container = document.getElementById('confetti');
+
+    for (let i = 0; i < 60; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (3 + Math.random() * 4) + 's';
+      confetti.style.animationDelay = (Math.random() * 5) + 's';
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+      // Randomize shape (some squares, some thin rectangles, some circles)
+      const shapeRand = Math.random();
+      if (shapeRand < 0.33) {
+        confetti.style.width = '8px';
+        confetti.style.height = '8px';
+      } else if (shapeRand < 0.66) {
+        confetti.style.borderRadius = '50%';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+      }
+
+      container.appendChild(confetti);
+    }
+  </script>
+</body>
+
+</html>
