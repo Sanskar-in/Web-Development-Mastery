@@ -492,6 +492,20 @@
         font-size: 0.82rem
       }
     }
+
+    /* Donate Button */
+    .donate-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: none; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); margin-top: 20px; }
+    .top-donate-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: none; border-radius: 20px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2); }
+    .top-donate-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); }
+    .donate-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1001; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+    .donate-overlay.active { display: flex; opacity: 1; }
+    .donate-modal { background: var(--bg2, #111827); border: 1px solid var(--border, rgba(255,255,255,0.08)); border-radius: 20px; padding: 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s; }
+    .donate-overlay.active .donate-modal { transform: scale(1); }
+    .donate-modal h3 { font-size: 1.5rem; font-weight: 800; color: var(--text, #f1f5f9); margin-bottom: 8px; }
+    .donate-modal p { color: var(--text2, #94a3b8); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5; }
+    .donate-modal img { width: 100%; max-width: 280px; border-radius: 12px; border: 3px solid var(--border, rgba(255,255,255,0.08)); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .donate-close { margin-top: 24px; padding: 10px 28px; border: 1px solid var(--border, rgba(255,255,255,0.08)); border-radius: 8px; background: transparent; color: var(--text2, #94a3b8); font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .donate-close:hover { background: var(--bg3, #1f2937); color: var(--text, #f1f5f9); }
   </style>
 </head>
 
@@ -501,11 +515,12 @@
 
   <nav>
     <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
-    <div class="nav-links">
+    <div class="nav-links" style="align-items: center;">
       <a href="about.html" class="nav-active">About</a>
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
+      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
     </div>
   </nav>
 
@@ -700,6 +715,13 @@
   </div>
 
   <div class="section fade-in">
+    <!-- Premium Support CTA Card -->
+    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08)); border: 1px dashed rgba(245, 158, 11, 0.3); border-radius: 20px; padding: 36px 24px; text-align: center; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+      <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 10px;">💖 Support Sanskar's Work</h3>
+      <p style="color: var(--text2); font-size: 0.95rem; max-width: 540px; margin: 0 auto 20px; line-height: 1.6;">If HTML Full Mastery has helped you level up your web development skills, consider making a contribution. Every support keeps this platform 100% free, fast, and accessible to learners worldwide!</p>
+      <button onclick="openDonate()" class="donate-btn" style="margin-top: 0; padding: 12px 30px;">❤️ Donate Sanskar (Ram Sandesh)</button>
+    </div>
+
     <div class="quote-box">
       <div class="quote-text">"Code is a tool for empowerment. Whether you are a student starting your first Hello World
         or a professional looking for a quick reference — this platform is designed for you."</div>
@@ -726,6 +748,7 @@
 
   <div class="footer">
     <p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p>
+    <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
   </div>
 
   <script>
@@ -748,6 +771,21 @@
       })
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+<!-- Donate QR Modal -->
+  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
+    <div class="donate-modal" onclick="event.stopPropagation()">
+      <h3>❤️ Donate Sanskar</h3>
+      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep this project alive!</p>
+      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
+      <br>
+      <button class="donate-close" onclick="closeDonate()">Close</button>
+    </div>
+  </div>
+  <script>
+    function openDonate() { document.getElementById('donate-overlay').classList.add('active'); }
+    function closeDonate(e) { if (!e || e.target.id === 'donate-overlay') document.getElementById('donate-overlay').classList.remove('active'); }
+    window.addEventListener('keydown', function(e) { if (e.key === 'Escape') { var d = document.getElementById('donate-overlay'); if (d) d.classList.remove('active'); } });
   </script>
 </body>
 
