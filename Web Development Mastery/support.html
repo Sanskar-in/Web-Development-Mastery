@@ -1,218 +1,843 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Support & Help Center for HTML Full Mastery. Contact us, report bugs, or request features.">
+  <meta name="description"
+    content="Support & Help Center for HTML Full Mastery. Contact us, report bugs, or request features.">
   <meta property="og:title" content="Support & Help | HTML Full Mastery">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <title>Support & Help | HTML Full Mastery</title>
   <link rel="icon" href="support_logo.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <style>
-    :root{--bg:#07080f;--bg2:#111827;--bg3:#1f2937;--text:#f1f5f9;--text2:#94a3b8;--accent:#818cf8;--accent2:#34d399;--accent3:#f472b6;--border:rgba(255,255,255,0.08);--hdrBg:linear-gradient(135deg,#059669,#0d9488,#0891b2)}
-    [data-theme="light"]{--bg:#f8fafc;--bg2:#fff;--bg3:#e2e8f0;--text:#0f172a;--text2:#475569;--accent:#6366f1;--accent2:#059669;--accent3:#ec4899;--border:rgba(0,0,0,0.1);--hdrBg:linear-gradient(135deg,#10b981,#14b8a6,#06b6d4)}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s,color 0.4s}
-    .theme-btn{position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:12px;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:all 0.3s;backdrop-filter:blur(10px)}
-    .theme-btn:hover{transform:scale(1.1);border-color:var(--accent)}
-    nav{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
-    nav a{color:var(--text2);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
-    nav a:hover{color:var(--accent)}
-    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1rem;color:var(--text)!important}
-    .nav-logo img{width:30px;border-radius:6px}
-    .nav-links{display:flex;gap:20px}
-    .nav-active{color:var(--accent)!important;font-weight:700}
+    :root {
+      --bg: #07080f;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --accent: #818cf8;
+      --accent2: #34d399;
+      --accent3: #f472b6;
+      --border: rgba(255, 255, 255, 0.08);
+      --hdrBg: linear-gradient(135deg, #059669, #0d9488, #0891b2)
+    }
 
-    .hero{background:var(--hdrBg);padding:60px 24px 50px;text-align:center;position:relative;overflow:hidden}
-    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--bg))}
-    .hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:10px}
-    .hero p{color:rgba(255,255,255,0.85);font-size:1.05rem}
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg2: #fff;
+      --bg3: #e2e8f0;
+      --text: #0f172a;
+      --text2: #475569;
+      --accent: #6366f1;
+      --accent2: #059669;
+      --accent3: #ec4899;
+      --border: rgba(0, 0, 0, 0.1);
+      --hdrBg: linear-gradient(135deg, #10b981, #14b8a6, #06b6d4)
+    }
 
-    .status-bar{max-width:1100px;margin:-20px auto 0;padding:0 24px;position:relative;z-index:2}
-    .status-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:30px;font-size:0.85rem;font-weight:600;backdrop-filter:blur(10px)}
-    .status-dot{width:10px;height:10px;border-radius:50%;background:#10b981;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.4)}50%{box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
 
-    .section{max-width:1100px;margin:0 auto;padding:48px 24px}
-    .section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
-    .section-sub{color:var(--text2);margin-bottom:28px;font-size:0.95rem}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s, color 0.4s
+    }
+
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px)
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent)
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    nav a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s
+    }
+
+    nav a:hover {
+      color: var(--accent)
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text) !important
+    }
+
+    .nav-logo img {
+      width: 30px;
+      border-radius: 6px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center
+    }
+
+    .nav-active {
+      color: var(--accent) !important;
+      font-weight: 700
+    }
+
+    .hero {
+      background: var(--hdrBg);
+      padding: 60px 24px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--bg))
+    }
+
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem
+    }
+
+    .status-bar {
+      max-width: 1100px;
+      margin: -20px auto 0;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px)
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4)
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0)
+      }
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px
+    }
+
+    .section-sub {
+      color: var(--text2);
+      margin-bottom: 28px;
+      font-size: 0.95rem
+    }
 
     /* Contact Cards */
-    .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-    .contact-card{display:flex;align-items:center;gap:16px;padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;text-decoration:none;color:var(--text);transition:all 0.3s}
-    .contact-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 25px rgba(129,140,248,0.12)}
-    .c-icon{width:48px;height:48px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-    .c-info strong{display:block;font-size:0.92rem;margin-bottom:2px}
-    .c-info span{color:var(--text2);font-size:0.82rem}
-    .c-badge{margin-left:auto;padding:4px 10px;border-radius:8px;font-size:0.72rem;font-weight:700;flex-shrink:0}
-    .badge-fast{background:rgba(52,211,153,0.15);color:var(--accent2)}
-    .badge-med{background:rgba(251,191,36,0.15);color:#fbbf24}
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s
+    }
+
+    .contact-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(129, 140, 248, 0.12)
+    }
+
+    .c-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0
+    }
+
+    .c-info strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 2px
+    }
+
+    .c-info span {
+      color: var(--text2);
+      font-size: 0.82rem
+    }
+
+    .c-badge {
+      margin-left: auto;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .badge-fast {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent2)
+    }
+
+    .badge-med {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24
+    }
 
     /* FAQ */
-    .faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color 0.3s}
-    .faq-item.open{border-color:var(--accent)}
-    .faq-q{padding:18px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:0.95rem;user-select:none;transition:background 0.2s}
-    .faq-q:hover{background:var(--bg3)}
-    .faq-arrow{transition:transform 0.3s;font-size:0.8rem;color:var(--text2)}
-    .faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--accent)}
-    .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s}
-    .faq-item.open .faq-a{max-height:300px;padding:0 22px 18px}
-    .faq-a p{color:var(--text2);line-height:1.7;font-size:0.9rem}
+    .faq-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color 0.3s
+    }
+
+    .faq-item.open {
+      border-color: var(--accent)
+    }
+
+    .faq-q {
+      padding: 18px 22px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      user-select: none;
+      transition: background 0.2s
+    }
+
+    .faq-q:hover {
+      background: var(--bg3)
+    }
+
+    .faq-arrow {
+      transition: transform 0.3s;
+      font-size: 0.8rem;
+      color: var(--text2)
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      color: var(--accent)
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 22px 18px
+    }
+
+    .faq-a p {
+      color: var(--text2);
+      line-height: 1.7;
+      font-size: 0.9rem
+    }
 
     /* Form */
-    .form-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:32px}
-    .form-group{position:relative;margin-bottom:20px}
-    .form-group input,.form-group textarea{width:100%;padding:16px;background:var(--bg);border:2px solid var(--border);border-radius:12px;color:var(--text);font-family:inherit;font-size:0.95rem;outline:none;transition:border-color 0.3s}
-    .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
-    .form-group label{position:absolute;top:16px;left:16px;color:var(--text2);font-size:0.95rem;pointer-events:none;transition:all 0.2s}
-    .form-group input:focus~label,.form-group input:not(:placeholder-shown)~label,.form-group textarea:focus~label,.form-group textarea:not(:placeholder-shown)~label{top:-10px;left:12px;font-size:0.75rem;background:var(--bg2);padding:0 6px;color:var(--accent);font-weight:600}
-    .form-group textarea{resize:vertical;min-height:120px}
-    .submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:all 0.3s}
-    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(129,140,248,0.3)}
-    .form-success{display:none;text-align:center;padding:24px;color:var(--accent2);font-weight:600;font-size:1.1rem}
+    .form-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 16px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent)
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      color: var(--text2);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: all 0.2s
+    }
+
+    .form-group input:focus~label,
+    .form-group input:not(:placeholder-shown)~label,
+    .form-group textarea:focus~label,
+    .form-group textarea:not(:placeholder-shown)~label {
+      top: -10px;
+      left: 12px;
+      font-size: 0.75rem;
+      background: var(--bg2);
+      padding: 0 6px;
+      color: var(--accent);
+      font-weight: 600
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(129, 140, 248, 0.3)
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      color: var(--accent2);
+      font-weight: 600;
+      font-size: 1.1rem
+    }
 
     /* Knowledge base */
-    .kb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-    .kb-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all 0.3s}
-    .kb-card:hover{transform:translateY(-3px);border-color:var(--accent)}
-    .kb-card h3{font-size:1rem;margin:10px 0 6px}
-    .kb-card p{color:var(--text2);font-size:0.85rem;line-height:1.6}
-    .kb-icon{font-size:2rem}
+    .kb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px
+    }
 
-    .footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:48px;color:var(--text2);font-size:0.85rem}
-    @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.nav-links{gap:12px;font-size:0.82rem}}
+    .kb-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s
+    }
+
+    .kb-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent)
+    }
+
+    .kb-card h3 {
+      font-size: 1rem;
+      margin: 10px 0 6px
+    }
+
+    .kb-card p {
+      color: var(--text2);
+      font-size: 0.85rem;
+      line-height: 1.6
+    }
+
+    .kb-icon {
+      font-size: 2rem
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      color: var(--text2);
+      font-size: 0.85rem
+    }
+
+    @media(max-width:768px) {
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+
+      .nav-links {
+        gap: 12px;
+        font-size: 0.82rem
+      }
+    }
+
+    /* Donate Button */
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      margin-top: 20px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    }
+
+    .donate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .donate-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .donate-modal {
+      background: var(--bg2, #111827);
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .donate-overlay.active .donate-modal {
+      transform: scale(1);
+    }
+
+    .donate-modal h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text, #f1f5f9);
+      margin-bottom: 8px;
+    }
+
+    .donate-modal p {
+      color: var(--text2, #94a3b8);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .donate-modal img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 3px solid var(--border, rgba(255, 255, 255, 0.08));
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .donate-close {
+      margin-top: 24px;
+      padding: 10px 28px;
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text2, #94a3b8);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .donate-close:hover {
+      background: var(--bg3, #1f2937);
+      color: var(--text, #f1f5f9);
+    }
+
+    .top-donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+    }
+
+    .top-donate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
   </style>
 </head>
+
 <body>
 
-<button class="theme-btn" onclick="toggleTheme()">🌙</button>
+  <button class="theme-btn" onclick="toggleTheme()">🌙</button>
 
-<nav>
-  <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
-  <div class="nav-links">
-    <a href="about.html">About</a>
-    <a href="support.html" class="nav-active">Support</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
+  <nav>
+    <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="support.html" class="nav-active">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>How Can We Help? 🤝</h1>
+    <p>Contact us, report bugs, request features, or browse the knowledge base.</p>
   </div>
-</nav>
 
-<div class="hero">
-  <h1>How Can We Help? 🤝</h1>
-  <p>Contact us, report bugs, request features, or browse the knowledge base.</p>
-</div>
-
-<div class="status-bar">
-  <div class="status-pill"><span class="status-dot"></span>All Systems Operational</div>
-</div>
-
-<div class="section">
-  <h2 class="section-title">📬 Get In Touch</h2>
-  <p class="section-sub">Choose the best way to reach Sanskar.</p>
-  <div class="contact-grid">
-    <a href="mailto:sanskaryadavfrom2012to2026@gmail.com" class="contact-card">
-      <div class="c-icon">📧</div>
-      <div class="c-info"><strong>Primary Email</strong><span>sanskaryadavfrom2012to2026@gmail.com</span></div>
-      <div class="c-badge badge-med">~24h</div>
-    </a>
-    <a href="mailto:supportramsandesh@gmail.com" class="contact-card">
-      <div class="c-icon">🛟</div>
-      <div class="c-info"><strong>Support Email</strong><span>supportramsandesh@gmail.com</span></div>
-      <div class="c-badge badge-med">~24h</div>
-    </a>
-    <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com" class="contact-card">
-      <div class="c-icon">📨</div>
-      <div class="c-info"><strong>Outlook</strong><span>sanskaryadavfromghosimau2026-27@outlook.com</span></div>
-      <div class="c-badge badge-med">~24h</div>
-    </a>
-    <a href="tel:+919795753292" class="contact-card">
-      <div class="c-icon">📱</div>
-      <div class="c-info"><strong>Phone / WhatsApp</strong><span>+91 97957 53292</span></div>
-      <div class="c-badge badge-fast">Instant</div>
-    </a>
-    <a href="https://www.x.com/Sanskar1729" target="_blank" class="contact-card">
-      <div class="c-icon">𝕏</div>
-      <div class="c-info"><strong>X (Twitter)</strong><span>@Sanskar1729</span></div>
-      <div class="c-badge badge-fast">~2h</div>
-    </a>
-    <a href="https://www.linkedin.com/in/sanskar-yadav-99628b3b1/" target="_blank" class="contact-card">
-      <div class="c-icon">💼</div>
-      <div class="c-info"><strong>LinkedIn</strong><span>Sanskar Yadav</span></div>
-      <div class="c-badge badge-med">~12h</div>
-    </a>
-    <a href="https://github.com/SanskarYadav2012" target="_blank" class="contact-card">
-      <div class="c-icon">💻</div>
-      <div class="c-info"><strong>GitHub Issues</strong><span>SanskarYadav2012</span></div>
-      <div class="c-badge badge-fast">~4h</div>
-    </a>
-    <a href="https://ramsandesh.gumroad.com" target="_blank" class="contact-card">
-      <div class="c-icon">📚</div>
-      <div class="c-info"><strong>E-Books on Gumroad</strong><span>ramsandesh.gumroad.com</span></div>
-    </a>
+  <div class="status-bar">
+    <div class="status-pill"><span class="status-dot"></span>All Systems Operational</div>
   </div>
-</div>
 
-<div class="section">
-  <h2 class="section-title">❓ Frequently Asked Questions</h2>
-  <p class="section-sub">Quick answers to common questions.</p>
+  <div class="section">
+    <h2 class="section-title">📬 Get In Touch</h2>
+    <p class="section-sub">Choose the best way to reach Sanskar.</p>
+    <div class="contact-grid">
+      <a href="mailto:sanskaryadavfrom2012to2026@gmail.com" class="contact-card">
+        <div class="c-icon">📧</div>
+        <div class="c-info"><strong>Primary Email</strong><span>sanskaryadavfrom2012to2026@gmail.com</span></div>
+        <div class="c-badge badge-med">~24h</div>
+      </a>
+      <a href="mailto:supportramsandesh@gmail.com" class="contact-card">
+        <div class="c-icon">🛟</div>
+        <div class="c-info"><strong>Support Email</strong><span>supportramsandesh@gmail.com</span></div>
+        <div class="c-badge badge-med">~24h</div>
+      </a>
+      <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com" class="contact-card">
+        <div class="c-icon">📨</div>
+        <div class="c-info"><strong>Outlook</strong><span>sanskaryadavfromghosimau2026-27@outlook.com</span></div>
+        <div class="c-badge badge-med">~24h</div>
+      </a>
+      <a href="tel:+919795753292" class="contact-card">
+        <div class="c-icon">📱</div>
+        <div class="c-info"><strong>Phone / WhatsApp</strong><span>+91 97957 53292</span></div>
+        <div class="c-badge badge-fast">Instant</div>
+      </a>
+      <a href="https://www.x.com/Sanskar1729" target="_blank" class="contact-card">
+        <div class="c-icon">𝕏</div>
+        <div class="c-info"><strong>X (Twitter)</strong><span>@Sanskar1729</span></div>
+        <div class="c-badge badge-fast">~2h</div>
+      </a>
+      <a href="https://www.linkedin.com/in/sanskar-yadav-99628b3b1/" target="_blank" class="contact-card">
+        <div class="c-icon">💼</div>
+        <div class="c-info"><strong>LinkedIn</strong><span>Sanskar Yadav</span></div>
+        <div class="c-badge badge-med">~12h</div>
+      </a>
+      <a href="https://github.com/SanskarYadav2012" target="_blank" class="contact-card">
+        <div class="c-icon">💻</div>
+        <div class="c-info"><strong>GitHub Issues</strong><span>SanskarYadav2012</span></div>
+        <div class="c-badge badge-fast">~4h</div>
+      </a>
+      <a href="https://ramsandesh.gumroad.com" target="_blank" class="contact-card">
+        <div class="c-icon">📚</div>
+        <div class="c-info"><strong>E-Books on Gumroad</strong><span>ramsandesh.gumroad.com</span></div>
+      </a>
+    </div>
 
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is the app available offline?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>Yes! Once loaded, it works without internet via PWA technology. All 100 tag explanations, themes, and the code editor work offline.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How many tags are explained?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>100 essential and modern HTML tags, each with in-depth explanations, use cases, accessibility notes, and live code examples.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it completely free?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>Yes! The HTML Mastery platform is free and part of the 2026 Open Source Education initiative. Premium e-books are available on Gumroad for those who want deeper learning.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use the code examples in my projects?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>Absolutely! All code examples are free to use in personal and commercial projects. Attribution is appreciated but not required.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I report a bug or request a feature?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>You can email us, open a GitHub issue, or message us on X (Twitter). We respond to all reports within 24 hours.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Which browsers are supported?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>All modern browsers: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. The platform uses modern CSS and JavaScript features.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does it store my data?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>All data (themes, progress, editor code) is stored locally on your device via localStorage. Nothing is sent to any server. See our Privacy Policy for details.</p></div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Will CSS and JavaScript mastery guides be added?<span class="faq-arrow">▼</span></div><div class="faq-a"><p>Yes! CSS Full Mastery is already in development, and JavaScript Full Mastery is planned for late 2026. Stay tuned!</p></div></div>
-</div>
-
-<div class="section">
-  <h2 class="section-title">✉️ Send a Message</h2>
-  <p class="section-sub">Fill out the form to reach Sanskar directly.</p>
-  <div class="form-card">
-    <form id="contactForm">
-      <div class="form-group"><input type="text" id="sName" placeholder=" " required><label>Your Name</label></div>
-      <div class="form-group"><input type="text" id="sSubject" placeholder=" " required><label>Subject (e.g. Bug Report)</label></div>
-      <div class="form-group"><textarea id="sBody" placeholder=" " required></textarea><label>Your Message</label></div>
-      <button type="submit" class="submit-btn">Send Message →</button>
-    </form>
-    <div class="form-success" id="formSuccess">✅ Message prepared! Your email client will open shortly.</div>
+    <!-- Premium Inline Support Box -->
+    <div class="reveal"
+      style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08)); border: 1.5px dashed rgba(245, 158, 11, 0.3); border-radius: 20px; padding: 36px 24px; text-align: center; margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+      <h3
+        style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-top: 0; margin-bottom: 10px;">
+        💖 Support Sanskar's Work</h3>
+      <p style="color: var(--text2); font-size: 0.95rem; max-width: 540px; margin: 0 auto 20px; line-height: 1.6;">If
+        you find this project valuable and want to support its ongoing development, educational tutorials, and
+        offline-first tech, consider making a donation. Every contribution directly empowers our open education mission!
+      </p>
+      <button onclick="openDonate()" class="donate-btn" style="margin-top: 0; padding: 12px 30px;">❤️ Donate Sanskar
+        (Ram Sandesh)</button>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h2 class="section-title">📖 Knowledge Base</h2>
-  <p class="section-sub">Quick guides to get the most out of the platform.</p>
-  <div class="kb-grid">
-    <div class="kb-card"><div class="kb-icon">⌨️</div><h3>Keyboard Shortcuts</h3><p>Use Ctrl+K to search, Esc to close sidebar, ? for shortcuts help, and more.</p></div>
-    <div class="kb-card"><div class="kb-icon">🎨</div><h3>Theme Customization</h3><p>Choose from 25+ premium themes or create your own with the custom color picker.</p></div>
-    <div class="kb-card"><div class="kb-icon">🛠️</div><h3>Pro Code Editor</h3><p>Click "Try It" on any code block to open the full CodeMirror IDE with live preview.</p></div>
-    <div class="kb-card"><div class="kb-icon">📱</div><h3>Mobile & PWA</h3><p>Install the app on your phone for offline access. Works on iOS and Android.</p></div>
+  <div class="section">
+    <h2 class="section-title">❓ Frequently Asked Questions</h2>
+    <p class="section-sub">Quick answers to common questions.</p>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is the app available offline?<span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>Yes! Once loaded, it works without internet via PWA technology. All 100 tag explanations, themes, and the
+          code editor work offline.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How many tags are explained?<span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>100 essential and modern HTML tags, each with in-depth explanations, use cases, accessibility notes, and live
+          code examples.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is it completely free?<span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>Yes! The HTML Mastery platform is free and part of the 2026 Open Source Education initiative. Premium e-books
+          are available on Gumroad for those who want deeper learning.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use the code examples in my projects?<span
+          class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>Absolutely! All code examples are free to use in personal and commercial projects. Attribution is appreciated
+          but not required.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I report a bug or request a feature?<span
+          class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>You can email us, open a GitHub issue, or message us on X (Twitter). We respond to all reports within 24
+          hours.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Which browsers are supported?<span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>All modern browsers: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. The platform uses modern CSS and
+          JavaScript features.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Does it store my data?<span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>All data (themes, progress, editor code) is stored locally on your device via localStorage. Nothing is sent
+          to any server. See our Privacy Policy for details.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Will CSS and JavaScript mastery guides be added?<span
+          class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        <p>Yes! CSS Full Mastery is already in development, and JavaScript Full Mastery is planned for late 2026. Stay
+          tuned!</p>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="footer"><p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p></div>
+  <div class="section">
+    <h2 class="section-title">✉️ Send a Message</h2>
+    <p class="section-sub">Fill out the form to reach Sanskar directly.</p>
+    <div class="form-card">
+      <form id="contactForm">
+        <div class="form-group"><input type="text" id="sName" placeholder=" " required><label>Your Name</label></div>
+        <div class="form-group"><input type="text" id="sSubject" placeholder=" " required><label>Subject (e.g. Bug
+            Report)</label></div>
+        <div class="form-group"><textarea id="sBody" placeholder=" " required></textarea><label>Your Message</label>
+        </div>
+        <button type="submit" class="submit-btn">Send Message →</button>
+      </form>
+      <div class="form-success" id="formSuccess">✅ Message prepared! Your email client will open shortly.</div>
+    </div>
+  </div>
 
-<script>
-  const st=localStorage.getItem('htmlMasteryTheme')||'dark';
-  document.documentElement.setAttribute('data-theme',st);
-  document.querySelector('.theme-btn').textContent=st==='dark'?'☀️':'🌙';
-  function toggleTheme(){const c=document.documentElement.getAttribute('data-theme'),n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('htmlMasteryTheme',n);document.querySelector('.theme-btn').textContent=n==='dark'?'☀️':'🌙'}
+  <div class="section">
+    <h2 class="section-title">📖 Knowledge Base</h2>
+    <p class="section-sub">Quick guides to get the most out of the platform.</p>
+    <div class="kb-grid">
+      <div class="kb-card">
+        <div class="kb-icon">⌨️</div>
+        <h3>Keyboard Shortcuts</h3>
+        <p>Use Ctrl+K to search, Esc to close sidebar, ? for shortcuts help, and more.</p>
+      </div>
+      <div class="kb-card">
+        <div class="kb-icon">🎨</div>
+        <h3>Theme Customization</h3>
+        <p>Choose from 25+ premium themes or create your own with the custom color picker.</p>
+      </div>
+      <div class="kb-card">
+        <div class="kb-icon">🛠️</div>
+        <h3>Pro Code Editor</h3>
+        <p>Click "Try It" on any code block to open the full CodeMirror IDE with live preview.</p>
+      </div>
+      <div class="kb-card">
+        <div class="kb-icon">📱</div>
+        <h3>Mobile & PWA</h3>
+        <p>Install the app on your phone for offline access. Works on iOS and Android.</p>
+      </div>
+    </div>
+  </div>
 
-  function toggleFaq(el){const item=el.parentElement;item.classList.toggle('open')}
+  <div class="footer">
+    <p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p>
+    <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
+  </div>
 
-  document.getElementById('contactForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    const name=document.getElementById('sName').value;
-    const subject=document.getElementById('sSubject').value;
-    const body=document.getElementById('sBody').value;
-    window.location.href=`mailto:sanskaryadavfrom2012to2026@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("From: "+name+"\n\n"+body)}`;
-    document.getElementById('formSuccess').style.display='block';
-    this.style.display='none';
-  });
-</script>
+  <script>
+    const st = localStorage.getItem('htmlMasteryTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', st);
+    document.querySelector('.theme-btn').textContent = st === 'dark' ? '☀️' : '🌙';
+    function toggleTheme() { const c = document.documentElement.getAttribute('data-theme'), n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('htmlMasteryTheme', n); document.querySelector('.theme-btn').textContent = n === 'dark' ? '☀️' : '🌙' }
+
+    function toggleFaq(el) { const item = el.parentElement; item.classList.toggle('open') }
+
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('sName').value;
+      const subject = document.getElementById('sSubject').value;
+      const body = document.getElementById('sBody').value;
+      window.location.href = `mailto:sanskaryadavfrom2012to2026@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("From: " + name + "\n\n" + body)}`;
+      document.getElementById('formSuccess').style.display = 'block';
+      this.style.display = 'none';
+    });
+  </script>
+  <!-- Donate QR Modal -->
+  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
+    <div class="donate-modal" onclick="event.stopPropagation()">
+      <h3>❤️ Donate Sanskar</h3>
+      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep
+        this project alive!</p>
+      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
+      <br>
+      <button class="donate-close" onclick="closeDonate()">Close</button>
+    </div>
+  </div>
+  <script>
+    function openDonate() { document.getElementById('donate-overlay').classList.add('active'); }
+    function closeDonate(e) { if (!e || e.target.id === 'donate-overlay') document.getElementById('donate-overlay').classList.remove('active'); }
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var d = document.getElementById('donate-overlay'); if (d) d.classList.remove('active'); } });
+  </script>
 </body>
+
 </html>
