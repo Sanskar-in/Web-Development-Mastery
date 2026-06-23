@@ -812,9 +812,9 @@ node split_files.js
 For support and feedback, contact:
 - **Email**: sanskaryadavfrom2012to2026@gmail.com
 - **Support Email**: supportramsandesh@gmail.com
-- **GitHub**: [@SanskarYadav2012](https://github.com/Sanskar-in)
-- **LinkedIn**: [@sanskar-yadav-in](https://www.linkdin.com/sanskar-yadav-in)
-- **Twitter/X**: [@Sanskar1729](https://www.x.com/Sanskar1729)
+- **GitHub**: [@Sanskar-in](https://github.com/Sanskar-in)
+- **LinkedIn**: [@sanskar-in](https://www.linkedin.com/in/sanskar-in)
+- **Twitter/X**: [@SanskarCode](https://www.x.com/SanskarCode)
 
 ---
 
