@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Mastery by Sanskar</title>
+  <!-- CodeMirror for Code Editing -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="dark">
+  <!-- SPLASH SCREEN -->
+  <div id="splash-screen">
+    <img src="../splash.png" alt="Web Development Mastery Logo" class="splash-logo">
+    <div class="splash-title">JavaScript Mastery</div>
+    <div class="splash-subtitle">Initializing V8 Sandbox...</div>
+  </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">JS Mastery</span>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">☰</button>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search concepts (e.g., closures, async)..."
+          aria-label="Search JavaScript concepts">
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="progress-container">
+        <span id="progressText">0 / 0 Concepts Mastered</span>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('themeModal').showModal()" class="theme-gallery-btn"
+        style="background:var(--bg-tertiary); color:var(--text); border:1px solid var(--border); padding:8px 16px; border-radius:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.3s;">Theme
+        Gallery 🎨</button>
+      <a href="https://rzp.io/l/Sanskar" class="donate-btn" target="_blank" rel="noopener noreferrer">🍩 Buy me a
+        Donut</a>
+      <a href="../Follow-Sanskar.html" class="donate-btn"
+        style="background: linear-gradient(135deg, #a78bfa, #3b82f6); margin-left: 10px; color: white; border: none; box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);"
+        rel="noopener noreferrer">✨ Follow Sanskar</a>
+    </div>
+  </nav>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <h2>Concepts</h2>
+          <button id="sbClose" class="sb-close" aria-label="Close sidebar">✕</button>
+        </div>
+        <div class="sidebar-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="BASICS">Basics</button>
+          <button class="filter-btn" data-filter="ES6+">ES6+</button>
+          <button class="filter-btn" data-filter="DOM">DOM</button>
+          <button class="filter-btn" data-filter="ASYNC">Async</button>
+        </div>
+      </div>
+      <ul id="tagList" class="tag-list">
+        <!-- List items populated by JS -->
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="workspace">
+        <!-- Explanation Panel -->
+        <div class="explanation-panel" id="explanationPanel">
+          <div class="placeholder-msg">
+            <span class="placeholder-icon">⚡</span>
+            <h2>Select a JavaScript concept from the sidebar to begin!</h2>
+            <p>Explore syntax, APIs, asynchronous programming, and DOM manipulation.</p>
+          </div>
+        </div>
+
+        <!-- Live Editor & Output Panel -->
+        <div class="editor-panel">
+          <div class="panel-header">
+            <h3>Interactive Code Sandbox</h3>
+            <button id="runBtn" class="run-btn">▶️ Run Code</button>
+          </div>
+
+          <div class="code-section">
+            <div class="code-header">
+              <span>script.js</span>
+              <button id="copyCodeBtn" class="icon-btn" aria-label="Copy Code">📋</button>
+            </div>
+            <textarea id="codeEditor"></textarea>
+          </div>
+
+          <div class="preview-section">
+            <div class="preview-header">
+              <span>Console / Output</span>
+              <button id="clearConsoleBtn" class="icon-btn" aria-label="Clear Console">🗑️</button>
+            </div>
+            <div class="console-output" id="consoleOutput">
+              <!-- JS logs will appear here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Celebration Overlay -->
+  <div id="celebrationOverlay" class="celebration-overlay">
+    <div class="celebration-content">
+      <h1>🎉 Congratulations! 🎉</h1>
+      <p>You have mastered this JavaScript Concept!</p>
+      <button id="nextConceptBtn" class="primary-btn">Next Concept ➡️</button>
+    </div>
+  </div>
+
+  <!-- ===== PREMIUM FOOTER ===== -->
+  <footer id="siteFooter"
+    style="background:var(--bg2); border-top:1px solid var(--border); margin-top:60px; font-family:'Inter','Plus Jakarta Sans',sans-serif;">
+
+    <!-- Main Footer Grid -->
+    <div
+      style="max-width:1300px; margin:0 auto; padding:48px 32px 32px; display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:40px;">
+
+      <!-- Column 1: Brand & Social -->
+      <div>
+        <div
+          style="font-size:1.3rem; font-weight:800; color:var(--text); margin-bottom:6px; font-family:'Plus Jakarta Sans',sans-serif;">
+          🚀 Sanskar Yadav</div>
+        <p style="color:var(--text2); font-size:0.88rem; line-height:1.7; margin:0 0 20px;">Full-Stack Developer,
+          Creator & Educator. Building premium web experiences and sharing knowledge with the world.</p>
+
+        <div
+          style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text2); margin-bottom:12px;">
+          Follow Sanskar on</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <!-- YouTube -->
+          <a href="https://www.youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
+            onmouseover="this.style.background='#ef4444';this.style.borderColor='#ef4444';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(239,68,68,0.4)'"
+            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+            YouTube
+          </a>
+          <!-- GitHub -->
+          <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
+            onmouseover="this.style.background='#333';this.style.borderColor='#666';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)'"
+            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.transform='';this.style.boxShadow=''">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            GitHub
+          </a>
+          <!-- X / Twitter -->
+          <a href="https://www.x.com/Sanskar_in" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
+            onmouseover="this.style.background='#1d9bf0';this.style.borderColor='#1d9bf0';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(29,155,240,0.4)'"
+            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            X (Twitter)
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/sanskar-in/" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
+            onmouseover="this.style.background='#0a66c2';this.style.borderColor='#0a66c2';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(10,102,194,0.4)'"
+            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Contact -->
+      <div>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">📬 Contact</div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <!-- Phone -->
+          <!-- <a href="tel:+919795753292"
+              style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.85rem; transition:color 0.2s;"
+              onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">
+              <span
+                style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📱</span>
+              +91 97957 53292
+            </a> -->
+          <!-- Gmail -->
+          <a href="mailto:sanskaryadavfrom2012to2026@gmail.com"
+            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s; word-break:break-all;"
+            onmouseover="this.style.color='#ea4335'" onmouseout="this.style.color='var(--text2)'">
+            <span
+              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📧</span>
+            sanskaryadavfrom2012to2026@gmail.com
+          </a>
+          <!-- Support Gmail -->
+          <a href="mailto:supportramsandesh@gmail.com"
+            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s;"
+            onmouseover="this.style.color='#ea4335'" onmouseout="this.style.color='var(--text2)'">
+            <span
+              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">🛟</span>
+            supportramsandesh@gmail.com
+          </a>
+          <!-- Outlook -->
+          <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com"
+            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s; word-break:break-all;"
+            onmouseover="this.style.color='#0078d4'" onmouseout="this.style.color='var(--text2)'">
+            <span
+              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📨</span>
+            sanskaryadavfromghosimau2026-27@outlook.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: E-Books & Store -->
+      <div>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">📚 E-Books & Store
+        </div>
+        <p style="color:var(--text2); font-size:0.85rem; line-height:1.7; margin:0 0 16px;">Get premium CSS, HTML &
+          Web Development e-books, cheat sheets, and resources on Gumroad.</p>
+        <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer"
+          style="display:inline-flex; align-items:center; gap:8px; padding:12px 22px; background:linear-gradient(135deg, #ff90e8, #ff6b9d); color:#000; text-decoration:none; font-size:0.88rem; font-weight:700; border-radius:12px; transition:all 0.25s; box-shadow:0 4px 15px rgba(255,107,157,0.3);"
+          onmouseover="this.style.transform='translateY(-3px) scale(1.02)';this.style.boxShadow='0 8px 25px rgba(255,107,157,0.5)'"
+          onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(255,107,157,0.3)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#000">
+            <path
+              d="M10.2 0C4.6 0 0 4.6 0 10.2v3.6C0 19.4 4.6 24 10.2 24h3.6c5.6 0 10.2-4.6 10.2-10.2V10.2C24 4.6 19.4 0 13.8 0h-3.6zm3.3 6.5c1.1 0 2.1.4 2.8 1.2.8.8 1.2 1.8 1.2 2.8v3c0 1.1-.4 2.1-1.2 2.8-.7.8-1.7 1.2-2.8 1.2H10c-2.2 0-4-1.8-4-4v-3c0-2.2 1.8-4 4-4h3.5z" />
+          </svg>
+          Browse E-Books on Gumroad →
+        </a>
+      </div>
+
+      <!-- Column 4: Quick Links -->
+      <div>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">🔗 Quick Links</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a href="../Follow-Sanskar.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Follow Sanskar
+          </a>
+          <a href="../about.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> About Sanskar
+          </a>
+          <a href="../support.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Support & Help
+          </a>
+          <a href="../developer.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Developer Hub
+          </a>
+          <a href="../privacy.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Privacy Policy
+          </a>
+          <a href="../terms.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Terms of Service
+          </a>
+          <a href="../thanks.html"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> Thank You
+          </a>
+          <a href="https://github.com/Sanskar-in/Web-Development-Mastery/blob/main/Web%20Development%20Mastery/404.html"
+            target="_blank"
+            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
+            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
+            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
+            <span style="opacity:0.6;">→</span> 404 Page (Fallback)
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div
+      style="border-top:1px solid var(--border); padding:16px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; max-width:1300px; margin:0 auto;">
+      <div style="display:flex; gap:20px; align-items:center; font-size:0.82rem; color:var(--text2);">
+        <span style="display:flex; align-items:center; gap:6px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+          v2.0 Premium
+        </span>
+        <span style="opacity:0.4;">|</span>
+        <span>100/100 Tags Indexed</span>
+      </div>
+      <div style="font-weight:600; font-size:0.82rem; color:var(--text);">© 2026 Sanskar Yadav — All Rights Reserved
+      </div>
+      <div style="font-size:0.78rem; color:var(--text2);">Made with ❤️ in India</div>
+      <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
+    </div>
+
+  </footer>
+
+  <!-- THEME GALLERY MODAL -->
+  <dialog id="themeModal">
+    <div class="tm-head">
+      <h2>🎨 Theme Gallery &amp; Customizer</h2>
+      <button class="tm-close" onclick="document.getElementById('themeModal').close()">✕</button>
+    </div>
+
+    <h3 style="margin-bottom:12px;font-size:1.1rem;color:var(--text2)">✨ 25+ Premium Presets</h3>
+    <div class="tm-grid" id="themeGrid">
+      <!-- Preset buttons injected by JS -->
+    </div>
+
+    <div class="custom-theme-box">
+      <h3>🛠️ Create Custom Theme</h3>
+      <p style="font-size:0.85rem;color:var(--text3);margin-bottom:12px;">Mix your own colors. Changes apply instantly!
+      </p>
+      <div class="ct-grid">
+        <div class="ct-item"><span>Background (bg)</span><input type="color" id="ct-bg" value="#0a0a1a"></div>
+        <div class="ct-item"><span>Card / UI (bg2)</span><input type="color" id="ct-bg2" value="#12122a"></div>
+        <div class="ct-item"><span>Text Color</span><input type="color" id="ct-text" value="#d0d0ee"></div>
+        <div class="ct-item"><span>Primary Accent</span><input type="color" id="ct-accent" value="#6c63ff"></div>
+        <div class="ct-item"><span>Secondary Accent</span><input type="color" id="ct-accent2" value="#3ecfcf"></div>
+        <div class="ct-item" style="flex:1;display:flex;justify-content:flex-end;align-items:flex-end;">
+          <button onclick="saveCustomTheme()" class="save-ct-btn">💾 Save Custom</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

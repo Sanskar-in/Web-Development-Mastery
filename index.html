@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Mastery | By Sanskar Developer</title>
+    <meta name="description"
+        content="Master HTML, CSS, and JavaScript with 100+ deep dive concepts, live sandboxes, and premium code examples. By Sanskar Yadav.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Abstract Animated Background */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: drift 15s infinite alternate ease-in-out;
+        }
+
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: #6c63ff;
+            top: -200px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            background: #3ecfcf;
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 400px;
+            height: 400px;
+            background: #bf5af2;
+            top: 40%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 5%;
+            background: rgba(11, 15, 25, 0.4);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #a78bfa, #3ecfcf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .follow-btn {
+            background: linear-gradient(135deg, #6c63ff, #3ecfcf);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 100px 20px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #3ecfcf;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #a78bfa, #3b82f6, #3ecfcf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        /* Module Cards */
+        .modules-grid {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-color-1), var(--card-color-2));
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+
+        .card h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 24px;
+        }
+
+        .card-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-btn {
+            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Specific Cards */
+        .card-html {
+            --card-color-1: #f97316;
+            --card-color-2: #ea580c;
+        }
+
+        .card-css {
+            --card-color-1: #3b82f6;
+            --card-color-2: #2563eb;
+        }
+
+        .card-js {
+            --card-color-1: #eab308;
+            --card-color-2: #ca8a04;
+        }
+
+        .card-react {
+            --card-color-1: #61dafb;
+            --card-color-2: #087ea4;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(11, 15, 25, 0.8);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #3ecfcf;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Animation -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <span>{ }</span>
+            Web Dev Mastery
+        </div>
+        <div class="nav-links">
+            <a href="HTML/index.html">HTML</a>
+            <a href="CSS/index.html">CSS</a>
+            <a href="JavaScript/index.html">JavaScript</a>
+            <a href="React/index.html">React</a>
+            <a href="Follow-Sanskar.html" class="follow-btn">✨ Follow Sanskar</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">v2.0 Premium Edition</div>
+        <h1>Master Web Development <span>Like a Pro</span></h1>
+        <p>The ultimate open-source reference guide. Dive deep into HTML semantics, master 200+ CSS properties, and
+            explore the complete JavaScript sandbox with live code execution.</p>
+    </section>
+
+    <!-- Modules Grid -->
+    <section class="modules-grid">
+        <!-- HTML Card -->
+        <a href="HTML/index.html" class="card card-html">
+            <div class="card-icon" style="color: #f97316;">🌐</div>
+            <h2>HTML Mastery</h2>
+            <p>Master semantic structure, forms, tables, media, and accessibility tags in HTML5.</p>
+            <div class="card-stats"><span>100+ Tags</span> • <span>Full Guide</span></div>
+            <div class="card-btn">Start Learning HTML →</div>
+        </a>
+
+        <!-- CSS Card -->
+        <a href="CSS/index.html" class="card card-css">
+            <div class="card-icon" style="color: #3b82f6;">🎨</div>
+            <h2>CSS Mastery</h2>
+            <p>Discover 200 CSS properties with interactive examples, responsive design, and Flexbox/Grid.</p>
+            <div class="card-stats"><span>200 Properties</span> • <span>Live Demos</span></div>
+            <div class="card-btn">Start Learning CSS →</div>
+        </a>
+
+        <!-- React Card -->
+        <a href="React/index.html" class="card card-react">
+            <div class="card-icon" style="color: #61dafb;">⚛️</div>
+            <h2>React Mastery</h2>
+            <p>Master component architecture, React Hooks, Context API, and state management in an interactive environment.</p>
+            <div class="card-stats"><span>100+ Concepts</span> &bull; <span>Live Sandbox</span></div>
+            <div class="card-btn">Start Learning React &rarr;</div>
+        </a>
+        
+        <!-- JS Card -->
+        <a href="JavaScript/index.html" class="card card-js">
+            <div class="card-icon" style="color: #eab308;">⚡</div>
+            <h2>JS Mastery</h2>
+            <p>Execute code directly in the browser! Learn DOM manipulation, Async/Await, and ES6+ features.</p>
+            <div class="card-stats"><span>100 Concepts</span> • <span>Live Sandbox</span></div>
+            <div class="card-btn">Start Learning JS →</div>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Web Development Mastery by <strong><a href="Follow-Sanskar.html">Sanskar Yadav</a></strong>. All
+            Rights Reserved.</p>
+        <p style="margin-top: 8px;">Open Source • Made with ❤️ in India</p>
+    </footer>
+
+</body>
+
+</html>

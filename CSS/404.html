@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Page Not Found — Navigate back to CSS Full Mastery to continue your learning journey.">
+  <meta property="og:title" content="404 Not Found | CSS Full Mastery">
+  <meta property="og:description" content="The page you are looking for does not exist.">
+  <meta property="og:type" content="website">
+  <title>404 Not Found | CSS Full Mastery</title>
+  <link rel="icon" href="css_logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080f;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --accent: #818cf8;
+      --accent2: #34d399;
+      --accent3: #f472b6;
+      --border: rgba(255, 255, 255, 0.08)
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg2: #fff;
+      --bg3: #e2e8f0;
+      --text: #0f172a;
+      --text2: #475569;
+      --accent: #6366f1;
+      --accent2: #059669;
+      --accent3: #ec4899;
+      --border: rgba(0, 0, 0, 0.1)
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 0.4s, color 0.4s
+    }
+
+    /* Particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .p {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-up linear infinite
+    }
+
+    @keyframes float-up {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0)
+      }
+
+      10% {
+        opacity: 1
+      }
+
+      90% {
+        opacity: 0.6
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-10vh) scale(1.5)
+      }
+    }
+
+    /* Gradient orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--accent);
+      top: -150px;
+      left: -150px;
+      animation: orbMove1 15s ease-in-out infinite alternate
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent3);
+      bottom: -100px;
+      right: -100px;
+      animation: orbMove2 12s ease-in-out infinite alternate
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent2);
+      top: 50%;
+      left: 60%;
+      animation: orbMove3 18s ease-in-out infinite alternate
+    }
+
+    @keyframes orbMove1 {
+      to {
+        transform: translate(100px, 80px)
+      }
+    }
+
+    @keyframes orbMove2 {
+      to {
+        transform: translate(-80px, -60px)
+      }
+    }
+
+    @keyframes orbMove3 {
+      to {
+        transform: translate(-120px, 40px)
+      }
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px;
+      max-width: 700px;
+      animation: fadeSlideIn 0.8s ease-out
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* Glitch 404 */
+    .glitch-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none
+    }
+
+    .glitch {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(8rem, 20vw, 14rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent3), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      line-height: 1
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: '404';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .glitch::before {
+      animation: glitch-1 3s infinite linear alternate-reverse;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%)
+    }
+
+    .glitch::after {
+      animation: glitch-2 2.5s infinite linear alternate-reverse;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%)
+    }
+
+    @keyframes glitch-1 {
+
+      0%,
+      100% {
+        transform: translate(0)
+      }
+
+      20% {
+        transform: translate(-3px, 3px)
+      }
+
+      40% {
+        transform: translate(3px, -3px)
+      }
+
+      60% {
+        transform: translate(-2px, -1px)
+      }
+
+      80% {
+        transform: translate(2px, 2px)
+      }
+    }
+
+    @keyframes glitch-2 {
+
+      0%,
+      100% {
+        transform: translate(0)
+      }
+
+      25% {
+        transform: translate(3px, -2px)
+      }
+
+      50% {
+        transform: translate(-2px, 3px)
+      }
+
+      75% {
+        transform: translate(1px, -3px)
+      }
+    }
+
+    /* Subtitle */
+    h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin: 16px 0 8px;
+      color: var(--text)
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      min-height: 52px
+    }
+
+    /* Typing cursor */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0
+      }
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(129, 140, 248, 0.3)
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(129, 140, 248, 0.4)
+    }
+
+    .btn-secondary {
+      background: var(--bg2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px)
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(129, 140, 248, 0.15)
+    }
+
+    /* Countdown */
+    .countdown {
+      font-size: 0.85rem;
+      color: var(--text2);
+      margin-top: 16px;
+      opacity: 0.7
+    }
+
+    .countdown span {
+      color: var(--accent);
+      font-weight: 700;
+      font-family: 'Fira Code', monospace
+    }
+
+    /* Easter egg */
+    .easter-egg {
+      margin-top: 20px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), rgba(244, 114, 182, 0.1));
+      border: 1px solid var(--accent);
+      border-radius: 14px;
+      font-size: 0.95rem;
+      color: var(--accent);
+      animation: fadeSlideIn 0.5s ease-out;
+      display: none
+    }
+
+    /* Theme toggle */
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px)
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent)
+    }
+
+    /* Nav link */
+    .nav-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px)
+    }
+
+    .nav-back:hover {
+      border-color: var(--accent);
+      transform: translateX(-3px)
+    }
+
+    /* Fun fact */
+    .fun-fact {
+      margin-top: 28px;
+      padding: 16px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.88rem;
+      color: var(--text2);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(10px)
+    }
+
+    .fun-fact strong {
+      color: var(--accent)
+    }
+
+    @media(max-width:600px) {
+      .container {
+        padding: 24px
+      }
+
+      .btn-row {
+        flex-direction: column;
+        align-items: center
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center
+      }
+    }
+
+    /* Donate Button */
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      margin-top: 20px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    }
+
+    .donate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .donate-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .donate-modal {
+      background: var(--bg2, #111827);
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .donate-overlay.active .donate-modal {
+      transform: scale(1);
+    }
+
+    .donate-modal h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text, #f1f5f9);
+      margin-bottom: 8px;
+    }
+
+    .donate-modal p {
+      color: var(--text2, #94a3b8);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .donate-modal img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 3px solid var(--border, rgba(255, 255, 255, 0.08));
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .donate-close {
+      margin-top: 24px;
+      padding: 10px 28px;
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text2, #94a3b8);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .donate-close:hover {
+      background: var(--bg3, #1f2937);
+      color: var(--text, #f1f5f9);
+    }
+
+    .top-donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+    }
+
+    .top-donate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="nav-back">← Back to Mastery</a>
+  <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+  <button class="top-donate-btn" onclick="openDonate()"
+    style="position: fixed; top: 20px; right: 76px; z-index: 100; padding: 12px 20px; font-size: 0.9rem; border-radius: 12px;">❤️
+    Donate</button>
+
+  <!-- Gradient Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="glitch-wrapper" id="glitchText" onclick="easterEggClick()">
+      <div class="glitch">404</div>
+    </div>
+
+    <h2 id="errorTitle">Oops! Page Not Found</h2>
+    <div class="subtitle">
+      <span id="typingText"></span><span class="typing-cursor"></span>
+    </div>
+
+    <div class="btn-row">
+      <a href="index.html" class="btn btn-primary">🏠 Return to Dashboard</a>
+      <button class="btn btn-secondary" onclick="history.back()">← Go Back</button>
+    </div>
+
+    <div class="countdown">
+      Auto-redirecting in <span id="countdown">30</span>s...
+    </div>
+
+    <div class="easter-egg" id="easterEgg">
+      🎉 <strong>Achievement Unlocked!</strong> You found the secret! Here's a fun fact: The first-ever 404 error
+      message came from Room 404 at CERN, where the World Wide Web's central server was located.
+    </div>
+
+    <!-- Easter-egg/Fun-fact aligned Premium Support Box -->
+    <div
+      style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(239, 68, 68, 0.06)); border: 1.5px dashed rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px 24px; margin: 24px auto 0; max-width: 500px; text-align: center; backdrop-filter: blur(10px);">
+      <p
+        style="color: var(--text); font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        💖 Lost? Keep Us Grounded!</p>
+      <p style="color: var(--text2); font-size: 0.82rem; line-height: 1.5;">Even when links go missing, our mission to
+        build free web masterclasses stays on course. If you love Sanskar's (Ram Sandesh) work, a small donation keeps
+        our server running and tutorials active!</p>
+    </div>
+
+    <div class="fun-fact" id="funFact"></div>
+    <div style="margin-top: 20px;">
+      <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
+    </div>
+  </div>
+
+  <script>
+    // Theme
+    const savedTheme = localStorage.getItem('cssMasteryTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeBtn();
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('cssMasteryTheme', next);
+      updateThemeBtn();
+    }
+    function updateThemeBtn() {
+      const btn = document.querySelector('.theme-btn');
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Particles
+    const particleContainer = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.className = 'p';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      particleContainer.appendChild(p);
+    }
+
+    // Typing effect
+    const messages = [
+      "The page you're looking for has escaped into the void...",
+      "Looks like this URL took a wrong turn at the internet highway...",
+      "This page went on vacation and forgot to leave a forwarding address...",
+      "Even the best developers get lost sometimes. Let's get you back on track!",
+      "The bits and bytes that lived here have moved to a better place...",
+      "Error 404: Humor not found. Just kidding — the page is missing though!",
+      "You've discovered uncharted territory! Unfortunately, there's nothing here."
+    ];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    let charIndex = 0;
+    const typingEl = document.getElementById('typingText');
+    function typeChar() {
+      if (charIndex < msg.length) {
+        typingEl.textContent += msg[charIndex];
+        charIndex++;
+        setTimeout(typeChar, 30 + Math.random() * 40);
+      }
+    }
+    setTimeout(typeChar, 600);
+
+    // Fun facts
+    const facts = [
+      "💡 <strong>Did you know?</strong> The HTTP 404 status code has been part of the web since 1992.",
+      "💡 <strong>Fun Fact:</strong> Google receives over 8.5 billion searches per day — some of them lead to 404 pages!",
+      "💡 <strong>Dev Tip:</strong> A custom 404 page can reduce bounce rates by up to 40%.",
+      "💡 <strong>CSS Trivia:</strong> The <code>&lt;a&gt;</code> tag was one of the very first CSS Properties ever created.",
+      "💡 <strong>Did you know?</strong> Tim Berners-Lee created CSS in 1996 at CERN in Switzerland."
+    ];
+    document.getElementById('funFact').innerHTML = facts[Math.floor(Math.random() * facts.length)];
+
+    // Countdown redirect
+    let seconds = 30;
+    const countdownEl = document.getElementById('countdown');
+    const countdownInterval = setInterval(() => {
+      seconds--;
+      countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(countdownInterval);
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+
+    // Easter egg
+    let clickCount = 0;
+    function easterEggClick() {
+      clickCount++;
+      if (clickCount >= 5) {
+        document.getElementById('easterEgg').style.display = 'block';
+        document.getElementById('glitchText').style.pointerEvents = 'none';
+      }
+    }
+  </script>
+  <!-- Donate QR Modal -->
+  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
+    <div class="donate-modal" onclick="event.stopPropagation()">
+      <h3>❤️ Donate Sanskar</h3>
+      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep
+        this project alive!</p>
+      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
+      <br>
+      <button class="donate-close" onclick="closeDonate()">Close</button>
+    </div>
+  </div>
+  <script>
+    function openDonate() { document.getElementById('donate-overlay').classList.add('active'); }
+    function closeDonate(e) { if (!e || e.target.id === 'donate-overlay') document.getElementById('donate-overlay').classList.remove('active'); }
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var d = document.getElementById('donate-overlay'); if (d) d.classList.remove('active'); } });
+  </script>
+</body>
+
+</html>
+
+
+
