@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Privacy Policy for HTML Full Mastery. We respect your privacy and store all data locally.">
+  <meta property="og:title" content="Privacy Policy | HTML Full Mastery">
+  <meta property="og:type" content="website">
+  <title>Privacy Policy | HTML Full Mastery</title>
+  <link rel="icon" href="privacy_logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080f;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --accent: #818cf8;
+      --accent2: #34d399;
+      --accent3: #f472b6;
+      --border: rgba(255, 255, 255, 0.08);
+      --hdrBg: linear-gradient(135deg, #7c3aed, #6366f1, #818cf8)
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg2: #fff;
+      --bg3: #e2e8f0;
+      --text: #0f172a;
+      --text2: #475569;
+      --accent: #6366f1;
+      --accent2: #059669;
+      --accent3: #ec4899;
+      --border: rgba(0, 0, 0, 0.1);
+      --hdrBg: linear-gradient(135deg, #8b5cf6, #6366f1, #818cf8)
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s, color 0.4s
+    }
+
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px)
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent)
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    nav a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s
+    }
+
+    nav a:hover {
+      color: var(--accent)
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text) !important
+    }
+
+    .nav-logo img {
+      width: 30px;
+      border-radius: 6px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center
+    }
+
+    .nav-active {
+      color: var(--accent) !important;
+      font-weight: 700
+    }
+
+    .hero {
+      background: var(--hdrBg);
+      padding: 60px 24px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--bg))
+    }
+
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem
+    }
+
+    .meta-bar {
+      max-width: 900px;
+      margin: -16px auto 0;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .meta-pill {
+      padding: 8px 16px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px)
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px
+    }
+
+    .toc {
+      position: sticky;
+      top: 24px;
+      align-self: start
+    }
+
+    .toc h3 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text2);
+      margin-bottom: 12px;
+      font-weight: 700
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-left: 2px solid var(--border);
+      transition: all 0.2s;
+      margin-bottom: 2px
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(129, 140, 248, 0.05)
+    }
+
+    .policy-section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+      scroll-margin-top: 24px
+    }
+
+    .s-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px
+    }
+
+    .s-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0
+    }
+
+    .s-header h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700
+    }
+
+    .policy-section p {
+      color: var(--text2);
+      line-height: 1.8;
+      font-size: 0.92rem;
+      margin-bottom: 10px
+    }
+
+    .policy-section ul {
+      color: var(--text2);
+      padding-left: 20px;
+      line-height: 1.8;
+      font-size: 0.92rem
+    }
+
+    /* Privacy Score */
+    .score-card {
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(129, 140, 248, 0.1));
+      border: 1px solid var(--accent2);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 32px
+    }
+
+    .score-ring {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 16px;
+      position: relative
+    }
+
+    .score-ring svg {
+      transform: rotate(-90deg)
+    }
+
+    .score-ring circle {
+      fill: none;
+      stroke-width: 8;
+      stroke-linecap: round
+    }
+
+    .score-ring .bg {
+      stroke: var(--bg3)
+    }
+
+    .score-ring .fg {
+      stroke: var(--accent2);
+      stroke-dasharray: 283;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1.5s ease-out
+    }
+
+    .score-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent2)
+    }
+
+    .score-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+      color: var(--accent2)
+    }
+
+    .score-card p {
+      color: var(--text2);
+      font-size: 0.88rem
+    }
+
+    /* Data flow */
+    .data-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 20px 0
+    }
+
+    .df-node {
+      padding: 14px 22px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600
+    }
+
+    .df-node.safe {
+      border-color: var(--accent2);
+      color: var(--accent2)
+    }
+
+    .df-arrow {
+      font-size: 1.4rem;
+      color: var(--accent2)
+    }
+
+    .df-node.blocked {
+      border-color: #ef4444;
+      color: #ef4444;
+      text-decoration: line-through;
+      opacity: 0.5
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      color: var(--text2);
+      font-size: 0.85rem
+    }
+
+    @media(max-width:768px) {
+      .content {
+        grid-template-columns: 1fr
+      }
+
+      .toc {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px
+      }
+
+      .toc a {
+        border-left: none;
+        border-bottom: 2px solid var(--border);
+        padding: 6px 12px
+      }
+
+      .toc h3 {
+        width: 100%
+      }
+
+      .meta-bar {
+        justify-content: center
+      }
+    }
+
+    /* Donate Button */
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      margin-top: 20px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    }
+
+    .donate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .donate-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .donate-modal {
+      background: var(--bg2, #111827);
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .donate-overlay.active .donate-modal {
+      transform: scale(1);
+    }
+
+    .donate-modal h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text, #f1f5f9);
+      margin-bottom: 8px;
+    }
+
+    .donate-modal p {
+      color: var(--text2, #94a3b8);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .donate-modal img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 3px solid var(--border, rgba(255, 255, 255, 0.08));
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .donate-close {
+      margin-top: 24px;
+      padding: 10px 28px;
+      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text2, #94a3b8);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .donate-close:hover {
+      background: var(--bg3, #1f2937);
+      color: var(--text, #f1f5f9);
+    }
+
+    .top-donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+    }
+
+    .top-donate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+
+  <nav>
+    <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html" class="nav-active">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>🛡️ Privacy Policy</h1>
+    <p>Your privacy is our top priority. We believe in transparency and user control.</p>
+  </div>
+  <div class="meta-bar">
+    <span class="meta-pill">📅 Last Updated: May 15, 2026</span>
+    <span class="meta-pill">📌 Version 2.0</span>
+    <span class="meta-pill">🌍 Applies Globally</span>
+  </div>
+
+  <div class="content">
+    <div class="toc">
+      <h3>Contents</h3>
+      <a href="#s1" class="active">Data Collection</a>
+      <a href="#s2">Local Storage</a>
+      <a href="#s3">Third-Party Services</a>
+      <a href="#s4">Data Security</a>
+      <a href="#s5">Your Rights</a>
+      <a href="#s6">Contact</a>
+    </div>
+
+    <div class="sections">
+      <div class="score-card">
+        <div class="score-ring">
+          <svg width="100" height="100">
+            <circle class="bg" cx="50" cy="50" r="45" />
+            <circle class="fg" cx="50" cy="50" r="45" />
+          </svg>
+          <div class="score-val">100</div>
+        </div>
+        <h3>Your Privacy Score: 100/100</h3>
+        <p>We collect zero personal data. Everything stays on your device.</p>
+      </div>
+
+      <div class="data-flow">
+        <div class="df-node">👤 You</div>
+        <span class="df-arrow">→</span>
+        <div class="df-node safe">💾 Your Device (localStorage)</div>
+        <span class="df-arrow">→</span>
+        <div class="df-node blocked">☁️ Cloud Server</div>
+      </div>
+
+      <!-- Privacy-focused Inline Support Box -->
+      <div class="reveal"
+        style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08)); border: 1.5px dashed rgba(245, 158, 11, 0.3); border-radius: 20px; padding: 36px 24px; text-align: center; margin: 30px 0 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
+        <h3
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-top: 0; margin-bottom: 10px;">
+          💖 Love 100% Private, Local-First Tech?</h3>
+        <p style="color: var(--text2); font-size: 0.95rem; max-width: 540px; margin: 0 auto 20px; line-height: 1.6;">
+          HTML Full Mastery runs completely on your browser without any telemetry or cloud databases tracking your
+          keystrokes. Keeping this educational resource free, private, and ad-free requires community love. Consider a
+          micro-donation today!</p>
+        <button onclick="openDonate()" class="donate-btn" style="margin-top: 0; padding: 12px 30px;">❤️ Donate Sanskar
+          (Ram Sandesh)</button>
+      </div>
+
+      <div class="policy-section" id="s1">
+        <div class="s-header">
+          <div class="s-num">1</div>
+          <h2>Information Collection</h2>
+        </div>
+        <p>HTML Full Mastery is an educational web application. <strong>We do not collect any personal data.</strong> No
+          registration is required, no cookies track you, and no analytics services monitor your behavior.</p>
+        <p>Any information you provide (such as your name in the welcome screen) is stored exclusively on your device
+          and is never transmitted to any server.</p>
+      </div>
+
+      <div class="policy-section" id="s2">
+        <div class="s-header">
+          <div class="s-num">2</div>
+          <h2>Local Storage Usage</h2>
+        </div>
+        <p>We use your browser's localStorage to save:</p>
+        <ul>
+          <li>Theme preferences and color customizations</li>
+          <li>Your display name (if provided)</li>
+          <li>Code editor autosave content</li>
+          <li>Layout preferences (editor orientation)</li>
+        </ul>
+        <p>This data never leaves your device. You can clear it anytime via your browser settings.</p>
+      </div>
+
+      <div class="policy-section" id="s3">
+        <div class="s-header">
+          <div class="s-num">3</div>
+          <h2>Third-Party Services</h2>
+        </div>
+        <p>We load the following external resources for functionality:</p>
+        <ul>
+          <li><strong>Google Fonts</strong> — For typography (Inter, Plus Jakarta Sans, Fira Code)</li>
+          <li><strong>CodeMirror CDN</strong> — For the code editor engine</li>
+        </ul>
+        <p>These services may log standard HTTP request data (IP address, browser type). We have no control over their
+          data practices. No personal identification is included in these requests.</p>
+      </div>
+
+      <div class="policy-section" id="s4">
+        <div class="s-header">
+          <div class="s-num">4</div>
+          <h2>Data Security</h2>
+        </div>
+        <p>Since all data is stored locally on your device, your information is as secure as your device itself. We
+          recommend:</p>
+        <ul>
+          <li>Keeping your browser updated to the latest version</li>
+          <li>Using a secure device with proper authentication</li>
+          <li>Clearing localStorage if using a shared computer</li>
+        </ul>
+      </div>
+
+      <div class="policy-section" id="s5">
+        <div class="s-header">
+          <div class="s-num">5</div>
+          <h2>Your Rights</h2>
+        </div>
+        <p>You have complete control over your data:</p>
+        <ul>
+          <li><strong>Access:</strong> All data is visible in your browser's Developer Tools → Application → Local
+            Storage</li>
+          <li><strong>Delete:</strong> Clear all data by clearing your browser's localStorage for this site</li>
+          <li><strong>Portability:</strong> Your data is standard JSON and can be exported</li>
+          <li><strong>Opt-out:</strong> Disable JavaScript to prevent localStorage usage (some features will be limited)
+          </li>
+        </ul>
+      </div>
+
+      <div class="policy-section" id="s6">
+        <div class="s-header">
+          <div class="s-num">6</div>
+          <h2>Contact Us</h2>
+        </div>
+        <p>If you have questions about this privacy policy, contact us at:</p>
+        <p>📧 <a href="mailto:sanskaryadavfrom2012to2026@gmail.com"
+            style="color:var(--accent)">sanskaryadavfrom2012to2026@gmail.com</a></p>
+        <p>📧 <a href="mailto:supportramsandesh@gmail.com" style="color:var(--accent)">supportramsandesh@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p>
+    <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
+  </div>
+
+  <script>
+    const st = localStorage.getItem('htmlMasteryTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', st);
+    document.querySelector('.theme-btn').textContent = st === 'dark' ? '☀️' : '🌙';
+    function toggleTheme() { const c = document.documentElement.getAttribute('data-theme'), n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('htmlMasteryTheme', n); document.querySelector('.theme-btn').textContent = n === 'dark' ? '☀️' : '🌙' }
+
+    // TOC highlight on scroll
+    const sections = document.querySelectorAll('.policy-section');
+    const tocLinks = document.querySelectorAll('.toc a');
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const id = e.target.id; const link = document.querySelector(`.toc a[href="#${id}"]`); if (link) link.classList.add('active') } }) }, { threshold: 0.3, rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(s => obs.observe(s));
+  </script>
+  <!-- Donate QR Modal -->
+  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
+    <div class="donate-modal" onclick="event.stopPropagation()">
+      <h3>❤️ Donate Sanskar</h3>
+      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep
+        this project alive!</p>
+      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
+      <br>
+      <button class="donate-close" onclick="closeDonate()">Close</button>
+    </div>
+  </div>
+  <script>
+    function openDonate() { document.getElementById('donate-overlay').classList.add('active'); }
+    function closeDonate(e) { if (!e || e.target.id === 'donate-overlay') document.getElementById('donate-overlay').classList.remove('active'); }
+    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var d = document.getElementById('donate-overlay'); if (d) d.classList.remove('active'); } });
+  </script>
+</body>
+
+</html>

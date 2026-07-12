@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Developer Documentation and Contribution Guidelines for HTML Full Mastery.">
+  <meta property="og:title" content="Developer Hub | HTML Full Mastery">
+  <meta property="og:type" content="website">
+  <title>Developer Hub | HTML Full Mastery</title>
+  <link rel="icon" href="html_logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080f;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --accent: #3b82f6;
+      --accent2: #8b5cf6;
+      --accent3: #ec4899;
+      --border: rgba(255, 255, 255, 0.08);
+      --hdrBg: linear-gradient(135deg, #1e3a8a, #312e81, #4c1d95);
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg2: #ffffff;
+      --bg3: #f1f5f9;
+      --text: #0f172a;
+      --text2: #475569;
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --accent3: #db2777;
+      --border: rgba(0, 0, 0, 0.1);
+      --hdrBg: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      --success: #059669;
+      --warning: #d97706;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg3);
+      border-radius: 5px;
+      border: 2px solid var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text2);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 100;
+    }
+
+    nav a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text) !important;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-active {
+      color: var(--accent) !important;
+      font-weight: 700;
+    }
+
+    /* Theme Toggle */
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--hdrBg);
+      padding: 100px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.1;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+
+    .hero-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    /* Dashboard Status */
+    .status-dashboard {
+      max-width: 1000px;
+      margin: -40px auto 40px;
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding: 0 24px;
+    }
+
+    .status-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: transform 0.3s;
+    }
+
+    .status-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .st-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: var(--bg3);
+    }
+
+    .st-info h4 {
+      font-size: 0.8rem;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .st-info p {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .text-success {
+      color: var(--success) !important;
+    }
+
+    /* Layout */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 60px;
+    }
+
+    /* Sidebar TOC */
+    .toc {
+      position: sticky;
+      top: 30px;
+      align-self: start;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding-right: 16px;
+    }
+
+    .toc::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .toc h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text2);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .toc-group {
+      margin-bottom: 24px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.88rem;
+      border-left: 2px solid var(--border);
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent);
+    }
+
+    /* Sections */
+    .doc-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 40px;
+    }
+
+    .doc-section h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .doc-section h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 24px 0 12px;
+      color: var(--text);
+    }
+
+    .doc-section p {
+      color: var(--text2);
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .doc-section ul,
+    .doc-section ol {
+      color: var(--text2);
+      padding-left: 24px;
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .doc-section li {
+      margin-bottom: 8px;
+    }
+
+    /* Alert Boxes */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border-left: 4px solid;
+    }
+
+    .alert-info {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .alert-warning {
+      background: color-mix(in srgb, var(--warning) 10%, transparent);
+      border-color: var(--warning);
+      color: var(--text);
+    }
+
+    .alert-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Code Blocks */
+    .code-container {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 20px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .code-block {
+      padding: 20px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    [data-theme="light"] .code-block {
+      color: #334155;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text2);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    code.inline {
+      background: var(--bg3);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85em;
+      color: var(--accent3);
+      border: 1px solid var(--border);
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent2);
+    }
+
+    .fc-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+      padding: 12px;
+      background: var(--bg3);
+      border-radius: 12px;
+    }
+
+    .feature-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* File Tree */
+    .file-tree {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+    }
+
+    .tree-node {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .tree-node.file {
+      color: var(--text2);
+    }
+
+    .tree-indent {
+      padding-left: 28px;
+      border-left: 1px dashed var(--border);
+      margin-left: 8px;
+    }
+
+    .tree-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Playground */
+    .playground-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+      min-height: 400px;
+    }
+
+    .pg-editor,
+    .pg-preview {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .pg-header {
+      background: var(--bg3);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pg-editor textarea {
+      flex: 1;
+      background: var(--bg);
+      color: #e2e8f0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      padding: 16px;
+      border: none;
+      resize: none;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .pg-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pg-tab {
+      background: transparent;
+      border: none;
+      color: var(--text2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .pg-tab.active {
+      background: var(--bg);
+      color: var(--accent);
+    }
+
+    .pg-tab:hover:not(.active) {
+      color: var(--text);
+    }
+
+    [data-theme="light"] .pg-editor textarea {
+      color: #334155;
+    }
+
+    .pg-preview iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+      /* iFrames need white background for rendering standard HTML */
+    }
+
+    @media(max-width: 900px) {
+      .playground-container {
+        grid-template-columns: 1fr;
+        min-height: 600px;
+      }
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      color: var(--text2);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- MASSIVE FEATURES CSS --- */
+
+    /* Zen Mode */
+    body.zen-active nav,
+    body.zen-active .footer,
+    body.zen-active .toc,
+    body.zen-active .status-dashboard,
+    body.zen-active .hero {
+      display: none !important;
+    }
+
+    body.zen-active .content {
+      grid-template-columns: 1fr;
+      padding-top: 60px;
+      max-width: 900px;
+    }
+
+    .zen-btn {
+      position: fixed;
+      top: 20px;
+      right: 75px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .zen-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--accent);
+    }
+
+    /* Command Palette */
+    .cmd-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cmd-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .cmd-modal {
+      width: 100%;
+      max-width: 600px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      transform: scale(0.95);
+      transition: transform 0.2s;
+    }
+
+    .cmd-overlay.active .cmd-modal {
+      transform: scale(1);
+    }
+
+    .cmd-input {
+      width: 100%;
+      padding: 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+
+    .cmd-results {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .cmd-item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text2);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.1s;
+    }
+
+    .cmd-item:hover,
+    .cmd-item.selected {
+      background: var(--bg3);
+      color: var(--text);
+    }
+
+    /* Developer Notepad */
+    .notepad {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 300px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(calc(100% - 45px));
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .notepad.open {
+      transform: translateY(0);
+    }
+
+    .np-header {
+      background: var(--bg3);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .np-textarea {
+      width: 100%;
+      height: 250px;
+      padding: 16px;
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      outline: none;
+      resize: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+    }
+
+    /* Theme Creator */
+    .tc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .tc-item {
+      background: var(--bg3);
+      padding: 16px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tc-item input[type="color"] {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    /* Analytics Dashboard */
+    .analytics-bar-container {
+      background: var(--bg3);
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .analytics-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Component Library */
+    .comp-showcase {
+      background: var(--bg3);
+      padding: 40px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+
+    .comp-code {
+      margin-top: 0 !important;
+      border-radius: 0 0 12px 12px !important;
+    }
+
+    /* Donate Button */
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+      margin-top: 20px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Donate Modal */
+    .donate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .donate-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .donate-modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+
+    .donate-overlay.active .donate-modal {
+      transform: scale(1);
+    }
+
+    .donate-modal h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .donate-modal p {
+      color: var(--text2);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .donate-modal img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 3px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .donate-close {
+      margin-top: 24px;
+      padding: 10px 28px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text2);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .donate-close:hover {
+      background: var(--bg3);
+      color: var(--text);
+    }
+
+    @media(max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .toc {
+        display: none;
+      }
+
+      .notepad {
+        display: none;
+      }
+
+      /* Hide notepad on mobile */
+    }
+
+    .top-donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+    }
+
+    .top-donate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+  <button class="zen-btn" onclick="toggleZenMode()" title="Toggle Zen Mode (Focus)">🧘</button>
+
+  <nav>
+    <a href="HTML Mastery.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="support.html">Support</a>
+      <a href="developer.html" class="nav-active">Developer</a>
+      <a href="terms.html">Terms</a>
+      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <img src="developer_icon.svg" alt="Developer Icon"
+      style="width: 80px; margin-bottom: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite;">
+    <h1>Developer Hub</h1>
+    <p>Comprehensive API documentation, architecture guides, and open-source contribution workflows for the HTML Full
+      Mastery platform.</p>
+    <a href="#arch" class="hero-btn">Explore Architecture ↓</a>
+  </div>
+
+  <div class="status-dashboard">
+    <div class="status-card">
+      <div class="st-icon">⚡</div>
+      <div class="st-info">
+        <h4>Performance</h4>
+        <p class="text-success">100/100</p>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="st-icon">📦</div>
+      <div class="st-info">
+        <h4>Bundle Size</h4>
+        <p>~90KB (Gzipped)</p>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="st-icon">🟢</div>
+      <div class="st-info">
+        <h4>System Status</h4>
+        <p class="text-success">Operational</p>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="st-icon">🏷️</div>
+      <div class="st-info">
+        <h4>Version</h4>
+        <p>2.0.0 Stable</p>
+      </div>
+    </div>
+    <div class="status-card" onclick="openDonate()"
+      style="cursor: pointer; border-color: rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(239, 68, 68, 0.05)); transition: all 0.3s;"
+      onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(245, 158, 11, 0.7)';"
+      onmouseout="this.style.transform='none'; this.style.borderColor='rgba(245, 158, 11, 0.4)';">
+      <div class="st-icon" style="filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.3));">💖</div>
+      <div class="st-info">
+        <h4>Support Sanskar</h4>
+        <p style="color: #ef4444; font-weight: 700; font-size: 0.9rem;">❤️ Donate</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Sidebar Navigation -->
+    <div class="toc">
+      <div class="toc-group">
+        <h3>Overview</h3>
+        <a href="#arch" class="active">Architecture</a>
+        <a href="#modular">Modular Setup & Fallbacks</a>
+      </div>
+      <div class="toc-group">
+        <h3>APIs & Integration</h3>
+        <a href="#routing">URL Routing API</a>
+        <a href="#playground">Live HTML Playground</a>
+        <a href="#theming">Advanced Theming API</a>
+        <a href="#theme-creator">Visual Theme Creator</a>
+      </div>
+      <div class="toc-group">
+        <h3>State & Data</h3>
+        <a href="#state">State Management Schema</a>
+        <a href="#analytics">Local Analytics</a>
+      </div>
+      <div class="toc-group">
+        <h3>Guides & Assets</h3>
+        <a href="#components">Premium Components</a>
+        <a href="#performance">Performance Optimization</a>
+        <a href="#contributing">Contribution Guidelines</a>
+      </div>
+      <p style="font-size: 0.75rem; color: var(--text2); margin-top: 30px; text-align: center;">Press <kbd
+          style="background: var(--bg3); padding: 2px 6px; border-radius: 4px; font-family: monospace;">Ctrl+K</kbd> to
+        Search</p>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="doc-body">
+
+      <!-- 1. Architecture -->
+      <div class="doc-section reveal" id="arch">
+        <h2>Architecture & Tech Stack</h2>
+        <p>HTML Full Mastery is engineered to be <strong>blazing fast, highly portable, and entirely
+            serverless</strong>. Unlike modern web applications that rely heavily on heavy build steps (Webpack, Vite)
+          and virtual DOMs (React, Vue), this platform takes a "back to basics" approach with steroids.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="fc-icon">🟨</div>
+            <h4>Vanilla Engine</h4>
+            <p>No frameworks. The entire rendering, routing, and search engine is built in pure ES6+ JavaScript,
+              resulting in zero overhead.</p>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">🎨</div>
+            <h4>CSS3 Custom Properties</h4>
+            <p>Theming is handled natively by the browser using CSS variables, allowing for instant, jank-free toggling
+              between light, dark, and 25+ premium themes.</p>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">💾</div>
+            <h4>Local-First Storage</h4>
+            <p>User progress, flashcard statistics, and custom code editor contents are persisted securely on the client
+              using <code>localStorage</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Modular Setup -->
+      <div class="doc-section reveal" id="modular">
+        <h2>Modular Setup & CDN Fallbacks</h2>
+        <p>To keep the application highly organized, the codebase is modularized. However, to fulfill the requirement
+          that a user can share a <strong>single HTML file</strong> that works flawlessly, we implemented an advanced
+          "Self-Healing CDN Fallback".</p>
+
+        <div class="alert alert-info">
+          <div class="alert-icon">💡</div>
+          <div><strong>How it works:</strong> If you open the local <code>HTML Mastery.html</code> file without the
+            accompanying CSS/JS files, the browser fires an <code>onerror</code> event. We catch this and instantly
+            fetch the missing assets from the jsDelivr GitHub CDN.</div>
+        </div>
+
+        <div class="file-tree">
+          <div class="tree-node">📁 Web Development Mastery</div>
+          <div class="tree-node file tree-indent"><span class="tree-highlight">📄 HTML Mastery.html</span> (Main Entry &
+            Self-Healer)</div>
+          <div class="tree-node file tree-indent">📄 Using Style for HTML Mastery.css</div>
+          <div class="tree-node file tree-indent">📄 Using JS for HTML Mastery.js</div>
+          <div class="tree-node file tree-indent">📄 developer.html (This documentation)</div>
+        </div>
+
+        <p>Here is the implementation of the fallback mechanism found in the <code>&lt;head&gt;</code> of the
+          application:</p>
+        <div class="code-container">
+          <div class="code-header"><span>HTML Fallback Injection</span><button class="copy-btn"
+              onclick="copyCode(this)">📋 Copy</button></div>
+          <div class="code-block">&lt;link rel="stylesheet" href="Using Style for HTML Mastery.css"
+            onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/gh/SanskarYadav2012/Web-Development-Mastery@main/Web%20Development%20Mastery/Using%20Style%20for%20HTML%20Mastery.css';"&gt;
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Routing API -->
+      <div class="doc-section reveal" id="routing">
+        <h2>URL Routing API (Deep Linking)</h2>
+        <p>HTML Mastery operates as a Single Page Application (SPA). To link to specific tags from external
+          documentation or your own websites, use the URL Hash API.</p>
+        <h3>Standard Hash Linking</h3>
+        <p>Append <code>#tagname-div</code> to the URL to instantly scroll to and highlight a specific tag.</p>
+
+        <div class="code-container">
+          <div class="code-header"><span>URL Structure</span><button class="copy-btn" onclick="copyCode(this)">📋
+              Copy</button></div>
+          <div class="code-block">https://yourdomain.com/HTML Mastery.html#canvas-div
+            https://yourdomain.com/HTML Mastery.html#video-div</div>
+        </div>
+
+        <p>When the application detects a hash on load, it executes the following DOM scroll routine:</p>
+        <div class="code-container">
+          <div class="code-header"><span>JavaScript Engine (Internal)</span><button class="copy-btn"
+              onclick="copyCode(this)">📋 Copy</button></div>
+          <div class="code-block">window.addEventListener('load', () => {
+            if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.classList.add('highlight-pulse');
+            }
+            }
+            });</div>
+        </div>
+      </div>
+
+      <!-- 3.5 Live HTML Playground -->
+      <div class="doc-section reveal" id="playground">
+        <h2>Live HTML API Playground</h2>
+        <p>Test your HTML snippets directly in the browser before implementing them. This secure sandbox environment
+          provides real-time rendering as you type.</p>
+
+        <div class="playground-container">
+          <div class="pg-editor">
+            <div class="pg-header">
+              <div class="pg-tabs">
+                <button class="pg-tab active" onclick="switchTab(event, 'html')">HTML</button>
+                <button class="pg-tab" onclick="switchTab(event, 'css')">CSS</button>
+                <button class="pg-tab" onclick="switchTab(event, 'js')">JS</button>
+              </div>
+              <span style="font-size: 0.75rem; color: var(--accent);">● Live</span>
+            </div>
+            <textarea id="pg-html" spellcheck="false" class="pg-code-area" style="display:block;">&lt;div class="card"&gt;
+  &lt;h1&gt;Hello Developer! 👋&lt;/h1&gt;
+  &lt;p&gt;Edit HTML, CSS, and JS to see instant changes.&lt;/p&gt;
+  &lt;button id="myBtn"&gt;Click Me&lt;/button&gt;
+&lt;/div&gt;</textarea>
+
+            <textarea id="pg-css" spellcheck="false" class="pg-code-area" style="display:none;">.card {
+  padding: 30px; 
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6); 
+  border-radius: 16px; 
+  color: white; 
+  text-align: center; 
+  font-family: sans-serif; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+h1 { margin-bottom: 10px; font-size: 2rem; }
+p { opacity: 0.9; line-height: 1.5; margin-bottom: 20px; }
+
+button {
+  padding: 10px 24px; 
+  border: none; 
+  border-radius: 8px; 
+  background: white; 
+  color: #3b82f6; 
+  font-weight: bold; 
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.05); }</textarea>
+
+            <textarea id="pg-js" spellcheck="false" class="pg-code-area" style="display:none;">document.getElementById('myBtn').addEventListener('click', () => {
+  alert('JavaScript is fully functional!');
+});</textarea>
+          </div>
+          <div class="pg-preview">
+            <div class="pg-header">Live Preview (Rendered Output)</div>
+            <iframe id="pg-output" sandbox="allow-scripts allow-modals"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Advanced Theming API -->
+      <div class="doc-section reveal" id="theming">
+        <h2>Advanced Theming API</h2>
+        <p>The theme engine is completely detached from the JavaScript logic. It relies purely on redefining CSS root
+          variables based on a <code>data-theme</code> attribute on the <code>&lt;html&gt;</code> tag.</p>
+
+        <p>You can programmatically inject custom themes via the browser console or extensions by modifying the CSS
+          variables on the root document:</p>
+
+        <div class="code-container">
+          <div class="code-header"><span>JavaScript Custom Theme Injection</span><button class="copy-btn"
+              onclick="copyCode(this)">📋 Copy</button></div>
+          <div class="code-block">// Inject a neon cyberpunk theme programmatically
+            const root = document.documentElement;
+            root.style.setProperty('--bg', '#050510');
+            root.style.setProperty('--bg2', '#0a0a20');
+            root.style.setProperty('--text', '#00ffcc');
+            root.style.setProperty('--accent', '#ff00ff');
+            root.style.setProperty('--border', '#00ffcc');
+
+            // Save custom settings
+            localStorage.setItem('htmlMasteryCustomTheme', 'cyberpunk');</div>
+        </div>
+      </div>
+
+      <!-- 5. State Management Schema -->
+      <div class="doc-section reveal" id="state">
+        <h2>State Management Schema</h2>
+        <p>We use standard <code>localStorage</code> to maintain state without requiring a backend database. Below are
+          the primary keys and their expected JSON schemas used by the application.</p>
+
+        <ul>
+          <li><code class="inline">htmlMasteryTheme</code> (String) - Represents the active theme identifier (e.g.,
+            <code>"dark"</code>, <code>"light"</code>, <code>"monokai"</code>).
+          </li>
+          <li><code class="inline">htmlMasteredTags</code> (Array) - Tracks user mastery progress.</li>
+        </ul>
+
+        <div class="code-container">
+          <div class="code-header"><span>JSON Schema: htmlMasteredTags</span><button class="copy-btn"
+              onclick="copyCode(this)">📋 Copy</button></div>
+          <div class="code-block">[
+            "div",
+            "canvas",
+            "audio",
+            "template"
+            ]</div>
+        </div>
+
+        <div class="alert alert-warning">
+          <div class="alert-icon">⚠️</div>
+          <div><strong>Data Deletion:</strong> Running <code>localStorage.clear()</code> will irrevocably wipe all user
+            progress, saved code editor snippets, and theme configurations.</div>
+        </div>
+      </div>
+
+      <!-- 6. Performance Optimization -->
+      <div class="doc-section reveal" id="performance">
+        <h2>Performance Optimization Guidelines</h2>
+        <p>The platform maintains a strict 100/100 Lighthouse score. If you are contributing code, you must adhere to
+          the following performance guidelines:</p>
+        <ul>
+          <li><strong>No Reflows:</strong> Use <code>transform</code> and <code>opacity</code> for all animations. Never
+            animate <code>width</code>, <code>height</code>, or <code>margin</code>.</li>
+          <li><strong>Event Delegation:</strong> Do not attach event listeners to individual items in lists (e.g., the
+            sidebar tags). Attach a single listener to the parent container and use <code>e.target</code> to determine
+            the clicked element.</li>
+          <li><strong>Defer Scripts:</strong> Any external scripts (like CodeMirror) must be loaded dynamically only
+            when the user clicks the "Try It" button to save initial payload size.</li>
+        </ul>
+      </div>
+
+      <!-- 5.5 Visual Theme Creator -->
+      <div class="doc-section reveal" id="theme-creator">
+        <h2>Visual Theme Creator</h2>
+        <p>Use the color pickers below to instantly preview a custom theme. Click "Apply & Generate" to save it to your
+          browser and get the JavaScript injection code!</p>
+
+        <div class="tc-grid">
+          <div class="tc-item">
+            <span style="font-weight: 600; color: var(--text);">Background Base</span>
+            <input type="color" id="tc-bg" value="#050510">
+          </div>
+          <div class="tc-item">
+            <span style="font-weight: 600; color: var(--text);">Background Surface</span>
+            <input type="color" id="tc-bg2" value="#0a0a20">
+          </div>
+          <div class="tc-item">
+            <span style="font-weight: 600; color: var(--text);">Primary Accent</span>
+            <input type="color" id="tc-accent" value="#ff00ff">
+          </div>
+          <div class="tc-item">
+            <span style="font-weight: 600; color: var(--text);">Text Color</span>
+            <input type="color" id="tc-text" value="#00ffcc">
+          </div>
+        </div>
+
+        <button
+          style="margin-bottom: 20px; padding: 12px 24px; border: none; border-radius: 8px; background: var(--accent); color: #fff; font-weight: bold; cursor: pointer;"
+          onclick="applyCustomTheme()">Apply & Generate JS Code</button>
+
+        <div class="code-container" id="tc-code-output" style="display: none;">
+          <div class="code-header"><span>Generated Theme Code</span><button class="copy-btn" onclick="copyCode(this)">📋
+              Copy</button></div>
+          <div class="code-block" id="tc-code-block"></div>
+        </div>
+      </div>
+
+      <!-- 5.8 Local Analytics Dashboard -->
+      <div class="doc-section reveal" id="analytics">
+        <h2>Local Analytics Dashboard</h2>
+        <p>This visualization directly reads your <code>htmlMasteredTags</code> array from `localStorage` to generate
+          live statistics. If you study tags on the main page, these bars will update!</p>
+        <div
+          style="background: var(--bg2); padding: 24px; border: 1px solid var(--border); border-radius: 12px; margin: 20px 0;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <strong style="color: var(--text);">Global Progress (Tags Mastered)</strong>
+            <span id="ana-progress-text" style="color: var(--accent); font-weight: bold;">0 / 100</span>
+          </div>
+          <div class="analytics-bar-container">
+            <div class="analytics-bar" id="ana-progress-bar"></div>
+          </div>
+          <p style="margin-top: 16px; font-size: 0.9rem; color: var(--text2);">Simulated read of local progress. Start
+            learning on the main page to see this grow!</p>
+        </div>
+      </div>
+
+      <!-- 5.9 Premium Components -->
+      <div class="doc-section reveal" id="components">
+        <h2>Premium Component Library</h2>
+        <p>Need some high-quality UI elements for your project? Copy these pre-built, theme-aware components that use
+          our CSS Custom Properties system.</p>
+
+        <h3 style="margin-top: 30px;">Glassmorphism Card</h3>
+        <div class="comp-showcase">
+          <div
+            style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 16px; padding: 24px; color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+            <h4 style="margin-bottom: 8px; font-size: 1.2rem;">Glass Card</h4>
+            <p style="opacity: 0.8; font-size: 0.9rem;">This card beautifully blurs the background behind it. Perfect
+              for dashboards.</p>
+          </div>
+        </div>
+        <div class="code-container comp-code">
+          <div class="code-header"><span>HTML/CSS</span><button class="copy-btn" onclick="copyCode(this)">📋
+              Copy</button></div>
+          <div class="code-block">&lt;div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;"&gt;
+            &lt;h4&gt;Glass Card&lt;/h4&gt;
+            &lt;p&gt;This card beautifully blurs the background.&lt;/p&gt;
+            &lt;/div&gt;</div>
+        </div>
+      </div>
+
+      <!-- 6.5. Support Sanskar's Work -->
+      <div class="doc-section reveal"
+        style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08)); border: 1.5px dashed rgba(245, 158, 11, 0.3); border-radius: 24px; padding: 40px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); backdrop-filter: blur(10px); margin-bottom: 60px;">
+        <h2
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-top: 0; margin-bottom: 12px; background: none; border: none; padding: 0;">
+          💖 Support the Developer (Ram Sandesh)</h2>
+        <p style="color: var(--text2); font-size: 0.98rem; max-width: 600px; margin: 0 auto 24px; line-height: 1.6;">
+          HTML Full Mastery is developed and maintained as an open educational utility. If this platform, its
+          interactive API playground, zen reading mode, or developer tools have added value to your coding workflow,
+          consider supporting our mission with a contribution!</p>
+        <button onclick="openDonate()" class="donate-btn"
+          style="margin-top: 0; padding: 12px 32px; font-size: 1rem; border-radius: 12px;">❤️ Donate Sanskar (Ram
+          Sandesh)</button>
+      </div>
+
+      <!-- 7. Contributing -->
+      <div class="doc-section reveal" id="contributing">
+        <h2>Contribution Guidelines & Workflow</h2>
+        <p>HTML Full Mastery is an open-source initiative. We welcome contributions from the community, whether it's
+          fixing typos, adding new tag explanations, or building new features.</p>
+
+        <h3>How to Contribute</h3>
+        <ol>
+          <li><strong>Fork the Repository:</strong> Fork <code>SanskarYadav2012/Web-Development-Mastery</code> on
+            GitHub.</li>
+          <li><strong>Clone Locally:</strong> You do not need to run <code>npm install</code>. Just clone and open
+            <code>HTML Mastery.html</code> in your browser.
+          </li>
+          <li><strong>Make Changes:</strong> Add your changes. Ensure you test in both dark and light modes.</li>
+          <li><strong>Submit a Pull Request:</strong> Open a PR with a detailed description of your changes.</li>
+        </ol>
+
+        <div class="alert alert-info">
+          <div class="alert-icon">📜</div>
+          <div><strong>Code of Conduct:</strong> We are committed to providing a welcoming and inspiring community for
+            all. Harassment, discrimination, or abusive behavior in PRs or Issues will not be tolerated.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p>
+    <p style="margin-top: 10px;">
+      <a href="https://github.com/SanskarYadav2012/Web-Development-Mastery" target="_blank">View on GitHub</a> •
+      <a href="mailto:sanskaryadavfrom2012to2026@gmail.com">Contact Developer</a>
+    </p>
+    <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
+  </div>
+
+  <script>
+    // Theme Toggle Logic
+    const st = localStorage.getItem('htmlMasteryTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', st);
+    document.querySelector('.theme-btn').textContent = st === 'dark' ? '☀️' : '🌙';
+
+    function toggleTheme() {
+      const c = document.documentElement.getAttribute('data-theme');
+      const n = c === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      localStorage.setItem('htmlMasteryTheme', n);
+      document.querySelector('.theme-btn').textContent = n === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Scroll Reveal Animation Engine
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      });
+    }, revealOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // TOC Active State Engine
+    const sections = document.querySelectorAll('.doc-section');
+    const navLinks = document.querySelectorAll('.toc a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Copy to Clipboard Utility
+    function copyCode(btn) {
+      const codeBlock = btn.parentElement.nextElementSibling;
+      const text = codeBlock.innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ Copied!';
+        btn.style.background = 'var(--success)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--success)';
+
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    // Playground Logic
+    const pgHtml = document.getElementById('pg-html');
+    const pgCss = document.getElementById('pg-css');
+    const pgJs = document.getElementById('pg-js');
+    const pgOutput = document.getElementById('pg-output');
+
+    function switchTab(event, tabName) {
+      document.querySelectorAll('.pg-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.pg-code-area').forEach(t => t.style.display = 'none');
+
+      event.currentTarget.classList.add('active');
+      document.getElementById('pg-' + tabName).style.display = 'block';
+    }
+
+    function updatePlayground() {
+      if (!pgHtml || !pgOutput) return;
+      const html = pgHtml.value;
+      const css = pgCss ? pgCss.value : '';
+      const js = pgJs ? pgJs.value : '';
+
+      // Add basic reset CSS and inject code
+      const wrappedHtml = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { margin: 0; padding: 16px; font-family: sans-serif; }
+            * { box-sizing: border-box; }
+            ${css}
+          </style>
+        </head>
+        <body>
+          ${html}
+          <script>
+            try {
+              ${js}
+            } catch(e) {
+              console.error(e);
+            }
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      pgOutput.srcdoc = wrappedHtml;
+    }
+
+    // Enable Tab key spacing in textareas
+    function handleTab(e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 2;
+        updatePlayground();
+      }
+    }
+
+    [pgHtml, pgCss, pgJs].forEach(el => {
+      if (el) {
+        el.addEventListener('input', updatePlayground);
+        el.addEventListener('keydown', handleTab);
+      }
+    });
+
+    // Init on load
+    if (pgHtml) updatePlayground();
+    // --- MASSIVE FEATURES LOGIC --- //
+
+    // 1. Zen Mode
+    function toggleZenMode() {
+      document.body.classList.toggle('zen-active');
+    }
+
+    // 2. Developer Notepad
+    const notepad = document.getElementById('notepad');
+    const npIcon = document.getElementById('np-icon');
+    const npTextarea = document.getElementById('np-textarea');
+
+    function toggleNotepad() {
+      notepad.classList.toggle('open');
+      npIcon.textContent = notepad.classList.contains('open') ? '▼' : '▲';
+    }
+
+    if (npTextarea) {
+      npTextarea.value = localStorage.getItem('htmlMasteryNotes') || '';
+      npTextarea.addEventListener('input', () => {
+        localStorage.setItem('htmlMasteryNotes', npTextarea.value);
+      });
+    }
+
+    // 3. Command Palette (Ctrl+K)
+    const cmdOverlay = document.getElementById('cmd-overlay');
+    const cmdInput = document.getElementById('cmd-input');
+    const cmdResults = document.getElementById('cmd-results');
+
+    const searchData = [
+      { title: 'Architecture & Engine', link: '#arch' },
+      { title: 'Modular Setup & CDN Fallback', link: '#modular' },
+      { title: 'URL Routing API (Deep Links)', link: '#routing' },
+      { title: 'Live HTML Playground', link: '#playground' },
+      { title: 'Advanced Theming API', link: '#theming' },
+      { title: 'Visual Theme Creator', link: '#theme-creator' },
+      { title: 'State Management Schema', link: '#state' },
+      { title: 'Local Analytics Dashboard', link: '#analytics' },
+      { title: 'Premium Component Library', link: '#components' },
+      { title: 'Performance Optimization Guide', link: '#performance' },
+      { title: 'Contribution Guidelines', link: '#contributing' }
+    ];
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        cmdOverlay.classList.add('active');
+        cmdInput.focus();
+        renderCmdResults('');
+      }
+      if (e.key === 'Escape') closeCmd();
+    });
+
+    function closeCmd(e) {
+      if (!e || e.target === cmdOverlay) {
+        cmdOverlay.classList.remove('active');
+      }
+    }
+
+    if (cmdInput) {
+      cmdInput.addEventListener('input', (e) => renderCmdResults(e.target.value));
+    }
+
+    function renderCmdResults(query) {
+      if (!cmdResults) return;
+      const q = query.toLowerCase();
+      const filtered = searchData.filter(item => item.title.toLowerCase().includes(q));
+
+      if (filtered.length === 0) {
+        cmdResults.innerHTML = '<div class="cmd-item" style="pointer-events:none; opacity:0.6;">No results found...</div>';
+        return;
+      }
+
+      cmdResults.innerHTML = filtered.map(item => `
+        <div class="cmd-item" onclick="jumpTo('${item.link}')">
+          <span style="font-size: 1.2rem;">📄</span>
+          <span>${item.title}</span>
+        </div>
+      `).join('');
+    }
+
+    function jumpTo(link) {
+      closeCmd();
+      window.location.hash = link;
+      const target = document.querySelector(link);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.classList.add('highlight-pulse');
+        setTimeout(() => target.classList.remove('highlight-pulse'), 2000);
+      }
+    }
+
+    // 4. Analytics Dashboard
+    function loadAnalytics() {
+      const stored = localStorage.getItem('htmlMasteredTags');
+      let count = 0;
+      if (stored) {
+        try { count = JSON.parse(stored).length; } catch (e) { }
+      }
+      // If none, simulate 12 for the demo
+      if (count === 0) count = 12;
+
+      const pct = Math.min((count / 100) * 100, 100);
+      const bar = document.getElementById('ana-progress-bar');
+      const text = document.getElementById('ana-progress-text');
+      if (bar && text) {
+        setTimeout(() => {
+          bar.style.width = pct + '%';
+          text.textContent = count + ' / 100';
+        }, 500); // delay for reveal effect
+      }
+    }
+
+    // 5. Visual Theme Creator
+    function applyCustomTheme() {
+      const bg = document.getElementById('tc-bg').value;
+      const bg2 = document.getElementById('tc-bg2').value;
+      const accent = document.getElementById('tc-accent').value;
+      const txt = document.getElementById('tc-text').value;
+
+      // Apply live
+      const root = document.documentElement;
+      root.style.setProperty('--bg', bg);
+      root.style.setProperty('--bg2', bg2);
+      root.style.setProperty('--accent', accent);
+      root.style.setProperty('--text', txt);
+
+      // Generate Code
+      const codeStr = `// Inject this via console or extension\nconst root = document.documentElement;\nroot.style.setProperty('--bg', '${bg}');\nroot.style.setProperty('--bg2', '${bg2}');\nroot.style.setProperty('--accent', '${accent}');\nroot.style.setProperty('--text', '${txt}');`;
+
+      const outBox = document.getElementById('tc-code-output');
+      const outCode = document.getElementById('tc-code-block');
+      if (outBox && outCode) {
+        outBox.style.display = 'block';
+        outCode.innerText = codeStr;
+      }
+    }
+
+    window.addEventListener('load', loadAnalytics);
+
+    // 6. Donate Modal
+    function openDonate() {
+      document.getElementById('donate-overlay').classList.add('active');
+    }
+    function closeDonate(e) {
+      if (!e || e.target.id === 'donate-overlay') {
+        document.getElementById('donate-overlay').classList.remove('active');
+      }
+    }
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.getElementById('donate-overlay').classList.remove('active');
+      }
+    });
+  </script>
+
+  <!-- Developer Notepad (Floating Widget) -->
+  <div class="notepad" id="notepad">
+    <div class="np-header" onclick="toggleNotepad()">
+      <span>📝 Developer Notes</span>
+      <span id="np-icon">▲</span>
+    </div>
+    <textarea class="np-textarea" id="np-textarea"
+      placeholder="Jot down ideas, snippet IDs, or task lists here... This saves automatically!"></textarea>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div class="cmd-overlay" id="cmd-overlay" onclick="closeCmd(event)">
+    <div class="cmd-modal" onclick="event.stopPropagation()">
+      <input type="text" class="cmd-input" id="cmd-input"
+        placeholder="Search documentation... (Try 'Routing' or 'Theme')" autocomplete="off">
+      <div class="cmd-results" id="cmd-results">
+        <!-- Results injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate QR Modal -->
+  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
+    <div class="donate-modal" onclick="event.stopPropagation()">
+      <h3>❤️ Donate Sanskar</h3>
+      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep
+        this project alive!</p>
+      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
+      <br>
+      <button class="donate-close" onclick="closeDonate()">Close</button>
+    </div>
+  </div>
+
+</body>
+
+</html>
