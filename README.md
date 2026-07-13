@@ -646,7 +646,7 @@ To document a new tag, follow these steps:
 
 ### How to Add a New Theme
 To add a new preset theme:
-1. Open the [Using JS for HTML Mastery.js](file:///e:/All%20the%20Projects%20of%20the%20Sanskar/SANSKAR%20Folder/Web%20Development%20Mastery/Using%20JS%20for%20HTML%20Mastery.js) file.
+1. Open the [script.js](https://wwww.github.com/Sanskar-in/Web-Development-Mastery/blob/main/HTML/script.js) file.
 2. Locate the global `PRESET_THEMES` array.
 3. Insert a theme object matching the variable scheme:
    ```javascript
@@ -680,7 +680,7 @@ To add a new preset theme:
 The Web Speech API requires user interaction (like clicking a button) before it can play audio. If it fails, ensure that you have clicked the **Listen** button and that your browser has speech engines installed. Note that browser privacy controls may block autoplay audio.
 
 ### Can I run the application offline?
-Yes! The platform is designed to run entirely offline. You can clone the repo and double-click `HTML Mastery.html` to open it in your browser. All progress and customized themes are persisted locally within your browser's `localStorage` namespace.
+Yes! The platform is designed to run entirely offline. You can clone the repo and double-click `index.html` to open it in your browser. All progress and customized themes are persisted locally within your browser's `localStorage` namespace.
 
 ### How do I backup or transfer my learning progress?
 You can backup or migrate your XP, levels, and mastered tags using the Import/Export panel:
@@ -788,13 +788,13 @@ To create custom themes, use the custom theme builder:
 To run the application locally:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/SanskarYadav2012/Web-Development-Mastery.git
+   git clone https://github.com/Sanskar-in/Web-Development-Mastery.git
    ```
 2. Navigate to the directory:
    ```bash
    cd "Web Development Mastery"
    ```
-3. Open `HTML Mastery.html` in your browser.
+3. Open `index.html` in your browser.
 
 *Note: You can run the split scripts if you want to develop the modules in separate files:*
 ```bash
@@ -812,8 +812,10 @@ node split_files.js
 For support and feedback, contact:
 - **Email**: sanskaryadavfrom2012to2026@gmail.com
 - **Support Email**: supportramsandesh@gmail.com
-- **GitHub**: [@SanskarYadav2012](https://github.com/SanskarYadav2012)
-- **Twitter/X**: [@Sanskar1729](https://www.x.com/Sanskar1729)
+- **GitHub**: [@Sanskar-in](https://github.com/Sanskar-in)
+- **LinkedIn**: [in/sanskar-in](https://www.linkedin.com/in/sanskar-in)
+- **YouTube**: [@Sanskar-in](https://www.youtube.com/@Sanskar-in)
+- **Twitter/X**: [@Sanskar_in](https://www.x.com/Sanskar_in)
 
 ---
 
