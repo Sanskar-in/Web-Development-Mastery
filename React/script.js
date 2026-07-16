@@ -1133,145 +1133,799 @@ const TAGS = [
 // --- App State ---
 let currentTag = TAGS[0];
 let masteredTags = new Set();
+let favoriteTags = new Set();
 let editor;
 let isDarkTheme = true;
 let currentTheme = PRESET_THEMES[0];
 let xp = 0;
+let isZenMode = false;
+
+// --- SIDEBAR MANAGEMENT ---
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const sbOpen = document.getElementById('sbOpen');
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.contains('open');
+    if (isOpen) {
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+        document.body.classList.remove('sb-open');
+        if (sbOpen) sbOpen.setAttribute('aria-expanded', 'false');
+    } else {
+        sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+        document.body.classList.add('sb-open');
+        if (sbOpen) sbOpen.setAttribute('aria-expanded', 'true');
+    }
+}
+
+// --- GREETING & USERNAME ---
+function getGreeting() {
+    const h = new Date().getHours();
+    if (h < 12) return '🌅 Good Morning';
+    if (h < 17) return '☀️ Good Afternoon';
+    if (h < 21) return '🌆 Good Evening';
+    return '🌙 Good Night';
+}
+
+function updateGreeting() {
+    const wrap = document.getElementById('greetingWrap');
+    if (!wrap) return;
+    let name = '';
+    try { name = localStorage.getItem('reactMasteryUsername') || ''; } catch (e) { }
+    const greeting = getGreeting();
+    wrap.textContent = name ? `${greeting}, ${name}!` : `${greeting}, Developer!`;
+}
+
+function saveUsername() {
+    const input = document.getElementById('wmUsername');
+    const name = input ? input.value.trim() : '';
+    if (name) {
+        try { localStorage.setItem('reactMasteryUsername', name); } catch (e) { }
+    }
+    try { localStorage.setItem('reactMasteryWelcomed', 'true'); } catch (e) { }
+    const modal = document.getElementById('welcomeModal');
+    if (modal) modal.close();
+    updateGreeting();
+}
+
+function skipUsername() {
+    try { localStorage.setItem('reactMasteryWelcomed', 'true'); } catch (e) { }
+    const modal = document.getElementById('welcomeModal');
+    if (modal) modal.close();
+    updateGreeting();
+}
+
+// --- MASTERY RANK ---
+function getMasteryRank(count) {
+    if (count >= 100) return '👑 Grandmaster';
+    if (count >= 80) return '🏆 Master';
+    if (count >= 60) return '💎 Expert';
+    if (count >= 40) return '🔥 Intermediate';
+    if (count >= 20) return '⚡ Apprentice';
+    if (count >= 5) return '🌱 Beginner';
+    return '🆕 Novice';
+}
+
+function updateMasteryStats() {
+    const count = masteredTags.size;
+    const level = Math.floor(count / 10) + 1;
+
+    const el = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+    el('masteryCountStat', count);
+    el('masteryLevel', level);
+    el('sbMasteryCount', count);
+    el('masteryRank', getMasteryRank(count));
+    el('favCountStat', favoriteTags.size);
+
+    // Estimate reading time (~2 min per concept)
+    el('readTime', Math.max(1, Math.round(TAGS.length * 2)));
+
+    // Progress bars
+    const pct = TAGS.length ? Math.round((count / TAGS.length) * 100) : 0;
+    const bar = document.getElementById('masteryProgressBar');
+    if (bar) bar.style.width = pct + '%';
+
+    // Mastery Center rank
+    const mcRank = document.getElementById('mcRank');
+    if (mcRank) mcRank.textContent = getMasteryRank(count);
+}
+
+// --- CONCEPT OF THE DAY ---
+function initConceptOfDay() {
+    const card = document.getElementById('totDayCard');
+    const text = document.getElementById('totDayText');
+    const btn = document.getElementById('totDayBtn');
+    if (!card || !text || !btn) return;
+
+    const dayIndex = Math.floor(Date.now() / 86400000) % TAGS.length;
+    const tag = TAGS[dayIndex];
+    text.textContent = `Today's concept: ${tag.title} — ${tag.description}`;
+    btn.onclick = () => loadTag(tag.id);
+    card.style.display = 'block';
+}
+
+// --- ZEN MODE ---
+function toggleZenMode() {
+    isZenMode = !isZenMode;
+    document.body.classList.toggle('zen-mode', isZenMode);
+    const btn = document.getElementById('zenBtn');
+    if (btn) btn.textContent = isZenMode ? '👁️ Exit Zen' : '👁️ Zen Mode';
+}
+
+// --- FONT SIZE ---
+function changeFontSize(delta) {
+    const root = document.documentElement;
+    let current = parseFloat(getComputedStyle(root).fontSize) || 16;
+    current = Math.max(12, Math.min(24, current + delta));
+    root.style.fontSize = current + 'px';
+    try { localStorage.setItem('reactMasteryFontSize', current); } catch (e) { }
+}
+
+// --- EXPORT / IMPORT PROGRESS ---
+function exportProgress() {
+    const data = {
+        mastered: [...masteredTags],
+        favorites: [...favoriteTags],
+        theme: currentTheme.id,
+        xp: xp,
+        username: localStorage.getItem('reactMasteryUsername') || '',
+        exportDate: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'react-mastery-progress.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function importProgress(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.mastered) {
+                masteredTags = new Set(data.mastered);
+                saveProgress();
+            }
+            if (data.favorites) {
+                favoriteTags = new Set(data.favorites);
+                try { localStorage.setItem('react-mastery-favorites', JSON.stringify([...favoriteTags])); } catch (e) { }
+            }
+            if (data.xp) {
+                xp = data.xp;
+                try { localStorage.setItem('react_xp', xp); } catch (e) { }
+            }
+            if (data.username) {
+                try { localStorage.setItem('reactMasteryUsername', data.username); } catch (e) { }
+            }
+            if (data.theme) {
+                applyTheme(data.theme);
+            }
+            updateProgressUI();
+            updateMasteryStats();
+            updateGreeting();
+            renderSidebar();
+            alert('Progress imported successfully! 🎉');
+        } catch (err) {
+            alert('Invalid file format.');
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+// --- QUIZ SYSTEM ---
+const QUIZ_QUESTIONS = [
+    { q: "What does JSX stand for?", options: ["JavaScript XML", "Java Syntax Extension", "JSON and XML", "JavaScript Expression"], correct: 0 },
+    { q: "Which hook is used for state management in functional components?", options: ["useEffect", "useState", "useReducer", "useContext"], correct: 1 },
+    { q: "What method is used to render a React element into the DOM?", options: ["React.render()", "ReactDOM.createRoot().render()", "document.render()", "React.mount()"], correct: 1 },
+    { q: "What is the Virtual DOM?", options: ["A real DOM copy", "A lightweight JS representation of the real DOM", "A CSS framework", "A database"], correct: 1 },
+    { q: "Which of these is NOT a React hook?", options: ["useState", "useEffect", "useHistory", "useCallback"], correct: 2 },
+    { q: "What does useEffect do?", options: ["Creates state", "Performs side effects", "Creates refs", "Memoizes values"], correct: 1 },
+    { q: "Props in React are:", options: ["Mutable", "Read-only", "Optional always", "Only strings"], correct: 1 },
+    { q: "React components must return:", options: ["A string", "An object", "A single root element or fragment", "An array only"], correct: 2 },
+    { q: "What is the purpose of the key prop in lists?", options: ["Styling", "Identifying elements uniquely", "Event handling", "Creating refs"], correct: 1 },
+    { q: "Which hook replaces componentDidMount?", options: ["useState", "useEffect with []", "useRef", "useMemo"], correct: 1 },
+    { q: "React.memo is used for:", options: ["State management", "Performance optimization via memoization", "Routing", "Error handling"], correct: 1 },
+    { q: "What is a Higher-Order Component (HOC)?", options: ["A class component", "A function that takes a component and returns a new one", "A built-in React hook", "A CSS technique"], correct: 1 },
+    { q: "useRef is primarily used for:", options: ["State management", "Accessing DOM elements directly", "Routing", "API calls"], correct: 1 },
+    { q: "What is React Fiber?", options: ["A CSS library", "React's reconciliation algorithm", "A state management tool", "A testing framework"], correct: 1 },
+    { q: "Which React 18 feature enables concurrent rendering?", options: ["useEffect", "Suspense + useTransition", "useRef", "React.memo"], correct: 1 },
+    { q: "What does useMemo do?", options: ["Memoizes a computed value", "Creates state", "Handles side effects", "Creates refs"], correct: 0 },
+    { q: "Error Boundaries catch errors in:", options: ["Event handlers", "Async code", "Rendering and lifecycle methods", "setTimeout callbacks"], correct: 2 },
+    { q: "React Context is used for:", options: ["Database queries", "Passing data without prop drilling", "Routing", "Animation"], correct: 1 },
+    { q: "What is the correct way to update state based on previous state?", options: ["setState(newValue)", "setState(prev => newValue)", "setState(prev => prev + change)", "state = newValue"], correct: 2 },
+    { q: "useReducer is preferred over useState when:", options: ["State is simple", "State logic is complex with multiple sub-values", "You don't need state", "Using class components"], correct: 1 }
+];
+
+let quizState = { questions: [], currentIndex: 0, score: 0, answered: false };
+
+function openQuiz(e) {
+    if (e) e.preventDefault();
+    const modal = document.getElementById('quizModal');
+    if (!modal) return;
+
+    // Shuffle and pick 5
+    const shuffled = [...QUIZ_QUESTIONS].sort(() => Math.random() - 0.5).slice(0, 5);
+    quizState = { questions: shuffled, currentIndex: 0, score: 0, answered: false };
+
+    document.getElementById('quizActiveArea').style.display = 'block';
+    document.getElementById('quizResultArea').style.display = 'none';
+    document.getElementById('quizFooterActions').style.display = 'flex';
+
+    showQuizQuestion();
+    modal.showModal();
+}
+
+function showQuizQuestion() {
+    const q = quizState.questions[quizState.currentIndex];
+    document.getElementById('quizQuestion').textContent = `Q${quizState.currentIndex + 1}. ${q.q}`;
+    document.getElementById('quizScoreDisplay').textContent = `Score: ${quizState.score}/${quizState.questions.length}`;
+
+    const optContainer = document.getElementById('quizOptions');
+    optContainer.innerHTML = q.options.map((opt, i) => `
+        <button type="button" class="quiz-opt" onclick="selectQuizAnswer(${i})"
+            style="text-align:left; padding:14px 18px; border-radius:10px; background:var(--bg2); border:1px solid var(--border); color:var(--text); font-size:0.95rem; cursor:pointer; transition:0.2s; font-family:inherit;"
+            onmouseover="this.style.borderColor='var(--accent)'" onmouseout="if(!this.classList.contains('selected'))this.style.borderColor='var(--border)'">
+            ${opt}
+        </button>
+    `).join('');
+
+    quizState.answered = false;
+    const nextBtn = document.getElementById('quizNextBtn');
+    if (nextBtn) { nextBtn.style.opacity = '0.5'; nextBtn.style.pointerEvents = 'none'; }
+}
+
+function selectQuizAnswer(index) {
+    if (quizState.answered) return;
+    quizState.answered = true;
+
+    const q = quizState.questions[quizState.currentIndex];
+    const buttons = document.querySelectorAll('.quiz-opt');
+    buttons.forEach((btn, i) => {
+        btn.style.pointerEvents = 'none';
+        if (i === q.correct) {
+            btn.style.background = 'rgba(16, 185, 129, 0.2)';
+            btn.style.borderColor = '#10b981';
+            btn.style.color = '#10b981';
+        } else if (i === index && i !== q.correct) {
+            btn.style.background = 'rgba(239, 68, 68, 0.2)';
+            btn.style.borderColor = '#ef4444';
+            btn.style.color = '#ef4444';
+        }
+    });
+
+    if (index === q.correct) quizState.score++;
+    document.getElementById('quizScoreDisplay').textContent = `Score: ${quizState.score}/${quizState.questions.length}`;
+
+    const nextBtn = document.getElementById('quizNextBtn');
+    if (nextBtn) { nextBtn.style.opacity = '1'; nextBtn.style.pointerEvents = 'auto'; }
+}
+
+function nextQuizQuestion() {
+    quizState.currentIndex++;
+    if (quizState.currentIndex >= quizState.questions.length) {
+        // Show results
+        document.getElementById('quizActiveArea').style.display = 'none';
+        document.getElementById('quizFooterActions').style.display = 'none';
+        document.getElementById('quizResultArea').style.display = 'block';
+        document.getElementById('quizFinalScore').textContent = `${quizState.score}/${quizState.questions.length}`;
+    } else {
+        showQuizQuestion();
+    }
+}
+
+function shareScore() {
+    const text = `🎯 I scored ${quizState.score}/${quizState.questions.length} on the React Mastery Quiz!\nTest your React knowledge: https://github.com/Sanskar-in/Web-Development-Mastery`;
+    navigator.clipboard.writeText(text).then(() => alert('Score copied to clipboard! 📋'));
+}
+
+// --- CHEAT SHEET ---
+function openCheatSheet() {
+    renderCheatSheet();
+    const modal = document.getElementById('cheatSheetModal');
+    if (modal) modal.showModal();
+}
+
+function renderCheatSheet() {
+    const grid = document.getElementById('csGrid');
+    if (!grid) return;
+    const search = (document.getElementById('csSearch') || {}).value || '';
+    const q = search.toLowerCase().trim();
+
+    const filtered = q ? TAGS.filter(t => t.title.toLowerCase().includes(q) || t.category.toLowerCase().includes(q)) : TAGS;
+
+    grid.innerHTML = filtered.map(t => `
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:0.2s;"
+            onclick="document.getElementById('cheatSheetModal').close(); loadTag('${t.id}');"
+            onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.transform=''">
+            <div style="font-weight:700; font-size:0.95rem; margin-bottom:4px; color:var(--text);">${t.title}</div>
+            <div style="font-size:0.78rem; color:var(--accent); margin-bottom:6px;">${t.category}</div>
+            <div style="font-size:0.82rem; color:var(--text2); line-height:1.4;">${t.description.substring(0, 100)}${t.description.length > 100 ? '...' : ''}</div>
+            <code style="display:block; margin-top:8px; font-size:0.75rem; color:var(--accent2); background:var(--bg); padding:6px 8px; border-radius:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${t.syntax.replace(/</g, '&lt;').replace(/>/g, '&gt;').substring(0, 60)}</code>
+        </div>
+    `).join('');
+}
+
+// --- MASTERY CENTER ---
+const INTERVIEW_QA = [
+    { q: "What is the Virtual DOM and how does it work?", a: "The Virtual DOM is a lightweight JavaScript representation of the real DOM. When state changes, React creates a new Virtual DOM tree, diffs it against the previous one (reconciliation), and applies only the minimal necessary changes to the real DOM." },
+    { q: "Explain the difference between useState and useReducer.", a: "useState is ideal for simple state updates (single values). useReducer is better for complex state logic with multiple sub-values or when the next state depends on the previous one. useReducer also makes state transitions more predictable and testable." },
+    { q: "What are React Hooks rules?", a: "1) Only call Hooks at the top level (not inside loops, conditions, or nested functions). 2) Only call Hooks from React function components or custom Hooks. These rules ensure Hooks are called in the same order each render." },
+    { q: "How does React handle reconciliation?", a: "React uses the Fiber architecture for reconciliation. It compares the new Virtual DOM tree with the previous one using a diffing algorithm. It uses element type and key props to determine which elements to update, add, or remove." },
+    { q: "What is the purpose of useCallback and useMemo?", a: "useCallback memoizes a function reference to prevent unnecessary re-creation on re-renders. useMemo memoizes a computed value. Both are used for performance optimization, especially when passing callbacks or computed values to child components." },
+    { q: "Explain React's Context API.", a: "Context provides a way to pass data through the component tree without having to pass props manually at every level. It consists of React.createContext(), Context.Provider, and useContext() hook for consuming values." },
+    { q: "What are Error Boundaries?", a: "Error Boundaries are React components that catch JavaScript errors in their child component tree, log those errors, and display a fallback UI. They catch errors during rendering, in lifecycle methods, and in constructors." },
+    { q: "What is code splitting in React?", a: "Code splitting lets you split your bundle into smaller chunks that are loaded on demand. React supports this via React.lazy() for components and dynamic import() for modules. Suspense provides a loading fallback." },
+    { q: "What is the difference between controlled and uncontrolled components?", a: "Controlled components have their form data handled by React state (value + onChange). Uncontrolled components store form data in the DOM itself, accessed via refs. Controlled components give React full control over the form." },
+    { q: "Explain Server Components in React 19.", a: "Server Components render on the server and send HTML to the client. They can directly access databases and file systems, reduce bundle size by keeping server-only code off the client, and seamlessly integrate with Client Components for interactivity." }
+];
+
+const BEST_PRACTICES = [
+    { title: "Keep Components Small", desc: "Each component should ideally do one thing. If it grows too large, break it into smaller sub-components." },
+    { title: "Use Proper Key Props", desc: "Always use unique, stable keys when rendering lists. Avoid using array indices as keys when items can be reordered." },
+    { title: "Lift State Up", desc: "Share state between components by moving it to their closest common ancestor. Use Context for deeply nested data." },
+    { title: "Avoid Premature Optimization", desc: "Don't use useMemo/useCallback everywhere. Profile first, then optimize the actual bottlenecks." },
+    { title: "Use TypeScript", desc: "TypeScript catches bugs at compile time, provides better IDE support, and makes refactoring safer." },
+    { title: "Handle Loading and Error States", desc: "Always show loading indicators and handle errors gracefully. Use Suspense and Error Boundaries." },
+    { title: "Keep Side Effects in useEffect", desc: "Don't perform side effects directly in the render. Use useEffect with proper dependency arrays." },
+    { title: "Use Custom Hooks for Logic Reuse", desc: "Extract shared logic into custom hooks (useAuth, useFetch, useForm) instead of duplicating code." }
+];
+
+const FLASHCARDS = [
+    { front: "useState", back: "Returns a stateful value and a function to update it. Re-renders the component when state changes." },
+    { front: "useEffect", back: "Runs side effects after render. Takes a callback and an optional dependency array. Returns a cleanup function." },
+    { front: "useContext", back: "Accepts a context object and returns the current context value. Subscribes to context changes." },
+    { front: "useRef", back: "Returns a mutable ref object. The .current property persists across renders without causing re-renders." },
+    { front: "useMemo", back: "Memoizes a computed value. Recalculates only when dependencies change. For expensive computations." },
+    { front: "useCallback", back: "Memoizes a callback function. Returns the same function reference unless dependencies change." },
+    { front: "useReducer", back: "Alternative to useState for complex state logic. Takes a reducer function and initial state." },
+    { front: "React.memo", back: "Higher-order component that memoizes the rendered output. Re-renders only when props change." },
+    { front: "React.lazy", back: "Lets you define a component that is loaded dynamically via code splitting with dynamic import()." },
+    { front: "Suspense", back: "Lets you declaratively specify loading states for lazy components or data fetching." }
+];
+
+let currentFlashcard = 0;
+let flashcardFlipped = false;
+
+function openMasteryCenter() {
+    const modal = document.getElementById('masteryCenterModal');
+    if (modal) {
+        showMasteryTab('interview');
+        modal.showModal();
+    }
+}
+
+function showMasteryTab(tab) {
+    document.querySelectorAll('.extra-tab-btn').forEach(b => b.classList.remove('active'));
+    const btns = document.querySelectorAll('.extra-tab-btn');
+    if (tab === 'interview' && btns[0]) btns[0].classList.add('active');
+    if (tab === 'best-practices' && btns[1]) btns[1].classList.add('active');
+    if (tab === 'flashcards' && btns[2]) btns[2].classList.add('active');
+
+    const content = document.getElementById('mcContent');
+    if (!content) return;
+
+    if (tab === 'interview') {
+        content.innerHTML = `
+            <h2 style="margin:0 0 24px;font-family:'Plus Jakarta Sans',sans-serif;">💬 React Interview Q&A</h2>
+            ${INTERVIEW_QA.map((item, i) => `
+                <div style="margin-bottom:20px;padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;">
+                    <div style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:8px;">Q${i + 1}. ${item.q}</div>
+                    <div style="color:var(--text2);font-size:0.9rem;line-height:1.6;padding:12px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--accent);">${item.a}</div>
+                </div>
+            `).join('')}
+        `;
+    } else if (tab === 'best-practices') {
+        content.innerHTML = `
+            <h2 style="margin:0 0 24px;font-family:'Plus Jakarta Sans',sans-serif;">🛡️ React Best Practices</h2>
+            <div style="display:grid;gap:16px;">
+                ${BEST_PRACTICES.map(bp => `
+                    <div style="padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;">
+                        <div style="font-weight:700;color:var(--accent);margin-bottom:6px;font-size:1rem;">${bp.title}</div>
+                        <div style="color:var(--text2);font-size:0.9rem;line-height:1.5;">${bp.desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else if (tab === 'flashcards') {
+        currentFlashcard = 0;
+        flashcardFlipped = false;
+        renderFlashcard(content);
+    }
+}
+
+function renderFlashcard(container) {
+    if (!container) container = document.getElementById('mcContent');
+    if (!container) return;
+    const card = FLASHCARDS[currentFlashcard];
+    container.innerHTML = `
+        <h2 style="margin:0 0 24px;font-family:'Plus Jakarta Sans',sans-serif;">🃏 React Flashcards</h2>
+        <div style="text-align:center;margin-bottom:16px;font-size:0.9rem;color:var(--text2);">${currentFlashcard + 1} / ${FLASHCARDS.length}</div>
+        <div onclick="flashcardFlipped=!flashcardFlipped;renderFlashcard();"
+            style="max-width:400px;margin:0 auto;min-height:220px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:20px;padding:40px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:0.3s;box-shadow:0 8px 30px rgba(0,0,0,0.2);"
+            onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform=''">
+            <div>
+                <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:12px;">${flashcardFlipped ? 'Answer' : 'Concept'}</div>
+                <div style="font-size:${flashcardFlipped ? '1rem' : '1.5rem'};font-weight:${flashcardFlipped ? '400' : '800'};color:var(--text);line-height:1.5;">${flashcardFlipped ? card.back : card.front}</div>
+                <div style="margin-top:16px;font-size:0.8rem;color:var(--text2);opacity:0.6;">Click to ${flashcardFlipped ? 'see concept' : 'reveal answer'}</div>
+            </div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+            <button onclick="currentFlashcard=Math.max(0,currentFlashcard-1);flashcardFlipped=false;renderFlashcard();"
+                style="padding:10px 20px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:8px;cursor:pointer;font-weight:bold;font-family:inherit;">← Previous</button>
+            <button onclick="currentFlashcard=Math.min(FLASHCARDS.length-1,currentFlashcard+1);flashcardFlipped=false;renderFlashcard();"
+                style="padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;font-family:inherit;">Next →</button>
+        </div>
+    `;
+}
+
+// --- SIDEBAR RENDERING (Enhanced for new index.html) ---
+function renderSidebar() {
+    const nav = document.getElementById('sbNav');
+    if (!nav) return;
+    nav.innerHTML = '';
+
+    const searchVal = (document.getElementById('sbSearch') || {}).value || '';
+    const filterVal = (document.getElementById('sbFilter') || {}).value || 'ALL';
+    const q = searchVal.toLowerCase().trim();
+
+    let filtered = TAGS;
+    if (q) {
+        filtered = filtered.filter(t =>
+            t.title.toLowerCase().includes(q) ||
+            t.description.toLowerCase().includes(q) ||
+            t.category.toLowerCase().includes(q)
+        );
+    }
+    if (filterVal && filterVal !== 'ALL') {
+        if (filterVal === 'MASTERED') {
+            filtered = filtered.filter(t => masteredTags.has(t.id));
+        } else if (filterVal === 'UNMASTERED') {
+            filtered = filtered.filter(t => !masteredTags.has(t.id));
+        } else if (filterVal === 'FAVORITES') {
+            filtered = filtered.filter(t => favoriteTags.has(t.id));
+        } else {
+            filtered = filtered.filter(t => t.category === filterVal);
+        }
+    }
+
+    const categories = [...new Set(filtered.map(t => t.category))];
+    categories.forEach(cat => {
+        const catTags = filtered.filter(t => t.category === cat);
+        if (catTags.length === 0) return;
+
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        header.textContent = `${cat} (${catTags.length})`;
+        header.style.cssText = 'padding:10px 16px;font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);opacity:0.7;margin-top:8px;';
+        nav.appendChild(header);
+
+        catTags.forEach(tag => {
+            const el = document.createElement('div');
+            el.className = 'sb-tag' + (masteredTags.has(tag.id) ? ' mastered' : '') + (currentTag && currentTag.id === tag.id ? ' active' : '');
+            el.dataset.id = tag.id;
+            el.innerHTML = `
+                <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${masteredTags.has(tag.id) ? '✅ ' : ''}${tag.title}</span>
+                <span style="font-size:0.7rem;opacity:0.5;">${tag.xp}xp</span>
+            `;
+            el.style.cssText = 'display:flex;align-items:center;padding:10px 16px;cursor:pointer;font-size:0.88rem;color:var(--text);transition:all 0.2s;border-left:3px solid transparent;gap:8px;';
+            if (currentTag && currentTag.id === tag.id) {
+                el.style.background = 'color-mix(in srgb, var(--accent) 12%, transparent)';
+                el.style.borderLeftColor = 'var(--accent)';
+                el.style.color = 'var(--accent)';
+                el.style.fontWeight = '700';
+            }
+            el.onmouseover = () => { if (!el.classList.contains('active')) { el.style.background = 'var(--bg3)'; el.style.paddingLeft = '20px'; } };
+            el.onmouseout = () => { if (!el.classList.contains('active')) { el.style.background = 'transparent'; el.style.paddingLeft = '16px'; } };
+            el.onclick = () => { loadTag(tag.id); if (window.innerWidth < 900) toggleSidebar(); };
+            nav.appendChild(el);
+        });
+    });
+
+    if (filtered.length === 0) {
+        nav.innerHTML = '<div style="padding:40px 16px;text-align:center;color:var(--text2);opacity:0.6;">No concepts found.</div>';
+    }
+}
+
+function applyFilters() {
+    renderSidebar();
+}
+
+function populateFilterDropdown() {
+    const select = document.getElementById('sbFilter');
+    if (!select) return;
+    select.innerHTML = '<option value="ALL">All Categories</option>';
+    select.innerHTML += '<option value="MASTERED">✅ Mastered</option>';
+    select.innerHTML += '<option value="UNMASTERED">📝 Unmastered</option>';
+    select.innerHTML += '<option value="FAVORITES">⭐ Favorites</option>';
+    const cats = [...new Set(TAGS.map(t => t.category))];
+    cats.forEach(c => {
+        select.innerHTML += `<option value="${c}">${c}</option>`;
+    });
+}
 
 // Initialize
 function init() {
     loadProgress();
+    try { xp = parseInt(localStorage.getItem('react_xp')) || 0; } catch (e) { xp = 0; }
     try {
-        xp = parseInt(localStorage.getItem('react_xp')) || 0;
-    } catch(e) { xp = 0; }
-    
-    const xpEl = document.getElementById('xp-counter');
-    if (xpEl) xpEl.textContent = `XP: ${xp}`;
-    
-    renderTags();
-    initThemes();
-    
-    editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-        mode: 'jsx',
-        theme: 'dracula',
-        lineNumbers: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        indentUnit: 4,
-        tabSize: 4,
-        lineWrapping: true
-    });
+        const savedFavs = localStorage.getItem('react-mastery-favorites');
+        if (savedFavs) favoriteTags = new Set(JSON.parse(savedFavs));
+    } catch (e) { }
 
-    editor.on('change', () => {
-        const autoRun = document.getElementById('auto-run');
-        if(autoRun && autoRun.checked) {
-            runCode();
+    // Restore font size
+    try {
+        const fs = localStorage.getItem('reactMasteryFontSize');
+        if (fs) document.documentElement.style.fontSize = fs + 'px';
+    } catch (e) { }
+
+    // Greeting
+    updateGreeting();
+
+    // Welcome modal
+    try {
+        if (!localStorage.getItem('reactMasteryWelcomed')) {
+            const modal = document.getElementById('welcomeModal');
+            if (modal) setTimeout(() => modal.showModal(), 800);
         }
-    });
+    } catch (e) { }
+
+    // Populate sidebar filter dropdown
+    populateFilterDropdown();
+
+    // Render sidebar
+    renderSidebar();
+
+    // Init themes
+    initThemes();
+
+    // Mastery stats
+    updateMasteryStats();
+
+    // Concept of the day
+    initConceptOfDay();
+
+    // Stats
+    const totalEl = document.getElementById('totalTagsStat');
+    if (totalEl) totalEl.textContent = TAGS.length;
+    const totalDesc = document.getElementById('totalTagsDesc');
+    if (totalDesc) totalDesc.textContent = TAGS.length;
+
+    // Sidebar search listener
+    const sbSearch = document.getElementById('sbSearch');
+    if (sbSearch) sbSearch.addEventListener('input', () => renderSidebar());
+
+    // Sidebar filter listener
+    const sbFilter = document.getElementById('sbFilter');
+    if (sbFilter) sbFilter.addEventListener('change', () => renderSidebar());
+
+    // Sidebar close
+    const sbClose = document.getElementById('sbClose');
+    if (sbClose) sbClose.addEventListener('click', toggleSidebar);
+
+    // Content area - build it dynamically since new index.html uses #content div
+    buildContentArea();
+
+    // Init CodeMirror
+    const codeEditorEl = document.getElementById('codeEditor');
+    if (codeEditorEl) {
+        editor = CodeMirror.fromTextArea(codeEditorEl, {
+            mode: 'jsx',
+            theme: 'dracula',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            autoCloseTags: true,
+            matchTags: { bothTags: true },
+            foldGutter: true,
+            gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+            styleActiveLine: true,
+            indentUnit: 2,
+            tabSize: 2,
+            lineWrapping: true
+        });
+
+        editor.on('change', () => {
+            const autoRun = document.getElementById('auto-run');
+            if (autoRun && autoRun.checked) runCode();
+        });
+    }
 
     setupEventListeners();
     loadTag(TAGS[0].id);
 }
 
+function buildContentArea() {
+    const content = document.getElementById('content');
+    if (!content) return;
+    // Only build if content div is empty (new index.html uses this pattern)
+    if (content.children.length > 0) return;
+
+    content.innerHTML = `
+        <section id="explanationPanel" class="explanation-panel" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;margin:0 0 20px;overflow:hidden;"></section>
+
+        <section class="editor-section" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+            <div class="editor-toolbar" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-weight:700;font-size:0.9rem;color:var(--text);">📝 Code Editor (JSX)</span>
+                    <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--text2);cursor:pointer;">
+                        <input type="checkbox" id="auto-run" checked style="accent-color:var(--accent);cursor:pointer;"> Auto-Run
+                    </label>
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <button id="runBtn" style="background:var(--accent);color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:bold;font-family:inherit;font-size:0.85rem;transition:0.2s;">▶ Run</button>
+                    <button id="copyCodeBtn" style="background:var(--bg4);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:0.85rem;">📋 Copy</button>
+                    <button id="clearConsoleBtn" style="background:var(--bg4);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:0.85rem;">🗑️ Clear</button>
+                </div>
+            </div>
+            <textarea id="codeEditor"></textarea>
+        </section>
+
+        <section class="preview-section" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;margin-top:20px;overflow:hidden;">
+            <div style="padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-weight:700;font-size:0.9rem;color:var(--text);">👁️ Live Preview</span>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <span style="width:10px;height:10px;background:#ef4444;border-radius:50%;display:inline-block;"></span>
+                    <span style="width:10px;height:10px;background:#f59e0b;border-radius:50%;display:inline-block;"></span>
+                    <span style="width:10px;height:10px;background:#10b981;border-radius:50%;display:inline-block;"></span>
+                </div>
+            </div>
+            <div id="sandbox" style="min-height:200px;background:var(--bg);"></div>
+            <div id="consoleOutput" style="padding:12px 16px;background:var(--bg3);border-top:1px solid var(--border);font-family:'Fira Code',monospace;font-size:0.82rem;color:var(--text2);min-height:32px;max-height:200px;overflow-y:auto;"></div>
+        </section>
+
+        <div style="display:flex;gap:12px;margin-top:20px;justify-content:center;flex-wrap:wrap;">
+            <button id="markCompleteBtn" onclick="markCompleted()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:14px 28px;border-radius:12px;cursor:pointer;font-weight:bold;font-size:1rem;font-family:inherit;transition:0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.2);"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(0,0,0,0.3)'"
+                onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">✅ Mark as Mastered</button>
+        </div>
+
+        <!-- Celebration Overlay -->
+        <div id="celebrationOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center;">
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:40px;text-align:center;max-width:400px;width:90%;">
+                <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+                <h2 style="color:var(--accent);margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">Concept Mastered!</h2>
+                <p style="color:var(--text2);margin-bottom:24px;">You've earned XP! Keep going!</p>
+                <button id="nextConceptBtn" style="background:var(--accent);color:#fff;border:none;padding:14px 24px;border-radius:12px;cursor:pointer;font-weight:bold;font-size:1rem;font-family:inherit;">Next Concept ➔</button>
+            </div>
+        </div>
+    `;
+}
+
 function renderTags(filter = '') {
-    const list = document.getElementById('tagList');
-    if (!list) return;
-    list.innerHTML = '';
-    
-    // Group by category
-    const categories = [...new Set(TAGS.map(t => t.category))];
-    
-    categories.forEach(cat => {
-        const catTags = TAGS.filter(t => t.category === cat && t.title.toLowerCase().includes(filter.toLowerCase()));
-        
-        if (catTags.length > 0) {
-            const catHeader = document.createElement('div');
-            catHeader.className = 'category-header';
-            catHeader.textContent = cat;
-            list.appendChild(catHeader);
-            
-            catTags.forEach(tag => {
-                const el = document.createElement('div');
-                el.className = 'tag-item' + (masteredTags.has(tag.id) ? ' mastered' : '');
-                el.dataset.id = tag.id;
-                el.dataset.category = tag.category;
-                if (currentTag && currentTag.id === tag.id) el.classList.add('active');
-                el.textContent = tag.title;
-                el.onclick = () => loadTag(tag.id);
-                list.appendChild(el);
-            });
-        }
-    });
+    // For legacy support: also render sidebar
+    renderSidebar();
 }
 
 function loadTag(id) {
     currentTag = TAGS.find(t => t.id === id);
-    
+    if (!currentTag) return;
+
+    // Update sidebar active state
+    document.querySelectorAll('.sb-tag').forEach(el => {
+        el.classList.remove('active');
+        el.style.background = 'transparent';
+        el.style.borderLeftColor = 'transparent';
+        el.style.color = 'var(--text)';
+        el.style.fontWeight = '400';
+    });
+    const activeEl = document.querySelector(`.sb-tag[data-id="${id}"]`);
+    if (activeEl) {
+        activeEl.classList.add('active');
+        activeEl.style.background = 'color-mix(in srgb, var(--accent) 12%, transparent)';
+        activeEl.style.borderLeftColor = 'var(--accent)';
+        activeEl.style.color = 'var(--accent)';
+        activeEl.style.fontWeight = '700';
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Also update old tagList if present
     document.querySelectorAll('.tag-item').forEach(el => el.classList.remove('active'));
-    const activeEl = document.querySelector(`.tag-item[data-id="${id}"]`);
-    if (activeEl) activeEl.classList.add('active');
+    const oldActiveEl = document.querySelector(`.tag-item[data-id="${id}"]`);
+    if (oldActiveEl) oldActiveEl.classList.add('active');
 
     const panel = document.getElementById('explanationPanel');
-    panel.innerHTML = `
-        <div style="padding: 20px;">
-            <h2 id="title" style="margin-top:0;color:var(--accent);">${currentTag.title}</h2>
-            <p id="description" style="color:var(--text2);margin-bottom:20px;font-size:1.05rem;">${currentTag.description}</p>
-            
-            <div class="tabs" style="display:flex;gap:10px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;">
-                <button class="tab-btn active" data-tab="theory" style="background:var(--bg3);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;">Theory</button>
-                <button class="tab-btn" data-tab="syntax" style="background:transparent;color:var(--text2);border:1px solid transparent;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;">Syntax</button>
-                <button class="tab-btn" data-tab="challenge" style="background:transparent;color:var(--text2);border:1px solid transparent;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;">Challenge</button>
-            </div>
-            
-            <div class="tab-content theory active" id="theory-content" style="line-height:1.6;font-size:0.95rem;color:var(--text);">${currentTag.content}</div>
-            
-            <div class="tab-content syntax" style="display:none;">
-                <pre style="background:var(--code-bg);padding:15px;border-radius:8px;overflow-x:auto;border:1px solid var(--border);"><code id="syntax-block" style="font-family:monospace;color:var(--text);">${currentTag.syntax.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
-            </div>
-            
-            <div class="tab-content challenge" style="display:none;">
-                <div class="challenge-box" id="challenge-text" style="padding:20px;background:var(--bg3);border-left:4px solid var(--accent);border-radius:8px;color:var(--text);">
-                    ${currentTag.challenge}
+    if (panel) {
+        panel.innerHTML = `
+            <div style="padding: 24px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+                    <div style="flex:1;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                            <span style="font-size:0.75rem;padding:4px 10px;background:color-mix(in srgb, var(--accent) 15%, transparent);color:var(--accent);border-radius:20px;font-weight:700;">${currentTag.category}</span>
+                            <span style="font-size:0.75rem;color:var(--accent2);font-weight:600;">+${currentTag.xp} XP</span>
+                        </div>
+                        <h2 style="margin:0;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;">${currentTag.title}</h2>
+                    </div>
+                    <button onclick="toggleFavorite('${currentTag.id}')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;transition:0.2s;" title="Add to favorites">${favoriteTags.has(currentTag.id) ? '⭐' : '☆'}</button>
+                </div>
+                <p style="color:var(--text2);margin-bottom:20px;font-size:1.05rem;line-height:1.6;">${currentTag.description}</p>
+
+                <div class="tabs" style="display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;flex-wrap:wrap;">
+                    <button class="tab-btn active" data-tab="theory" style="background:var(--bg3);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;font-size:0.85rem;">📖 Theory</button>
+                    <button class="tab-btn" data-tab="syntax" style="background:transparent;color:var(--text2);border:1px solid transparent;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;font-size:0.85rem;">⌨️ Syntax</button>
+                    <button class="tab-btn" data-tab="challenge" style="background:transparent;color:var(--text2);border:1px solid transparent;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;font-size:0.85rem;">🏆 Challenge</button>
+                </div>
+
+                <div class="tab-content theory active" style="line-height:1.7;font-size:0.95rem;color:var(--text);">${currentTag.content}</div>
+
+                <div class="tab-content syntax" style="display:none;">
+                    <pre style="background:var(--bg);padding:16px;border-radius:10px;overflow-x:auto;border:1px solid var(--border);"><code style="font-family:'Fira Code',monospace;color:var(--accent);font-size:0.9rem;">${currentTag.syntax.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+                </div>
+
+                <div class="tab-content challenge" style="display:none;">
+                    <div style="padding:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,var(--bg)),color-mix(in srgb,var(--accent2) 8%,var(--bg)));border-left:4px solid var(--accent);border-radius:12px;color:var(--text);font-size:0.95rem;line-height:1.6;">
+                        🎯 <strong>Challenge:</strong> ${currentTag.challenge}
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
 
-    // Re-bind tab events
-    panel.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            panel.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('active');
-                b.style.background = 'transparent';
-                b.style.color = 'var(--text2)';
-                b.style.borderColor = 'transparent';
+        // Re-bind tab events
+        panel.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                panel.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'transparent';
+                    b.style.color = 'var(--text2)';
+                    b.style.borderColor = 'transparent';
+                });
+                panel.querySelectorAll('.tab-content').forEach(c => {
+                    c.classList.remove('active');
+                    c.style.display = 'none';
+                });
+
+                e.target.classList.add('active');
+                e.target.style.background = 'var(--bg3)';
+                e.target.style.color = 'var(--text)';
+                e.target.style.borderColor = 'var(--border)';
+
+                const tabClass = e.target.dataset.tab;
+                const contentEl = panel.querySelector('.tab-content.' + tabClass);
+                if (contentEl) {
+                    contentEl.classList.add('active');
+                    contentEl.style.display = 'block';
+                }
             });
-            panel.querySelectorAll('.tab-content').forEach(c => {
-                c.classList.remove('active');
-                c.style.display = 'none';
-            });
-            
-            e.target.classList.add('active');
-            e.target.style.background = 'var(--bg3)';
-            e.target.style.color = 'var(--text)';
-            e.target.style.borderColor = 'var(--border)';
-            
-            const tabClass = e.target.dataset.tab;
-            const content = panel.querySelector('.tab-content.' + tabClass);
-            if (content) {
-                content.classList.add('active');
-                content.style.display = 'block';
-            }
         });
-    });
+    }
 
-    editor.setValue(currentTag.example);
-    runCode(true); // pass true to indicate it's an auto-run, don't celebrate yet!
+    if (editor) {
+        editor.setValue(currentTag.example);
+        runCode(true);
+    }
+
+    // Scroll to content on mobile
+    if (window.innerWidth < 900) {
+        const contentArea = document.getElementById('content');
+        if (contentArea) contentArea.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function toggleFavorite(id) {
+    if (favoriteTags.has(id)) {
+        favoriteTags.delete(id);
+    } else {
+        favoriteTags.add(id);
+    }
+    try { localStorage.setItem('react-mastery-favorites', JSON.stringify([...favoriteTags])); } catch (e) { }
+    updateMasteryStats();
+    // Re-render the current tag to update star
+    if (currentTag && currentTag.id === id) loadTag(id);
 }
 
 function runCode(isAutoRun = false) {
+    if (!editor) return;
     const code = editor.getValue();
     const sandbox = document.getElementById('sandbox');
+    if (!sandbox) return;
     const iframe = document.createElement('iframe');
     iframe.id = 'pgFrame';
     iframe.className = 'pg-iframe';
@@ -1361,19 +2015,29 @@ window.addEventListener('message', function(e) {
 });
 
 function markCompleted() {
+    if (!currentTag) return;
     try {
         let completed = JSON.parse(localStorage.getItem('react_completed')) || [];
         if (!completed.includes(currentTag.id)) {
             completed.push(currentTag.id);
             localStorage.setItem('react_completed', JSON.stringify(completed));
             
+            // Add to mastered set
+            masteredTags.add(currentTag.id);
+            saveProgress();
+            
             xp += currentTag.xp;
             localStorage.setItem('react_xp', xp);
-            document.getElementById('xp-counter').textContent = `XP: ${xp}`;
+            const xpEl = document.getElementById('xp-counter');
+            if (xpEl) xpEl.textContent = `XP: ${xp}`;
             
+            updateProgressUI();
+            updateMasteryStats();
+            renderSidebar();
+            triggerCelebration();
             triggerConfetti();
         } else {
-            alert('Already completed!');
+            alert('Already completed! 🎉');
         }
     } catch(e) {
         console.warn('Local storage disabled');
@@ -1497,26 +2161,36 @@ function initThemes() {
 
 function setupEventListeners() {
     // Run Code
-    document.getElementById('runBtn').addEventListener('click', () => {
-        document.getElementById('consoleOutput').innerHTML = '';
-        runCode();
-    });
+    const runBtn = document.getElementById('runBtn');
+    if (runBtn) {
+        runBtn.addEventListener('click', () => {
+            const consoleOut = document.getElementById('consoleOutput');
+            if (consoleOut) consoleOut.innerHTML = '';
+            runCode();
+        });
+    }
 
     // Clear Console
-    document.getElementById('clearConsoleBtn').addEventListener('click', () => {
-        document.getElementById('consoleOutput').innerHTML = '';
-    });
+    const clearBtn = document.getElementById('clearConsoleBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            const consoleOut = document.getElementById('consoleOutput');
+            if (consoleOut) consoleOut.innerHTML = '';
+        });
+    }
 
     // Copy Code
-    document.getElementById('copyCodeBtn').addEventListener('click', () => {
-        navigator.clipboard.writeText(editor.getValue());
-        const btn = document.getElementById('copyCodeBtn');
-        const orig = btn.innerHTML;
-        btn.innerHTML = 'Copied!';
-        setTimeout(() => btn.innerHTML = orig, 2000);
-    });
+    const copyBtn = document.getElementById('copyCodeBtn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            if (editor) navigator.clipboard.writeText(editor.getValue());
+            const orig = copyBtn.innerHTML;
+            copyBtn.innerHTML = 'Copied!';
+            setTimeout(() => copyBtn.innerHTML = orig, 2000);
+        });
+    }
 
-    // Search Box
+    // Search Box (legacy)
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -1524,7 +2198,7 @@ function setupEventListeners() {
         });
     }
 
-    // Filters
+    // Filters (legacy)
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1537,7 +2211,6 @@ function setupEventListeners() {
                 else if (filter === 'unmastered') el.style.display = el.classList.contains('mastered') ? 'none' : 'block';
                 else el.style.display = (el.dataset.category === filter) ? 'block' : 'none';
             });
-            // Hide empty category headers
             document.querySelectorAll('.category-header').forEach(header => {
                 let hasVisibleTags = false;
                 let sibling = header.nextElementSibling;
@@ -1551,34 +2224,17 @@ function setupEventListeners() {
     });
 
     // Next Concept
-    document.getElementById('nextConceptBtn').addEventListener('click', () => {
-        document.getElementById('celebrationOverlay').classList.remove('active');
-        const currentIndex = TAGS.findIndex(t => t.id === currentTag.id);
-        if (currentIndex < TAGS.length - 1) {
-            loadTag(TAGS[currentIndex + 1].id);
-        }
-    });
-
-    // Mobile Sidebar
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const sbClose = document.getElementById('sbClose');
-    const sidebar = document.querySelector('.sidebar');
-    
-    if (mobileMenuBtn && sidebar) {
-        mobileMenuBtn.addEventListener('click', () => sidebar.classList.add('active'));
+    const nextBtn = document.getElementById('nextConceptBtn');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const overlay = document.getElementById('celebrationOverlay');
+            if (overlay) overlay.style.display = 'none';
+            const currentIndex = TAGS.findIndex(t => t.id === currentTag.id);
+            if (currentIndex < TAGS.length - 1) {
+                loadTag(TAGS[currentIndex + 1].id);
+            }
+        });
     }
-    if (sbClose && sidebar) {
-        sbClose.addEventListener('click', () => sidebar.classList.remove('active'));
-    }
-    // Splash Screen Logic
-    setTimeout(() => {
-        const splash = document.getElementById('splash-screen');
-        if (splash) {
-            splash.style.opacity = '0';
-            splash.style.visibility = 'hidden';
-            setTimeout(() => splash.remove(), 500);
-        }
-    }, 1500);
 }
 
 function loadProgress() {
@@ -1609,8 +2265,11 @@ function updateProgressUI() {
     const mastered = masteredTags.size;
     const pct = total === 0 ? 0 : Math.round((mastered / total) * 100);
     
-    document.getElementById('progressText').textContent = `${mastered} / ${total} Concepts Mastered (${pct}%)`;
-    document.getElementById('progressBar').style.width = `${pct}%`;
+    const progressText = document.getElementById('progressText');
+    if (progressText) progressText.textContent = `${mastered} / ${total} Concepts Mastered (${pct}%)`;
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) progressBar.style.width = `${pct}%`;
+    updateMasteryStats();
 }
 
 function triggerCelebration() {

@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get support and help for React Mastery. Browse FAQs, contact our team, report bugs, request features, and join our developer community.">
+    <meta name="keywords" content="React Mastery, Support, Help, FAQ, React Tutorial, Web Development, Sanskar Yadav">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Support & Help | React Mastery">
+    <meta property="og:description" content="Get support and help for React Mastery. Browse FAQs, contact our team, and join our developer community.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Support & Help | React Mastery">
+    <title>Support & Help | React Mastery</title>
+    <link rel="icon" type="image/svg+xml" href="react-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Variables & Theme System ===== */
+        :root {
+            --accent: #61dafb;
+            --accent-hover: #4fc3f7;
+            --accent-glow: rgba(97, 218, 251, 0.3);
+            --accent-subtle: rgba(97, 218, 251, 0.08);
+            --gradient-accent: linear-gradient(135deg, #61dafb, #4fc3f7, #29b6f6);
+            --gradient-header: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 30%, #0d1b3e 60%, #0a1628 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.2);
+            --shadow-glow: 0 0 30px var(--accent-glow);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1e293b;
+            --bg-card: rgba(17, 24, 39, 0.8);
+            --bg-card-hover: rgba(30, 41, 59, 0.9);
+            --bg-glass: rgba(17, 24, 39, 0.6);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --border-color: rgba(97, 218, 251, 0.1);
+            --border-hover: rgba(97, 218, 251, 0.3);
+            --nav-bg: rgba(10, 14, 26, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: rgba(241, 245, 249, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border-color: rgba(97, 218, 251, 0.15);
+            --border-hover: rgba(97, 218, 251, 0.4);
+            --nav-bg: rgba(248, 250, 252, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --gradient-header: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 30%, #e8f4fd 60%, #dbeafe 100%);
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background var(--transition-normal), color var(--transition-normal);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Floating Orbs ===== */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #4fc3f7;
+            bottom: 20%;
+            left: -80px;
+            animation-delay: -5s;
+            animation-duration: 22s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: #29b6f6;
+            top: 40%;
+            right: 10%;
+            animation-delay: -10s;
+            animation-duration: 28s;
+        }
+
+        .orb-4 {
+            width: 250px;
+            height: 250px;
+            background: #61dafb;
+            bottom: -50px;
+            left: 30%;
+            animation-delay: -15s;
+            animation-duration: 20s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(50px, 40px) scale(1.05); }
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-normal);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            background: transparent;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .nav-brand img {
+            width: 28px;
+            height: 28px;
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+            transform: rotate(20deg);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background: var(--gradient-header);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, var(--accent-glow), transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Section Titles ===== */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ===== FAQ Accordion ===== */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+
+        .faq-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .faq-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            gap: 1rem;
+            transition: background var(--transition-fast);
+        }
+
+        .faq-question:hover {
+            background: var(--accent-subtle);
+        }
+
+        .faq-question-text {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .faq-question-text .faq-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        .faq-toggle {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            background: var(--accent);
+            color: #0a0e1a;
+            border-color: var(--accent);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.5rem;
+            padding-left: 4rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        /* ===== Quick Help Cards ===== */
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .help-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .help-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .help-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .help-card:hover::before {
+            opacity: 1;
+        }
+
+        .help-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .help-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .help-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .help-card .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            transition: gap var(--transition-fast);
+        }
+
+        .help-card:hover .card-link {
+            gap: 0.7rem;
+        }
+
+        /* ===== Community Section ===== */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .community-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+
+        .community-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .community-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.4rem;
+        }
+
+        .community-icon.youtube { background: rgba(255, 0, 0, 0.1); color: #ff0000; }
+        .community-icon.github { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
+        .community-icon.linkedin { background: rgba(0, 119, 181, 0.1); color: #0077b5; }
+        .community-icon.twitter { background: rgba(29, 161, 242, 0.1); color: #1da1f2; }
+
+        .community-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .community-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .community-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            transition: all var(--transition-fast);
+        }
+
+        .community-link:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        /* ===== Donate Section ===== */
+        .donate-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .donate-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+        }
+
+        .donate-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .donate-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .donate-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #0a0e1a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        /* ===== Donate Overlay ===== */
+        .donate-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            background: var(--overlay-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .donate-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donate-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .donate-modal h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .donate-modal p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-container {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .qr-container img {
+            width: 220px;
+            height: 220px;
+            border-radius: var(--radius-sm);
+            object-fit: contain;
+        }
+
+        .qr-label {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 24px;
+            height: 24px;
+            animation: spin 8s linear infinite;
+        }
+
+        .footer-brand span {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .footer-social a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 1rem;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .header {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .donate-card {
+                padding: 2rem;
+            }
+
+            .faq-question-text {
+                font-size: 0.88rem;
+            }
+
+            .faq-answer-inner {
+                padding-left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donate-buttons {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ===== Scroll Animations ===== */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Orbs -->
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-back" title="Back to React Mastery">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back
+            </a>
+            <div class="nav-brand">
+                <img src="react-logo.svg" alt="React Logo">
+                <span>React Mastery</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="Toggle theme">
+                🌙
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <span class="header-badge">
+                <span class="dot"></span>
+                Support Available 24/7
+            </span>
+            <span class="header-icon">🛟</span>
+            <h1>Support & Help Center</h1>
+            <p>Find answers to common questions, get in touch with our team, report issues, or join our vibrant developer community.</p>
+        </div>
+    </header>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">❓ FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Quick answers to the most common questions about React Mastery platform.</p>
+            </div>
+
+            <div class="faq-list">
+                <!-- FAQ 1 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">01</span>
+                            How do I get started with React Mastery?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Getting started is easy! Simply navigate to the React Mastery homepage and explore the modules. Each module is organized from beginner to advanced topics. Start with the fundamentals section to build a solid foundation, then progress through components, hooks, state management, and more. Every concept includes interactive code examples you can run directly in the built-in sandbox.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">02</span>
+                            Is this platform free to use?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes! React Mastery is completely free and open-source. All tutorials, code examples, interactive sandboxes, and learning materials are available at no cost. We believe in making quality education accessible to everyone. If you find value in this platform, consider supporting us through donations or by sharing it with others.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">03</span>
+                            How does progress tracking work?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Progress tracking is built right into the platform using your browser's local storage. As you complete concepts and run code examples, your progress is automatically saved. You can view your overall completion percentage on the dashboard. Your progress persists across sessions on the same browser — no account required!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">04</span>
+                            Can I use the code examples in my projects?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Absolutely! All code examples on React Mastery are free to use in your personal and commercial projects. The platform is open-source and designed to help you learn by doing. Feel free to copy, modify, and integrate any code snippets into your own applications. We only ask that you don't republish the entire course as your own.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">05</span>
+                            How do I change themes?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            React Mastery supports both dark and light themes. You can toggle between them using the theme button (🌙/☀️) in the top navigation bar. Your preference is automatically saved to local storage and will persist across page visits. The platform supports 24+ carefully crafted theme variations across all modules.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">06</span>
+                            How do I report bugs or suggest features?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            We appreciate your feedback! You can report bugs or suggest features through several channels: open an issue on our GitHub repository at github.com/Sanskar-in, send an email to supportramsandesh@gmail.com, or use the quick help cards below to get started. We review all submissions and prioritize fixes based on community impact.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">07</span>
+                            What React version does the sandbox use?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Our interactive code sandbox uses the latest stable version of React (React 18+). This ensures you're learning with modern features like concurrent rendering, automatic batching, transitions, and the latest hooks API. The sandbox environment is powered by Babel for JSX transformation, allowing you to write and run modern React code directly in your browser.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="faq-item animate-in" data-faq>
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <div class="faq-question-text">
+                            <span class="faq-num">08</span>
+                            How can I support this project?
+                        </div>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            There are many ways to support React Mastery! You can star our GitHub repository, share it on social media, contribute code improvements via pull requests, report bugs, write about us on your blog, or make a donation to help cover hosting and development costs. Every contribution, no matter how small, helps keep this project alive and growing.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Help Section -->
+    <section class="section" id="quick-help">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">⚡ Quick Help</span>
+                <h2 class="section-title">Get Help Quickly</h2>
+                <p class="section-subtitle">Choose the best way to reach us based on your needs.</p>
+            </div>
+
+            <div class="help-grid">
+                <!-- Email Support -->
+                <div class="help-card animate-in" onclick="window.location.href='mailto:supportramsandesh@gmail.com'">
+                    <span class="help-card-icon">📧</span>
+                    <h3>Email Support</h3>
+                    <p>Have a question or need personalized help? Send us an email and we'll get back to you within 24-48 hours.</p>
+                    <span class="card-link">
+                        supportramsandesh@gmail.com →
+                    </span>
+                </div>
+
+                <!-- Report Bug -->
+                <div class="help-card animate-in" onclick="window.open('https://github.com/Sanskar-in/Web-Development-Mastery/issues/new', '_blank')">
+                    <span class="help-card-icon">🐛</span>
+                    <h3>Report a Bug</h3>
+                    <p>Found something broken? Open an issue on our GitHub repository and help us improve the platform for everyone.</p>
+                    <span class="card-link">
+                        Open GitHub Issues →
+                    </span>
+                </div>
+
+                <!-- Feature Request -->
+                <div class="help-card animate-in" onclick="window.open('https://github.com/Sanskar-in/Web-Development-Mastery/discussions', '_blank')">
+                    <span class="help-card-icon">💡</span>
+                    <h3>Feature Request</h3>
+                    <p>Have an idea for a new feature or improvement? Share your suggestions with us through GitHub Discussions.</p>
+                    <span class="card-link">
+                        Start Discussion →
+                    </span>
+                </div>
+
+                <!-- Documentation -->
+                <div class="help-card animate-in" onclick="window.location.href='index.html'">
+                    <span class="help-card-icon">📚</span>
+                    <h3>Documentation</h3>
+                    <p>Browse our comprehensive documentation covering all React concepts, from fundamentals to advanced patterns.</p>
+                    <span class="card-link">
+                        Browse Docs →
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="section" id="community">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🌐 Community</span>
+                <h2 class="section-title">Join Our Community</h2>
+                <p class="section-subtitle">Connect with fellow developers, get updates, and be part of the journey.</p>
+            </div>
+
+            <div class="community-grid">
+                <!-- YouTube -->
+                <div class="community-card animate-in">
+                    <div class="community-icon youtube">▶</div>
+                    <h3>YouTube</h3>
+                    <p>Watch tutorials, walkthroughs, and coding sessions on our YouTube channel.</p>
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" class="community-link">
+                        @Sanskar-in →
+                    </a>
+                </div>
+
+                <!-- GitHub -->
+                <div class="community-card animate-in">
+                    <div class="community-icon github">⌨</div>
+                    <h3>GitHub</h3>
+                    <p>Star the repo, contribute code, and track all development progress on GitHub.</p>
+                    <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" class="community-link">
+                        Sanskar-in →
+                    </a>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="community-card animate-in">
+                    <div class="community-icon linkedin">in</div>
+                    <h3>LinkedIn</h3>
+                    <p>Connect professionally and stay updated on career tips and web development trends.</p>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" class="community-link">
+                        sanskar-in →
+                    </a>
+                </div>
+
+                <!-- X (Twitter) -->
+                <div class="community-card animate-in">
+                    <div class="community-icon twitter">𝕏</div>
+                    <h3>X (Twitter)</h3>
+                    <p>Follow for quick tips, announcements, and engaging developer discussions.</p>
+                    <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" class="community-link">
+                        @Sanskar_in →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section class="section" id="donate">
+        <div class="container">
+            <div class="donate-section">
+                <div class="donate-card animate-in">
+                    <span class="donate-icon">💖</span>
+                    <h2>Support React Mastery</h2>
+                    <p>React Mastery is a free, open-source project built with passion. Your donations help cover hosting costs, fund new features, and keep this platform accessible to everyone around the world.</p>
+                    <div class="donate-buttons">
+                        <button class="btn btn-primary" onclick="openDonateOverlay()">
+                            ❤️ Donate via UPI
+                        </button>
+                        <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            ☕ Support on Gumroad
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donateOverlay">
+        <div class="donate-modal">
+            <button class="modal-close" onclick="closeDonateOverlay()" title="Close" aria-label="Close donation modal">✕</button>
+            <h3>💖 Donate via UPI</h3>
+            <p>Scan the QR code below with any UPI app to make a donation. Every contribution counts!</p>
+            <div class="qr-container">
+                <img src="Payment-Ramsandesh.jpeg" alt="UPI QR Code for Donation" loading="lazy">
+            </div>
+            <p class="qr-label">Scan with Google Pay, PhonePe, Paytm, or any UPI app</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <img src="react-logo.svg" alt="React Logo">
+                    <span>React Mastery</span>
+                </div>
+                <p class="footer-desc">A comprehensive, interactive learning platform for mastering React.js — from fundamentals to advanced patterns. Free & open-source.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">📘 React Tutorial</a></li>
+                    <li><a href="support.html">🛟 Support & Help</a></li>
+                    <li><a href="developer.html">👨‍💻 Developer Hub</a></li>
+                    <li><a href="../index.html">🏠 Main Platform</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="https://react.dev" target="_blank" rel="noopener noreferrer">⚛️ React Official Docs</a></li>
+                    <li><a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">📂 GitHub Repository</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">☕ Gumroad</a></li>
+                    <li><a href="#faq">❓ FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com">📧 Primary Email</a></li>
+                    <li><a href="mailto:supportramsandesh@gmail.com">📧 Support Email</a></li>
+                    <li><a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer">▶️ YouTube</a></li>
+                    <li><a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer">𝕏 Twitter / X</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024–2026 React Mastery by Sanskar Yadav. Made with ❤️ for the developer community.</p>
+            <div class="footer-social">
+                <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">▶</a>
+                <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">⌨</a>
+                <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
+                <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="X Twitter">𝕏</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        /* ===== Theme Toggle ===== */
+        (function() {
+            const themeKey = 'reactMasteryTheme';
+            const saved = localStorage.getItem(themeKey);
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        })();
+
+        const themeToggle = document.getElementById('themeToggle');
+
+        function updateThemeIcon() {
+            const current = document.documentElement.getAttribute('data-theme');
+            themeToggle.textContent = current === 'dark' ? '🌙' : '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('reactMasteryTheme', next);
+            updateThemeIcon();
+        });
+
+        updateThemeIcon();
+
+        /* ===== FAQ Accordion ===== */
+        function toggleFaq(element) {
+            const faqItem = element.closest('.faq-item');
+            const wasActive = faqItem.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Toggle clicked item
+            if (!wasActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        /* ===== Donate Overlay ===== */
+        function openDonateOverlay() {
+            document.getElementById('donateOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDonateOverlay() {
+            document.getElementById('donateOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close overlay on background click
+        document.getElementById('donateOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeDonateOverlay();
+            }
+        });
+
+        // Close overlay on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDonateOverlay();
+            }
+        });
+
+        /* ===== Scroll Animations ===== */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        /* ===== Nav Scroll Effect ===== */
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = 'var(--shadow-md)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

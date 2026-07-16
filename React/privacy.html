@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for React Mastery — learn how we collect, use, and protect your data. Transparent practices by Sanskar Yadav.">
+    <meta name="keywords" content="React Mastery, Privacy Policy, Data Protection, Sanskar Yadav, Web Development">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Privacy Policy | React Mastery">
+    <meta property="og:description" content="Learn how React Mastery handles your data with transparency and care.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Privacy Policy | React Mastery">
+    <meta name="twitter:description" content="Privacy Policy for React Mastery by Sanskar Yadav.">
+    <title>Privacy Policy | React Mastery</title>
+    <link rel="icon" href="react-logo.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CSS VARIABLES & THEME ==================== */
+        :root {
+            --accent: #61dafb;
+            --accent-hover: #4fc3f7;
+            --accent-glow: rgba(97, 218, 251, 0.3);
+            --accent-soft: rgba(97, 218, 251, 0.1);
+            --gradient-primary: linear-gradient(135deg, #61dafb 0%, #4fc3f7 50%, #29b6f6 100%);
+            --gradient-header: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #122a4a 70%, #0a1628 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --shadow-xl: 0 12px 48px rgba(0,0,0,0.25);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(25, 35, 55, 0.95);
+            --bg-surface: #1a2332;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(97, 218, 251, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --nav-bg: rgba(10, 15, 26, 0.92);
+            --toc-bg: rgba(17, 24, 39, 0.6);
+            --footer-bg: #060a12;
+            --orb-opacity: 0.12;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --bg-surface: #f1f5f9;
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: rgba(97, 218, 251, 0.25);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(248, 250, 252, 0.92);
+            --toc-bg: rgba(241, 245, 249, 0.8);
+            --footer-bg: #0f172a;
+            --orb-opacity: 0.06;
+        }
+
+        /* ==================== RESET & BASE ==================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background var(--transition-base), color var(--transition-base);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #0a0f1a;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ==================== FLOATING ORBS ==================== */
+        .orb-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: var(--orb-opacity);
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #61dafb, transparent 70%);
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #4fc3f7, transparent 70%);
+            top: 50%;
+            right: -8%;
+            animation-delay: -5s;
+            animation-duration: 22s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #29b6f6, transparent 70%);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -10s;
+            animation-duration: 28s;
+        }
+
+        .orb-4 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #81d4fa, transparent 70%);
+            top: 30%;
+            left: 60%;
+            animation-delay: -15s;
+            animation-duration: 20s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.9); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-base);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .nav-back:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            transform: translateX(-3px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .nav-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-brand img {
+            width: 28px;
+            height: 28px;
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: rotate(20deg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .donate-btn-nav {
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .donate-btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* ==================== HEADER ==================== */
+        .page-header {
+            margin-top: 70px;
+            padding: 5rem 2rem 4rem;
+            background: var(--gradient-header);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(97,218,251,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+            pointer-events: none;
+        }
+
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .effective-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* ==================== TABLE OF CONTENTS ==================== */
+        .toc {
+            background: var(--toc-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all var(--transition-base);
+        }
+
+        .toc:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .toc-list li a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .toc-list li a::before {
+            content: '→';
+            color: var(--accent);
+            font-weight: 700;
+            transition: transform var(--transition-fast);
+        }
+
+        .toc-list li a:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .toc-list li a:hover::before {
+            transform: translateX(3px);
+        }
+
+        /* ==================== SECTION CARDS ==================== */
+        .policy-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .policy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .policy-section:hover {
+            border-color: var(--border-color);
+            background: var(--bg-card-hover);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .policy-section:hover::before {
+            opacity: 1;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title .emoji {
+            font-size: 1.3rem;
+        }
+
+        .policy-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .policy-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-section ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 0;
+        }
+
+        .policy-section ul li {
+            position: relative;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .policy-section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: var(--accent-soft);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            transition: all var(--transition-fast);
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .contact-card .label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-card .value {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        /* ==================== DONATE OVERLAY ==================== */
+        .donate-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .donate-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donate-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-xl), 0 0 60px var(--accent-glow);
+            animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .donate-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-close:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .donate-modal h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .donate-modal p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-qr {
+            width: 100%;
+            max-width: 280px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .donate-action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-action-btn.primary {
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+        }
+
+        .donate-action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .donate-action-btn.secondary {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .donate-action-btn.secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* ==================== FOOTER ==================== */
+        .site-footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-subtle);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-brand-text {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2.5rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .page-header {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .policy-section {
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donate-modal {
+                padding: 1.5rem;
+            }
+
+            .nav-back span {
+                display: none;
+            }
+        }
+
+        /* ==================== SCROLLBAR ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Orbs -->
+    <div class="orb-container" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-back" id="nav-back-btn" aria-label="Back to React Mastery">
+                <span>←</span>
+                <span>Back</span>
+            </a>
+            <div class="nav-brand">
+                <img src="react-logo.svg" alt="React Logo">
+                <span>React Mastery</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
+                🌙
+            </button>
+            <button class="donate-btn-nav" id="donate-nav-btn" aria-label="Support us with a donation">
+                ❤️ Donate
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <span class="header-icon">🔒</span>
+        <h1 class="header-title">Privacy Policy</h1>
+        <p class="header-subtitle">
+            Your privacy matters to us. This policy explains how React Mastery collects, uses, and protects your information.
+        </p>
+        <div class="effective-date">
+            📅 Effective Date: July 2026
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Table of Contents -->
+        <nav class="toc fade-up" aria-label="Table of Contents">
+            <div class="toc-title">📑 Table of Contents</div>
+            <ol class="toc-list">
+                <li><a href="#information-collect">Information We Collect</a></li>
+                <li><a href="#how-we-use">How We Use Information</a></li>
+                <li><a href="#third-party">Third-Party Services</a></li>
+                <li><a href="#cookies">Cookies & Local Storage</a></li>
+                <li><a href="#data-security">Data Security</a></li>
+                <li><a href="#children-privacy">Children's Privacy</a></li>
+                <li><a href="#changes-policy">Changes to Policy</a></li>
+                <li><a href="#contact-info">Contact Information</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Information We Collect -->
+        <section class="policy-section fade-up" id="information-collect">
+            <div class="section-number">1</div>
+            <h2 class="section-title"><span class="emoji">📋</span> Information We Collect</h2>
+            <p>
+                React Mastery is committed to transparency about the data we handle. As a free, open-source educational platform, we collect minimal information necessary to deliver an optimal learning experience.
+            </p>
+            <ul>
+                <li><strong>Browser Preferences:</strong> Your selected theme (dark/light mode) is stored locally on your device using browser localStorage. This data never leaves your device.</li>
+                <li><strong>Usage Analytics:</strong> We may collect anonymized, aggregated data about page views and interactions to improve our content quality and user experience.</li>
+                <li><strong>Device Information:</strong> Standard technical data such as browser type, operating system, screen resolution, and language preferences may be automatically collected when you visit our pages.</li>
+                <li><strong>Donation Information:</strong> If you choose to support us via Razorpay or UPI, payment processing is handled entirely by third-party providers. We do not store credit card numbers or sensitive financial data on our servers.</li>
+                <li><strong>Contact Communications:</strong> If you reach out to us via email, we retain the communication to respond and improve our services.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Note:</strong> We do not require user accounts, passwords, or personal registration to access any content on React Mastery.
+            </div>
+        </section>
+
+        <!-- Section 2: How We Use Information -->
+        <section class="policy-section fade-up" id="how-we-use">
+            <div class="section-number">2</div>
+            <h2 class="section-title"><span class="emoji">🔧</span> How We Use Information</h2>
+            <p>
+                The limited information we collect serves specific, legitimate purposes aligned with delivering excellent educational content:
+            </p>
+            <ul>
+                <li><strong>Personalization:</strong> Remembering your theme preference ensures a consistent, comfortable browsing experience across visits without requiring you to reconfigure settings.</li>
+                <li><strong>Content Improvement:</strong> Anonymized usage data helps us understand which tutorials are most popular, where learners spend the most time, and how we can enhance our curriculum.</li>
+                <li><strong>Communication:</strong> Email correspondence is used solely to respond to your inquiries, provide support, and share updates if you've opted in.</li>
+                <li><strong>Security:</strong> Technical data helps us identify and prevent malicious activity, maintain site performance, and troubleshoot issues.</li>
+                <li><strong>Legal Compliance:</strong> We may use information as required by applicable laws and regulations to fulfill our legal obligations.</li>
+            </ul>
+            <p>
+                We never sell, rent, or trade your personal information to third parties for marketing purposes. Your trust is the foundation of our community.
+            </p>
+        </section>
+
+        <!-- Section 3: Third-Party Services -->
+        <section class="policy-section fade-up" id="third-party">
+            <div class="section-number">3</div>
+            <h2 class="section-title"><span class="emoji">🌐</span> Third-Party Services</h2>
+            <p>
+                React Mastery integrates with carefully selected third-party services to enhance performance and functionality. Each service has its own privacy practices:
+            </p>
+            <ul>
+                <li>
+                    <strong>Google Fonts:</strong> We use Google Fonts to deliver high-quality typography. When you load a page, your browser may connect to Google's servers to download font files. Google may collect standard web server logs including IP addresses. 
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy →</a>
+                </li>
+                <li>
+                    <strong>CDN Services:</strong> Content Delivery Networks (CDNs) are used to serve static assets (images, scripts) quickly from servers geographically closest to you. CDN providers may log access data for performance and security purposes.
+                </li>
+                <li>
+                    <strong>Razorpay (Donations):</strong> If you choose to make a voluntary donation, payment processing is handled by Razorpay, a PCI-DSS compliant payment gateway. Razorpay collects and processes your payment information under its own privacy policy. We receive only transaction confirmations — never your card details.
+                    <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener noreferrer">Razorpay's Privacy Policy →</a>
+                </li>
+                <li>
+                    <strong>GitHub:</strong> Our source code is hosted on GitHub. If you interact with our repository (star, fork, or contribute), GitHub's privacy policy governs that interaction.
+                    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's Privacy Policy →</a>
+                </li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Important:</strong> We carefully vet all third-party integrations and only partner with services that maintain industry-standard privacy and security practices.
+            </div>
+        </section>
+
+        <!-- Section 4: Cookies & Local Storage -->
+        <section class="policy-section fade-up" id="cookies">
+            <div class="section-number">4</div>
+            <h2 class="section-title"><span class="emoji">🍪</span> Cookies & Local Storage</h2>
+            <p>
+                React Mastery uses minimal client-side storage to enhance your experience. Here's a complete breakdown of what we store:
+            </p>
+            <ul>
+                <li><strong>Theme Preference (localStorage):</strong> We store your dark/light mode preference using the key <code style="font-family: var(--font-mono); background: var(--accent-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem;">reactMasteryTheme</code> in your browser's localStorage. This is a simple string value ("dark" or "light") that persists between sessions.</li>
+                <li><strong>No Tracking Cookies:</strong> We do not set any tracking cookies, advertising cookies, or cross-site cookies. Your browsing activity on our site is not tracked for advertising purposes.</li>
+                <li><strong>Third-Party Cookies:</strong> Some third-party services (such as Google Fonts) may set their own cookies according to their respective policies. We have no control over these cookies.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Control:</strong> You can clear your localStorage at any time through your browser's developer tools (Application → Local Storage) or browser settings. This will simply reset your theme to the default dark mode.
+            </div>
+        </section>
+
+        <!-- Section 5: Data Security -->
+        <section class="policy-section fade-up" id="data-security">
+            <div class="section-number">5</div>
+            <h2 class="section-title"><span class="emoji">🛡️</span> Data Security</h2>
+            <p>
+                We take the security of your information seriously and implement appropriate technical and organizational measures to protect it:
+            </p>
+            <ul>
+                <li><strong>HTTPS Encryption:</strong> All communications between your browser and our servers are encrypted using TLS/SSL protocols, ensuring data in transit is protected from interception.</li>
+                <li><strong>Minimal Data Collection:</strong> Our strongest security measure is collecting as little data as possible. Data that doesn't exist cannot be breached.</li>
+                <li><strong>Open Source Transparency:</strong> Our codebase is publicly available on GitHub, allowing security researchers and the community to audit our code for vulnerabilities and verify our privacy claims.</li>
+                <li><strong>Regular Updates:</strong> We keep all dependencies and third-party integrations updated to their latest secure versions to protect against known vulnerabilities.</li>
+                <li><strong>Secure Payment Processing:</strong> All donation transactions are processed through PCI-DSS compliant payment processors. We never handle or store sensitive financial data directly.</li>
+            </ul>
+            <p>
+                While no method of electronic transmission or storage is 100% secure, we strive to implement commercially reasonable measures to protect your data. If you discover a security vulnerability, please contact us immediately.
+            </p>
+        </section>
+
+        <!-- Section 6: Children's Privacy -->
+        <section class="policy-section fade-up" id="children-privacy">
+            <div class="section-number">6</div>
+            <h2 class="section-title"><span class="emoji">👶</span> Children's Privacy</h2>
+            <p>
+                React Mastery is an educational platform designed for learners of all ages interested in web development. We are committed to protecting the privacy of children:
+            </p>
+            <ul>
+                <li>Our platform does not knowingly collect personal information from children under the age of 13 (or the applicable age in your jurisdiction).</li>
+                <li>We do not require registration or account creation, which means children can access our educational content without providing any personal data.</li>
+                <li>If we become aware that we have inadvertently collected personal information from a child under the relevant age threshold, we will take immediate steps to delete such information.</li>
+                <li>Parents and guardians who believe their child has provided personal information to us should contact us immediately at one of the email addresses listed in the Contact section below.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>For Parents:</strong> We encourage parents and guardians to participate in their children's online activities. React Mastery is designed to be a safe, ad-free educational resource.
+            </div>
+        </section>
+
+        <!-- Section 7: Changes to Policy -->
+        <section class="policy-section fade-up" id="changes-policy">
+            <div class="section-number">7</div>
+            <h2 class="section-title"><span class="emoji">📝</span> Changes to This Policy</h2>
+            <p>
+                We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we do:
+            </p>
+            <ul>
+                <li>The "Effective Date" at the top of this page will be updated to reflect the date of the most recent revision.</li>
+                <li>For significant changes that materially affect how we handle your information, we will provide prominent notice on our platform (e.g., a banner notification on the homepage).</li>
+                <li>Changes will be tracked in our GitHub repository, allowing you to review the exact modifications through our commit history.</li>
+                <li>Your continued use of React Mastery after the updated policy takes effect constitutes acceptance of the revised terms.</li>
+            </ul>
+            <p>
+                We encourage you to periodically review this page for the latest information on our privacy practices. Significant updates will always be communicated transparently.
+            </p>
+        </section>
+
+        <!-- Section 8: Contact Information -->
+        <section class="policy-section fade-up" id="contact-info">
+            <div class="section-number">8</div>
+            <h2 class="section-title"><span class="emoji">📬</span> Contact Information</h2>
+            <p>
+                If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to reach out through any of the following channels:
+            </p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="label">Primary Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfrom2012to2026@gmail.com">sanskaryadavfrom2012to2026@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Support Email</div>
+                    <div class="value">
+                        <a href="mailto:supportramsandesh@gmail.com">supportramsandesh@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Outlook Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">sanskaryadavfromghosimau2026-27@outlook.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">GitHub</div>
+                    <div class="value">
+                        <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer">github.com/Sanskar-in</a>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 1.5rem;">
+                We aim to respond to all inquiries within 48 hours. For urgent matters, please reach out via multiple channels to ensure we receive your message promptly.
+            </p>
+        </section>
+    </main>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donate-overlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donate-close" aria-label="Close donate modal">✕</button>
+            <h3>❤️ Support React Mastery</h3>
+            <p>
+                Your donation helps us create free, high-quality React tutorials for everyone. Every contribution makes a difference!
+            </p>
+            <img src="Payment-Ramsandesh.jpeg" alt="Scan to Donate via UPI" class="donate-qr">
+            <div class="donate-buttons">
+                <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer" class="donate-action-btn primary">
+                    🛒 Support on Gumroad
+                </a>
+                <button class="donate-action-btn secondary" id="donate-close-btn">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <!-- Brand & Social -->
+            <div class="footer-col">
+                <h4>React Mastery</h4>
+                <p class="footer-brand-text">
+                    A free, open-source learning platform by Sanskar Yadav. Master React from fundamentals to advanced patterns with hands-on projects.
+                </p>
+                <div class="footer-social">
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+                    <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">GH</a>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">IN</a>
+                    <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="X">X</a>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com">📧 Primary Gmail</a></li>
+                    <li><a href="mailto:supportramsandesh@gmail.com">📧 Support Gmail</a></li>
+                    <li><a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">📧 Outlook</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">🛒 Gumroad</a></li>
+                </ul>
+            </div>
+
+            <!-- E-Books -->
+            <div class="footer-col">
+                <h4>E-Books</h4>
+                <ul>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📘 React Essentials</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📙 JavaScript Deep Dive</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📕 CSS Mastery Guide</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📗 Full-Stack Handbook</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="privacy.html">🔒 Privacy Policy</a></li>
+                    <li><a href="terms.html">⚖️ Terms of Service</a></li>
+                    <li><a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">⭐ Star on GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 React Mastery by Sanskar Yadav. Open-source under MIT License.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        /* ==================== THEME TOGGLE ==================== */
+        (function() {
+            const THEME_KEY = 'reactMasteryTheme';
+            const html = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+
+            /* Load saved theme or default to dark */
+            const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+            html.setAttribute('data-theme', savedTheme);
+            updateToggleIcon(savedTheme);
+
+            toggle.addEventListener('click', function() {
+                const current = html.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem(THEME_KEY, next);
+                updateToggleIcon(next);
+            });
+
+            function updateToggleIcon(theme) {
+                toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+                toggle.title = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+        })();
+
+        /* ==================== DONATE OVERLAY ==================== */
+        (function() {
+            const overlay = document.getElementById('donate-overlay');
+            const navBtn = document.getElementById('donate-nav-btn');
+            const closeBtn = document.getElementById('donate-close');
+            const closeBtnAlt = document.getElementById('donate-close-btn');
+
+            function openDonate() {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDonate() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            navBtn.addEventListener('click', openDonate);
+            closeBtn.addEventListener('click', closeDonate);
+            closeBtnAlt.addEventListener('click', closeDonate);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeDonate();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeDonate();
+                }
+            });
+        })();
+
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        (function() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-up').forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        /* ==================== NAVBAR SCROLL EFFECT ==================== */
+        (function() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+        })();
+
+        /* ==================== SMOOTH SCROLL FOR TOC ==================== */
+        (function() {
+            document.querySelectorAll('.toc-list a').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        /* Add a brief highlight effect */
+                        targetElement.style.borderColor = 'var(--accent)';
+                        targetElement.style.boxShadow = '0 0 30px var(--accent-glow)';
+                        setTimeout(function() {
+                            targetElement.style.borderColor = '';
+                            targetElement.style.boxShadow = '';
+                        }, 2000);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

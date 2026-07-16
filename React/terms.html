@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terms of Service for React Mastery — understand the rules, rights, and responsibilities when using our free open-source learning platform by Sanskar Yadav.">
+    <meta name="keywords" content="React Mastery, Terms of Service, Terms and Conditions, Sanskar Yadav, Web Development, MIT License">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Terms of Service | React Mastery">
+    <meta property="og:description" content="Terms of Service governing the use of React Mastery's free educational platform.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Terms of Service | React Mastery">
+    <meta name="twitter:description" content="Terms of Service for React Mastery by Sanskar Yadav.">
+    <title>Terms of Service | React Mastery</title>
+    <link rel="icon" href="react-logo.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CSS VARIABLES & THEME ==================== */
+        :root {
+            --accent: #61dafb;
+            --accent-hover: #4fc3f7;
+            --accent-glow: rgba(97, 218, 251, 0.3);
+            --accent-soft: rgba(97, 218, 251, 0.1);
+            --gradient-primary: linear-gradient(135deg, #61dafb 0%, #4fc3f7 50%, #29b6f6 100%);
+            --gradient-header: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #122a4a 70%, #0a1628 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --shadow-xl: 0 12px 48px rgba(0,0,0,0.25);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(25, 35, 55, 0.95);
+            --bg-surface: #1a2332;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(97, 218, 251, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --nav-bg: rgba(10, 15, 26, 0.92);
+            --toc-bg: rgba(17, 24, 39, 0.6);
+            --footer-bg: #060a12;
+            --orb-opacity: 0.12;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --bg-surface: #f1f5f9;
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: rgba(97, 218, 251, 0.25);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(248, 250, 252, 0.92);
+            --toc-bg: rgba(241, 245, 249, 0.8);
+            --footer-bg: #0f172a;
+            --orb-opacity: 0.06;
+        }
+
+        /* ==================== RESET & BASE ==================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background var(--transition-base), color var(--transition-base);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #0a0f1a;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ==================== FLOATING ORBS ==================== */
+        .orb-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: var(--orb-opacity);
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, #61dafb, transparent 70%);
+            top: 5%;
+            right: -8%;
+            animation-delay: 0s;
+            animation-duration: 24s;
+        }
+
+        .orb-2 {
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, #4fc3f7, transparent 70%);
+            top: 45%;
+            left: -10%;
+            animation-delay: -6s;
+            animation-duration: 22s;
+        }
+
+        .orb-3 {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, #29b6f6, transparent 70%);
+            bottom: 15%;
+            right: 20%;
+            animation-delay: -12s;
+            animation-duration: 26s;
+        }
+
+        .orb-4 {
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, #81d4fa, transparent 70%);
+            top: 25%;
+            left: 50%;
+            animation-delay: -18s;
+            animation-duration: 20s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.08); }
+            50% { transform: translate(-40px, 40px) scale(0.92); }
+            75% { transform: translate(30px, 30px) scale(1.04); }
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-base);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .nav-back:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            transform: translateX(-3px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .nav-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-brand img {
+            width: 28px;
+            height: 28px;
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: rotate(20deg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .donate-btn-nav {
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .donate-btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* ==================== HEADER ==================== */
+        .page-header {
+            margin-top: 70px;
+            padding: 5rem 2rem 4rem;
+            background: var(--gradient-header);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(97,218,251,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+            pointer-events: none;
+        }
+
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 400;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .effective-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* ==================== TABLE OF CONTENTS ==================== */
+        .toc {
+            background: var(--toc-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all var(--transition-base);
+        }
+
+        .toc:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .toc-list li a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .toc-list li a::before {
+            content: '→';
+            color: var(--accent);
+            font-weight: 700;
+            transition: transform var(--transition-fast);
+        }
+
+        .toc-list li a:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .toc-list li a:hover::before {
+            transform: translateX(3px);
+        }
+
+        /* ==================== SECTION CARDS ==================== */
+        .terms-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terms-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .terms-section:hover {
+            border-color: var(--border-color);
+            background: var(--bg-card-hover);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .terms-section:hover::before {
+            opacity: 1;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title .emoji {
+            font-size: 1.3rem;
+        }
+
+        .terms-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .terms-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-section ul, .terms-section ol {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 0;
+        }
+
+        .terms-section ul li, .terms-section ol li {
+            position: relative;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .terms-section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .terms-section ol {
+            counter-reset: terms-counter;
+        }
+
+        .terms-section ol li {
+            counter-increment: terms-counter;
+        }
+
+        .terms-section ol li::before {
+            content: counter(terms-counter, lower-alpha) ')';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .highlight-box {
+            background: var(--accent-soft);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+        }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.08);
+            border-left: 3px solid #fbbf24;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .warning-box strong {
+            color: #fbbf24;
+        }
+
+        .license-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            margin: 0.5rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            transition: all var(--transition-fast);
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .contact-card .label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-card .value {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        /* ==================== DONATE OVERLAY ==================== */
+        .donate-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .donate-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donate-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-xl), 0 0 60px var(--accent-glow);
+            animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .donate-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-close:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .donate-modal h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .donate-modal p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-qr {
+            width: 100%;
+            max-width: 280px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .donate-action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-action-btn.primary {
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+        }
+
+        .donate-action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .donate-action-btn.secondary {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .donate-action-btn.secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* ==================== FOOTER ==================== */
+        .site-footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-subtle);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-brand-text {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2.5rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .page-header {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .terms-section {
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donate-modal {
+                padding: 1.5rem;
+            }
+
+            .nav-back span {
+                display: none;
+            }
+        }
+
+        /* ==================== SCROLLBAR ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Orbs -->
+    <div class="orb-container" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-back" id="nav-back-btn" aria-label="Back to React Mastery">
+                <span>←</span>
+                <span>Back</span>
+            </a>
+            <div class="nav-brand">
+                <img src="react-logo.svg" alt="React Logo">
+                <span>React Mastery</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
+                🌙
+            </button>
+            <button class="donate-btn-nav" id="donate-nav-btn" aria-label="Support us with a donation">
+                ❤️ Donate
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <span class="header-icon">⚖️</span>
+        <h1 class="header-title">Terms of Service</h1>
+        <p class="header-subtitle">
+            Please read these terms carefully before using React Mastery. By accessing our platform, you agree to be bound by these terms.
+        </p>
+        <div class="effective-date">
+            📅 Effective Date: July 2026
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Table of Contents -->
+        <nav class="toc fade-up" aria-label="Table of Contents">
+            <div class="toc-title">📑 Table of Contents</div>
+            <ol class="toc-list">
+                <li><a href="#acceptance">Acceptance of Terms</a></li>
+                <li><a href="#use-of-service">Use of Service</a></li>
+                <li><a href="#intellectual-property">Intellectual Property</a></li>
+                <li><a href="#user-conduct">User Conduct</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
+                <li><a href="#limitation-liability">Limitation of Liability</a></li>
+                <li><a href="#donations">Donations</a></li>
+                <li><a href="#third-party-links">Third-Party Links</a></li>
+                <li><a href="#modifications">Modifications</a></li>
+                <li><a href="#governing-law">Governing Law</a></li>
+                <li><a href="#contact-terms">Contact Information</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Acceptance of Terms -->
+        <section class="terms-section fade-up" id="acceptance">
+            <div class="section-number">1</div>
+            <h2 class="section-title"><span class="emoji">✅</span> Acceptance of Terms</h2>
+            <p>
+                By accessing, browsing, or using React Mastery (the "Platform"), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service ("Terms"). If you do not agree with any part of these Terms, you must discontinue use of the Platform immediately.
+            </p>
+            <p>
+                These Terms constitute a legally binding agreement between you ("User," "you," or "your") and Sanskar Yadav ("we," "us," or "our"), the creator and maintainer of React Mastery. This agreement governs your access to and use of the Platform, including all content, features, tutorials, code examples, and services offered through the Platform.
+            </p>
+            <ul>
+                <li>You must be at least 13 years of age to use this Platform, or have parental/guardian consent.</li>
+                <li>By using the Platform, you represent that you have the legal capacity to enter into these Terms.</li>
+                <li>These Terms apply to all visitors, users, and contributors to the Platform.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Summary:</strong> By using React Mastery, you agree to these terms. If you disagree, please do not use the platform.
+            </div>
+        </section>
+
+        <!-- Section 2: Use of Service -->
+        <section class="terms-section fade-up" id="use-of-service">
+            <div class="section-number">2</div>
+            <h2 class="section-title"><span class="emoji">🚀</span> Use of Service</h2>
+            <p>
+                React Mastery is a free, open-source educational platform designed to help developers learn React and modern web development. The Platform provides tutorials, code examples, interactive exercises, and reference materials.
+            </p>
+            <ul>
+                <li><strong>Free Access:</strong> All core educational content on React Mastery is provided free of charge. We believe in democratizing access to quality education.</li>
+                <li><strong>No Account Required:</strong> You can access all tutorials and learning materials without creating an account or providing personal information.</li>
+                <li><strong>Code Usage:</strong> Code examples and snippets provided in tutorials are intended for educational purposes and can be used in your own projects, subject to the license terms outlined in the Intellectual Property section.</li>
+                <li><strong>Availability:</strong> While we strive to maintain the Platform's availability, we do not guarantee uninterrupted access. The Platform may be temporarily unavailable due to maintenance, updates, or circumstances beyond our control.</li>
+                <li><strong>Modifications:</strong> We reserve the right to modify, suspend, or discontinue any aspect of the Platform at any time without prior notice. This includes adding, changing, or removing content, features, or services.</li>
+            </ul>
+            <p>
+                We are committed to continuously improving the learning experience and welcome feedback from our community.
+            </p>
+        </section>
+
+        <!-- Section 3: Intellectual Property -->
+        <section class="terms-section fade-up" id="intellectual-property">
+            <div class="section-number">3</div>
+            <h2 class="section-title"><span class="emoji">©️</span> Intellectual Property</h2>
+            <p>
+                React Mastery is created and maintained by <strong>Sanskar Yadav</strong>. The intellectual property rights associated with the Platform are governed as follows:
+            </p>
+            <div class="license-badge">📜 MIT License</div>
+            <ul>
+                <li><strong>Source Code:</strong> The Platform's source code is released under the <strong>MIT License</strong>, which permits free use, modification, distribution, and private/commercial use, provided the original copyright notice and license text are included in all copies or substantial portions of the software.</li>
+                <li><strong>Content & Tutorials:</strong> Written content, tutorials, explanations, and educational materials are the original work of Sanskar Yadav and contributors. While freely accessible, attribution is appreciated when referencing or republishing significant portions.</li>
+                <li><strong>Branding:</strong> The "React Mastery" name, logo, and visual identity are the property of Sanskar Yadav. Use of our branding for endorsement or to imply affiliation requires prior written consent.</li>
+                <li><strong>Third-Party Assets:</strong> React and the React logo are trademarks of Meta Platforms, Inc. Our use of the React name and logo is for educational purposes only and does not imply endorsement by Meta.</li>
+                <li><strong>User Contributions:</strong> If you contribute to the Platform (e.g., via pull requests on GitHub), you grant us a non-exclusive, royalty-free, perpetual license to use, modify, and distribute your contributions under the MIT License.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>MIT License Summary:</strong> You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to including the original copyright and license notice.
+            </div>
+        </section>
+
+        <!-- Section 4: User Conduct -->
+        <section class="terms-section fade-up" id="user-conduct">
+            <div class="section-number">4</div>
+            <h2 class="section-title"><span class="emoji">🤝</span> User Conduct</h2>
+            <p>
+                As a user of React Mastery, you agree to engage with the Platform in a responsible and respectful manner. The following conduct is prohibited:
+            </p>
+            <ul>
+                <li><strong>Malicious Activity:</strong> Attempting to exploit, hack, or disrupt the Platform's infrastructure, including DDoS attacks, code injection, or unauthorized access to systems or data.</li>
+                <li><strong>Content Scraping:</strong> Using automated bots, scrapers, or tools to bulk-download or reproduce the Platform's content for commercial redistribution without permission.</li>
+                <li><strong>Misrepresentation:</strong> Impersonating Sanskar Yadav, React Mastery, or any contributor; or falsely claiming affiliation, endorsement, or association with the Platform.</li>
+                <li><strong>Harassment:</strong> Engaging in abusive, threatening, discriminatory, or harassing behavior towards the Platform's creators, contributors, or community members through any channel.</li>
+                <li><strong>Illegal Use:</strong> Using the Platform or its content for any purpose that violates applicable local, national, or international laws and regulations.</li>
+                <li><strong>Interference:</strong> Introducing malware, viruses, or any harmful code; or taking actions that could impair the Platform's performance, security, or accessibility for others.</li>
+            </ul>
+            <div class="warning-box">
+                <strong>Warning:</strong> Violation of these conduct guidelines may result in restricted access to the Platform and, where applicable, legal action.
+            </div>
+        </section>
+
+        <!-- Section 5: Disclaimer -->
+        <section class="terms-section fade-up" id="disclaimer">
+            <div class="section-number">5</div>
+            <h2 class="section-title"><span class="emoji">⚠️</span> Disclaimer</h2>
+            <p>
+                React Mastery is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, either express or implied. To the fullest extent permitted by applicable law, we disclaim all warranties, including but not limited to:
+            </p>
+            <ul>
+                <li><strong>Accuracy:</strong> While we strive for accuracy in our tutorials and code examples, we do not guarantee that all content is error-free, up-to-date, or complete. Technologies evolve rapidly, and some information may become outdated.</li>
+                <li><strong>Fitness for Purpose:</strong> We do not warrant that the Platform or its content will meet your specific requirements, expectations, or be suitable for any particular purpose.</li>
+                <li><strong>Uninterrupted Service:</strong> We do not guarantee that the Platform will be available at all times, free of errors, bugs, or security vulnerabilities, or that defects will be corrected in a timely manner.</li>
+                <li><strong>Results:</strong> Your learning outcomes, career advancement, or project success based on our content are not guaranteed. Individual results depend on many factors beyond our control.</li>
+                <li><strong>Third-Party Content:</strong> We are not responsible for the accuracy, reliability, or content of any third-party websites, resources, or services linked from our Platform.</li>
+            </ul>
+            <p>
+                You use React Mastery at your own risk and discretion. Always verify code examples and best practices against the latest official documentation before using them in production environments.
+            </p>
+        </section>
+
+        <!-- Section 6: Limitation of Liability -->
+        <section class="terms-section fade-up" id="limitation-liability">
+            <div class="section-number">6</div>
+            <h2 class="section-title"><span class="emoji">🛡️</span> Limitation of Liability</h2>
+            <p>
+                To the maximum extent permitted by applicable law, Sanskar Yadav, React Mastery, and its contributors shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from or related to:
+            </p>
+            <ol>
+                <li>Your access to, use of, or inability to use the Platform or its content</li>
+                <li>Any errors, mistakes, or inaccuracies in the Platform's content, tutorials, or code examples</li>
+                <li>Any unauthorized access to or alteration of your data or transmissions</li>
+                <li>Any bugs, viruses, or other harmful components transmitted through the Platform</li>
+                <li>Any loss of profits, revenue, data, or business opportunities, whether direct or indirect</li>
+                <li>Any damage to your computer system, software, or data resulting from use of the Platform</li>
+            </ol>
+            <p>
+                This limitation applies regardless of the legal theory under which liability is asserted, including negligence, breach of contract, strict liability, or any other basis, even if we have been advised of the possibility of such damages.
+            </p>
+            <div class="highlight-box">
+                <strong>Note:</strong> Some jurisdictions do not allow the exclusion or limitation of certain damages. In such cases, our liability shall be limited to the greatest extent permitted by law.
+            </div>
+        </section>
+
+        <!-- Section 7: Donations -->
+        <section class="terms-section fade-up" id="donations">
+            <div class="section-number">7</div>
+            <h2 class="section-title"><span class="emoji">💝</span> Donations</h2>
+            <p>
+                React Mastery is a free platform sustained by community generosity. Donations are entirely <strong>voluntary</strong> and are not required to access any content or feature on the Platform.
+            </p>
+            <ul>
+                <li><strong>Voluntary Nature:</strong> Donations are completely optional. No content is locked behind a paywall, and no features are restricted to donors. Your learning experience is identical whether or not you choose to donate.</li>
+                <li><strong>Payment Processing:</strong> Donations are processed through trusted third-party services including <strong>Razorpay</strong> (for card and net banking payments) and <strong>UPI</strong> (for direct bank transfers in India). We do not directly handle, process, or store your payment information.</li>
+                <li><strong>Gumroad Support:</strong> You can also support us by purchasing e-books and digital products through our <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">Gumroad store</a>.</li>
+                <li><strong>Non-Refundable:</strong> Donations are considered gifts and are generally non-refundable. However, if you believe a charge was made in error, please contact us and we will work with you to resolve the issue.</li>
+                <li><strong>Usage of Funds:</strong> Donations are used to cover hosting costs, domain fees, content creation tools, and to support the continued development of free educational content.</li>
+                <li><strong>No Tax Deduction:</strong> React Mastery is not a registered charity or non-profit organization. Donations are not tax-deductible.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Thank You:</strong> Every donation, no matter how small, directly supports our mission to make quality React education freely accessible to everyone.
+            </div>
+        </section>
+
+        <!-- Section 8: Third-Party Links -->
+        <section class="terms-section fade-up" id="third-party-links">
+            <div class="section-number">8</div>
+            <h2 class="section-title"><span class="emoji">🔗</span> Third-Party Links</h2>
+            <p>
+                React Mastery may contain links to external websites, services, and resources that are not owned or controlled by us. These links are provided for your convenience and reference:
+            </p>
+            <ul>
+                <li><strong>No Endorsement:</strong> The inclusion of any third-party link does not imply endorsement, approval, or recommendation by React Mastery or Sanskar Yadav. Each linked resource is independent.</li>
+                <li><strong>No Control:</strong> We have no control over, and assume no responsibility for, the content, privacy policies, practices, or availability of any third-party websites or services.</li>
+                <li><strong>Your Responsibility:</strong> Accessing third-party links is at your own risk. We strongly encourage you to review the terms and privacy policies of any third-party websites you visit.</li>
+                <li><strong>Link Integrity:</strong> External links may become broken or outdated over time. While we periodically review our links, we cannot guarantee that all external resources will remain available or accurate.</li>
+            </ul>
+            <p>
+                Common third-party services referenced on our Platform include the official React documentation, MDN Web Docs, npm registry, GitHub, and various open-source project pages.
+            </p>
+        </section>
+
+        <!-- Section 9: Modifications -->
+        <section class="terms-section fade-up" id="modifications">
+            <div class="section-number">9</div>
+            <h2 class="section-title"><span class="emoji">🔄</span> Modifications to Terms</h2>
+            <p>
+                We reserve the right to modify, update, or replace these Terms of Service at any time at our sole discretion. When changes are made:
+            </p>
+            <ul>
+                <li><strong>Effective Date Update:</strong> The "Effective Date" at the top of this page will be revised to reflect the date of the latest update.</li>
+                <li><strong>Notification:</strong> For material changes that significantly affect your rights or obligations, we will provide prominent notice on the Platform (such as a header banner or dedicated announcement).</li>
+                <li><strong>Version Control:</strong> All changes to these Terms are tracked in our public GitHub repository, allowing complete transparency and the ability to review the history of changes via commit logs.</li>
+                <li><strong>Continued Use:</strong> Your continued use of the Platform following the posting of revised Terms constitutes your acceptance of such changes. If you disagree with the revised Terms, you should discontinue use of the Platform.</li>
+            </ul>
+            <p>
+                We encourage you to periodically review these Terms to stay informed about any updates. Our commitment is to maintain fair, transparent, and community-friendly terms.
+            </p>
+        </section>
+
+        <!-- Section 10: Governing Law -->
+        <section class="terms-section fade-up" id="governing-law">
+            <div class="section-number">10</div>
+            <h2 class="section-title"><span class="emoji">🏛️</span> Governing Law</h2>
+            <p>
+                These Terms of Service shall be governed by and construed in accordance with the laws of <strong>India</strong>, without regard to its conflict of law provisions.
+            </p>
+            <ul>
+                <li><strong>Jurisdiction:</strong> Any disputes arising out of or relating to these Terms or the use of the Platform shall be subject to the exclusive jurisdiction of the courts located in India.</li>
+                <li><strong>Dispute Resolution:</strong> Before initiating formal legal proceedings, we encourage parties to attempt to resolve disputes amicably through direct communication via the contact channels provided below.</li>
+                <li><strong>Severability:</strong> If any provision of these Terms is found to be unenforceable or invalid by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect.</li>
+                <li><strong>Waiver:</strong> Our failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by an authorized representative.</li>
+                <li><strong>Entire Agreement:</strong> These Terms, together with our Privacy Policy, constitute the entire agreement between you and React Mastery regarding the use of the Platform, superseding any prior agreements.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Applicable Law:</strong> These terms are governed under the laws of India. We aim to resolve all matters collaboratively before pursuing formal proceedings.
+            </div>
+        </section>
+
+        <!-- Section 11: Contact Information -->
+        <section class="terms-section fade-up" id="contact-terms">
+            <div class="section-number">11</div>
+            <h2 class="section-title"><span class="emoji">📬</span> Contact Information</h2>
+            <p>
+                If you have questions, concerns, or feedback regarding these Terms of Service, or if you need to report a violation, please reach out through any of the following channels:
+            </p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="label">Primary Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfrom2012to2026@gmail.com">sanskaryadavfrom2012to2026@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Support Email</div>
+                    <div class="value">
+                        <a href="mailto:supportramsandesh@gmail.com">supportramsandesh@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Outlook Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">sanskaryadavfromghosimau2026-27@outlook.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">GitHub</div>
+                    <div class="value">
+                        <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer">github.com/Sanskar-in</a>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 1.5rem;">
+                We take all inquiries seriously and aim to respond within 48 hours. For legal matters, please use the primary email address and include "Legal Inquiry" in the subject line.
+            </p>
+        </section>
+    </main>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donate-overlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donate-close" aria-label="Close donate modal">✕</button>
+            <h3>❤️ Support React Mastery</h3>
+            <p>
+                Your donation helps us create free, high-quality React tutorials for everyone. Every contribution fuels our mission!
+            </p>
+            <img src="Payment-Ramsandesh.jpeg" alt="Scan to Donate via UPI" class="donate-qr">
+            <div class="donate-buttons">
+                <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer" class="donate-action-btn primary">
+                    🛒 Support on Gumroad
+                </a>
+                <button class="donate-action-btn secondary" id="donate-close-btn">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <!-- Brand & Social -->
+            <div class="footer-col">
+                <h4>React Mastery</h4>
+                <p class="footer-brand-text">
+                    A free, open-source learning platform by Sanskar Yadav. Master React from fundamentals to advanced patterns with hands-on projects.
+                </p>
+                <div class="footer-social">
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+                    <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">GH</a>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">IN</a>
+                    <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="X">X</a>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com">📧 Primary Gmail</a></li>
+                    <li><a href="mailto:supportramsandesh@gmail.com">📧 Support Gmail</a></li>
+                    <li><a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">📧 Outlook</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">🛒 Gumroad</a></li>
+                </ul>
+            </div>
+
+            <!-- E-Books -->
+            <div class="footer-col">
+                <h4>E-Books</h4>
+                <ul>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📘 React Essentials</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📙 JavaScript Deep Dive</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📕 CSS Mastery Guide</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">📗 Full-Stack Handbook</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="privacy.html">🔒 Privacy Policy</a></li>
+                    <li><a href="terms.html">⚖️ Terms of Service</a></li>
+                    <li><a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">⭐ Star on GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 React Mastery by Sanskar Yadav. Open-source under MIT License.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        /* ==================== THEME TOGGLE ==================== */
+        (function() {
+            const THEME_KEY = 'reactMasteryTheme';
+            const html = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+
+            /* Load saved theme or default to dark */
+            const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+            html.setAttribute('data-theme', savedTheme);
+            updateToggleIcon(savedTheme);
+
+            toggle.addEventListener('click', function() {
+                const current = html.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem(THEME_KEY, next);
+                updateToggleIcon(next);
+            });
+
+            function updateToggleIcon(theme) {
+                toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+                toggle.title = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+        })();
+
+        /* ==================== DONATE OVERLAY ==================== */
+        (function() {
+            const overlay = document.getElementById('donate-overlay');
+            const navBtn = document.getElementById('donate-nav-btn');
+            const closeBtn = document.getElementById('donate-close');
+            const closeBtnAlt = document.getElementById('donate-close-btn');
+
+            function openDonate() {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDonate() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            navBtn.addEventListener('click', openDonate);
+            closeBtn.addEventListener('click', closeDonate);
+            closeBtnAlt.addEventListener('click', closeDonate);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeDonate();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeDonate();
+                }
+            });
+        })();
+
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        (function() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-up').forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        /* ==================== NAVBAR SCROLL EFFECT ==================== */
+        (function() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+        })();
+
+        /* ==================== SMOOTH SCROLL FOR TOC ==================== */
+        (function() {
+            document.querySelectorAll('.toc-list a').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        /* Add a brief highlight effect */
+                        targetElement.style.borderColor = 'var(--accent)';
+                        targetElement.style.boxShadow = '0 0 30px var(--accent-glow)';
+                        setTimeout(function() {
+                            targetElement.style.borderColor = '';
+                            targetElement.style.boxShadow = '';
+                        }, 2000);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

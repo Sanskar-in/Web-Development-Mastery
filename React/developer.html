@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the developer behind React Mastery. Explore the tech stack, projects showcase, code philosophy, contributing guidelines, and architecture of the platform.">
+    <meta name="keywords" content="React Mastery, Developer, Sanskar Yadav, Full Stack Developer, Open Source, Web Development, Portfolio">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Developer Hub | React Mastery">
+    <meta property="og:description" content="Meet the developer behind React Mastery. Explore the tech stack, projects, and code philosophy.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Developer Hub | React Mastery">
+    <meta name="twitter:creator" content="@Sanskar_in">
+    <title>Developer Hub | React Mastery</title>
+    <link rel="icon" type="image/svg+xml" href="react-logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Variables & Theme System ===== */
+        :root {
+            --accent: #61dafb;
+            --accent-hover: #4fc3f7;
+            --accent-glow: rgba(97, 218, 251, 0.3);
+            --accent-subtle: rgba(97, 218, 251, 0.08);
+            --gradient-accent: linear-gradient(135deg, #61dafb, #4fc3f7, #29b6f6);
+            --gradient-header: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 30%, #0d1b3e 60%, #0a1628 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.2);
+            --shadow-glow: 0 0 30px var(--accent-glow);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1e293b;
+            --bg-card: rgba(17, 24, 39, 0.8);
+            --bg-card-hover: rgba(30, 41, 59, 0.9);
+            --bg-glass: rgba(17, 24, 39, 0.6);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --border-color: rgba(97, 218, 251, 0.1);
+            --border-hover: rgba(97, 218, 251, 0.3);
+            --nav-bg: rgba(10, 14, 26, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.8);
+            --code-bg: #1a1e2e;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: rgba(241, 245, 249, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border-color: rgba(97, 218, 251, 0.15);
+            --border-hover: rgba(97, 218, 251, 0.4);
+            --nav-bg: rgba(248, 250, 252, 0.9);
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --gradient-header: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 30%, #e8f4fd 60%, #dbeafe 100%);
+            --code-bg: #f1f5f9;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background var(--transition-normal), color var(--transition-normal);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ===== Floating Orbs ===== */
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: var(--accent);
+            top: -120px;
+            right: -120px;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: #4fc3f7;
+            bottom: 15%;
+            left: -100px;
+            animation-delay: -5s;
+            animation-duration: 22s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #29b6f6;
+            top: 35%;
+            right: 8%;
+            animation-delay: -10s;
+            animation-duration: 28s;
+        }
+
+        .orb-4 {
+            width: 280px;
+            height: 280px;
+            background: #61dafb;
+            bottom: -60px;
+            left: 25%;
+            animation-delay: -15s;
+            animation-duration: 20s;
+        }
+
+        .orb-5 {
+            width: 200px;
+            height: 200px;
+            background: #80deea;
+            top: 60%;
+            left: 60%;
+            animation-delay: -8s;
+            animation-duration: 24s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(50px, 40px) scale(1.05); }
+        }
+
+        /* ===== Particles ===== */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) scale(1);
+            }
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-normal);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            background: transparent;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .nav-brand img {
+            width: 28px;
+            height: 28px;
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+            transform: rotate(20deg);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background: var(--gradient-header);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, var(--accent-glow), transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Section Titles ===== */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        /* ===== Developer Profile ===== */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+        }
+
+        .profile-avatar {
+            width: 160px;
+            height: 160px;
+            min-width: 160px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            opacity: 0.3;
+            animation: profilePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes profilePulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.6; }
+        }
+
+        .profile-avatar svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        .profile-info h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .profile-tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ===== Tech Stack ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-normal);
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .tech-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tech-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-emoji {
+            font-size: 1.6rem;
+        }
+
+        .tech-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .tech-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .tech-bar {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--gradient-accent);
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0;
+        }
+
+        .tech-bar-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 0.4rem;
+            text-align: right;
+            font-family: var(--font-mono);
+        }
+
+        /* ===== Projects Showcase ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .project-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .project-tag {
+            padding: 0.2rem 0.6rem;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.72rem;
+            color: var(--accent);
+            font-weight: 500;
+            font-family: var(--font-mono);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            transition: gap var(--transition-fast);
+        }
+
+        .project-card:hover .project-link {
+            gap: 0.7rem;
+        }
+
+        /* ===== Code Philosophy ===== */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .philosophy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+
+        .philosophy-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .philosophy-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.8rem;
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+
+        .philosophy-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== Stats ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+            font-family: var(--font-mono);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Contributing Guide ===== */
+        .contributing-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-content p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .step-content code {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        /* ===== Architecture ===== */
+        .architecture-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .architecture-block .folder {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .architecture-block .file {
+            color: var(--text-primary);
+        }
+
+        .architecture-block .comment {
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* ===== Social Cards ===== */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .social-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .social-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .social-card:hover::before {
+            opacity: 1;
+        }
+
+        .social-card.youtube::before { background: linear-gradient(135deg, #ff0000, #cc0000); }
+        .social-card.github::before { background: linear-gradient(135deg, #6e5494, #333); }
+        .social-card.linkedin::before { background: linear-gradient(135deg, #0077b5, #005582); }
+        .social-card.twitter::before { background: linear-gradient(135deg, #1da1f2, #0c85d0); }
+
+        .social-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .social-icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.6rem;
+        }
+
+        .social-card.youtube .social-icon-wrap { background: rgba(255, 0, 0, 0.1); color: #ff0000; }
+        .social-card.github .social-icon-wrap { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
+        .social-card.linkedin .social-icon-wrap { background: rgba(0, 119, 181, 0.1); color: #0077b5; }
+        .social-card.twitter .social-icon-wrap { background: rgba(29, 161, 242, 0.1); color: #1da1f2; }
+
+        .social-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .social-card .social-handle {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        .social-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            background: transparent;
+            transition: all var(--transition-fast);
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        /* ===== Contact Section ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .contact-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            border-radius: var(--radius-md);
+            background: var(--accent-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .contact-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-info p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-info a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        /* ===== Donate Section ===== */
+        .donate-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .donate-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+        }
+
+        .donate-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .donate-card h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .donate-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #0a0e1a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        /* ===== Donate Overlay ===== */
+        .donate-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            background: var(--overlay-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .donate-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donate-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .donate-modal h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .donate-modal > p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-container {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .qr-container img {
+            width: 220px;
+            height: 220px;
+            border-radius: var(--radius-sm);
+            object-fit: contain;
+        }
+
+        .qr-label {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 24px;
+            height: 24px;
+            animation: spin 8s linear infinite;
+        }
+
+        .footer-brand span {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .footer-social a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                min-width: 120px;
+            }
+
+            .profile-avatar svg {
+                width: 60px;
+                height: 60px;
+            }
+
+            .profile-tags {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 1rem;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .header {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contributing-content {
+                padding: 2rem;
+            }
+
+            .donate-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donate-buttons {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ===== Scroll Animations ===== */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Orbs -->
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-back" title="Back to React Mastery">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Back
+            </a>
+            <div class="nav-brand">
+                <img src="react-logo.svg" alt="React Logo">
+                <span>React Mastery</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme" aria-label="Toggle theme">
+                🌙
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <span class="header-badge">
+                <span class="dot"></span>
+                Open Source Project
+            </span>
+            <span class="header-icon">👨‍💻</span>
+            <h1>Developer Hub</h1>
+            <p>Meet the developer, explore the tech stack, discover projects, and learn how to contribute to the React Mastery platform.</p>
+        </div>
+    </header>
+
+    <!-- Developer Profile -->
+    <section class="section" id="profile">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">👤 Developer</span>
+                <h2 class="section-title">Meet the Developer</h2>
+                <p class="section-subtitle">The person behind React Mastery and the Web Development Mastery platform.</p>
+            </div>
+
+            <div class="profile-card animate-in">
+                <div class="profile-avatar">
+                    <!-- Inline SVG Logo -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#0a0e1a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="48" fill="url(#avatarGrad)" stroke="#61dafb" stroke-width="2"/>
+                        <text x="50" y="42" text-anchor="middle" fill="#61dafb" font-family="Inter, sans-serif" font-size="28" font-weight="800">S</text>
+                        <text x="50" y="68" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12" font-weight="500">DEV</text>
+                    </svg>
+                </div>
+                <div class="profile-info">
+                    <h2>Sanskar Yadav</h2>
+                    <p class="profile-title">Full-Stack Developer & Educator</p>
+                    <p class="profile-bio">
+                        Passionate full-stack developer and educator dedicated to making web development accessible to everyone. 
+                        Creator of the Web Development Mastery platform — a comprehensive, free, and open-source learning ecosystem 
+                        covering HTML, CSS, JavaScript, and React. With a deep love for clean code, modern design, and interactive 
+                        learning experiences, I build tools that empower developers at every level to grow their skills and build 
+                        amazing things for the web.
+                    </p>
+                    <div class="profile-tags">
+                        <span class="profile-tag">⚛️ React</span>
+                        <span class="profile-tag">📜 JavaScript</span>
+                        <span class="profile-tag">🎨 CSS</span>
+                        <span class="profile-tag">🟢 Node.js</span>
+                        <span class="profile-tag">🔥 Firebase</span>
+                        <span class="profile-tag">📐 TypeScript</span>
+                        <span class="profile-tag">🎓 Educator</span>
+                        <span class="profile-tag">🌍 Open Source</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section" id="tech-stack">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🛠️ Tech Stack</span>
+                <h2 class="section-title">Technologies & Tools</h2>
+                <p class="section-subtitle">The core technologies powering this platform and my development workflow.</p>
+            </div>
+
+            <div class="tech-grid">
+                <!-- React -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">⚛️</span>
+                        <span class="tech-name">React</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="95"></div>
+                    </div>
+                    <div class="tech-bar-label">95%</div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">📜</span>
+                        <span class="tech-name">JavaScript</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="95"></div>
+                    </div>
+                    <div class="tech-bar-label">95%</div>
+                </div>
+
+                <!-- TypeScript -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">📐</span>
+                        <span class="tech-name">TypeScript</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="85"></div>
+                    </div>
+                    <div class="tech-bar-label">85%</div>
+                </div>
+
+                <!-- HTML5 -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🌐</span>
+                        <span class="tech-name">HTML5</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="98"></div>
+                    </div>
+                    <div class="tech-bar-label">98%</div>
+                </div>
+
+                <!-- CSS3 -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🎨</span>
+                        <span class="tech-name">CSS3</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="96"></div>
+                    </div>
+                    <div class="tech-bar-label">96%</div>
+                </div>
+
+                <!-- Node.js -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🟢</span>
+                        <span class="tech-name">Node.js</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="88"></div>
+                    </div>
+                    <div class="tech-bar-label">88%</div>
+                </div>
+
+                <!-- Express -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🚀</span>
+                        <span class="tech-name">Express</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="85"></div>
+                    </div>
+                    <div class="tech-bar-label">85%</div>
+                </div>
+
+                <!-- MongoDB -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🍃</span>
+                        <span class="tech-name">MongoDB</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="82"></div>
+                    </div>
+                    <div class="tech-bar-label">82%</div>
+                </div>
+
+                <!-- Git -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🔀</span>
+                        <span class="tech-name">Git</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="90"></div>
+                    </div>
+                    <div class="tech-bar-label">90%</div>
+                </div>
+
+                <!-- VS Code -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">💻</span>
+                        <span class="tech-name">VS Code</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="95"></div>
+                    </div>
+                    <div class="tech-bar-label">95%</div>
+                </div>
+
+                <!-- Figma -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🎯</span>
+                        <span class="tech-name">Figma</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="78"></div>
+                    </div>
+                    <div class="tech-bar-label">78%</div>
+                </div>
+
+                <!-- Firebase -->
+                <div class="tech-card animate-in" data-tech>
+                    <div class="tech-card-header">
+                        <span class="tech-emoji">🔥</span>
+                        <span class="tech-name">Firebase</span>
+                    </div>
+                    <div class="tech-bar-container">
+                        <div class="tech-bar" data-width="84"></div>
+                    </div>
+                    <div class="tech-bar-label">84%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🚀 Projects</span>
+                <h2 class="section-title">Projects Showcase</h2>
+                <p class="section-subtitle">A collection of key projects that make up the Web Development Mastery ecosystem.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Web Dev Mastery -->
+                <div class="project-card animate-in">
+                    <span class="project-icon">🌐</span>
+                    <h3>Web Development Mastery</h3>
+                    <p>The flagship platform — a comprehensive, interactive web development learning ecosystem with 500+ concepts, interactive examples, progress tracking, and multiple theme support across all modules.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML5</span>
+                        <span class="project-tag">CSS3</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">LocalStorage</span>
+                    </div>
+                    <a href="../index.html" class="project-link">Explore Platform →</a>
+                </div>
+
+                <!-- HTML Mastery -->
+                <div class="project-card animate-in">
+                    <span class="project-icon">📝</span>
+                    <h3>HTML Mastery</h3>
+                    <p>A deep-dive module covering everything from basic HTML structure and semantic elements to advanced forms, accessibility best practices, and modern HTML5 APIs. Interactive examples included.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML5</span>
+                        <span class="project-tag">Semantic Web</span>
+                        <span class="project-tag">Accessibility</span>
+                        <span class="project-tag">SEO</span>
+                    </div>
+                    <a href="../HTML/index.html" class="project-link">Learn HTML →</a>
+                </div>
+
+                <!-- CSS Mastery -->
+                <div class="project-card animate-in">
+                    <span class="project-icon">🎨</span>
+                    <h3>CSS Mastery</h3>
+                    <p>Master modern CSS with tutorials on Flexbox, Grid, animations, custom properties, responsive design, and advanced layout techniques. Features a stunning visual design with live demos.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">CSS3</span>
+                        <span class="project-tag">Flexbox</span>
+                        <span class="project-tag">Grid</span>
+                        <span class="project-tag">Animations</span>
+                    </div>
+                    <a href="../CSS/index.html" class="project-link">Learn CSS →</a>
+                </div>
+
+                <!-- JS Mastery -->
+                <div class="project-card animate-in">
+                    <span class="project-icon">⚡</span>
+                    <h3>JavaScript Mastery</h3>
+                    <p>Comprehensive JavaScript module covering ES6+, DOM manipulation, async programming, closures, prototypes, modules, error handling, and modern development patterns with runnable examples.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">ES6+</span>
+                        <span class="project-tag">DOM API</span>
+                        <span class="project-tag">Async/Await</span>
+                        <span class="project-tag">Modules</span>
+                    </div>
+                    <a href="../JS/index.html" class="project-link">Learn JavaScript →</a>
+                </div>
+
+                <!-- React Mastery -->
+                <div class="project-card animate-in">
+                    <span class="project-icon">⚛️</span>
+                    <h3>React Mastery</h3>
+                    <p>The crown jewel — an interactive React learning experience with a built-in code sandbox, live previews, progress tracking, and coverage from JSX basics to advanced hooks and state management.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">React 18+</span>
+                        <span class="project-tag">JSX</span>
+                        <span class="project-tag">Hooks</span>
+                        <span class="project-tag">Babel</span>
+                        <span class="project-tag">Sandbox</span>
+                    </div>
+                    <a href="index.html" class="project-link">Learn React →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Philosophy -->
+    <section class="section" id="philosophy">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">💡 Philosophy</span>
+                <h2 class="section-title">Code Philosophy</h2>
+                <p class="section-subtitle">The principles that guide every line of code in this project.</p>
+            </div>
+
+            <div class="philosophy-grid">
+                <!-- Clean Code -->
+                <div class="philosophy-card animate-in">
+                    <div class="philosophy-icon">✨</div>
+                    <h3>Clean Code</h3>
+                    <p>Every component is written with clarity, consistency, and maintainability in mind. Well-structured code, meaningful naming conventions, proper documentation, and separation of concerns make the codebase a joy to read and contribute to.</p>
+                </div>
+
+                <!-- Open Source -->
+                <div class="philosophy-card animate-in">
+                    <div class="philosophy-icon">🌍</div>
+                    <h3>Open Source</h3>
+                    <p>This entire platform is open-source and free forever. We believe knowledge should be accessible to everyone regardless of background or financial situation. Community contributions are welcomed and encouraged — every PR makes us better.</p>
+                </div>
+
+                <!-- Education First -->
+                <div class="philosophy-card animate-in">
+                    <div class="philosophy-icon">🎓</div>
+                    <h3>Education First</h3>
+                    <p>Every design decision prioritizes the learning experience. Interactive examples, clear explanations, progressive difficulty, and hands-on practice ensure that concepts don't just get read — they get understood, applied, and remembered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section" id="stats">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">📊 Stats</span>
+                <h2 class="section-title">Platform at a Glance</h2>
+                <p class="section-subtitle">Numbers that tell the story of React Mastery's scope and ambition.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card animate-in">
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">Concepts Covered</div>
+                </div>
+                <div class="stat-card animate-in">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Learning Modules</div>
+                </div>
+                <div class="stat-card animate-in">
+                    <div class="stat-value">24+</div>
+                    <div class="stat-label">Theme Variations</div>
+                </div>
+                <div class="stat-card animate-in">
+                    <div class="stat-value">OSS</div>
+                    <div class="stat-label">Open Source</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contributing Guide -->
+    <section class="section" id="contributing">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🤝 Contribute</span>
+                <h2 class="section-title">Contributing Guide</h2>
+                <p class="section-subtitle">Help make React Mastery better. Here's how to get started contributing.</p>
+            </div>
+
+            <div class="contributing-content animate-in">
+                <div class="step-list">
+                    <div class="step-item">
+                        <span class="step-number">01</span>
+                        <div class="step-content">
+                            <h4>Fork the Repository</h4>
+                            <p>Head over to <a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">github.com/Sanskar-in/Web-Development-Mastery</a> and click the <strong>Fork</strong> button in the top-right corner to create your own copy of the repository.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">02</span>
+                        <div class="step-content">
+                            <h4>Clone Your Fork</h4>
+                            <p>Clone your forked repository to your local machine using <code>git clone https://github.com/YOUR-USERNAME/Web-Development-Mastery.git</code> and navigate into the project directory.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">03</span>
+                        <div class="step-content">
+                            <h4>Create a Feature Branch</h4>
+                            <p>Create a new branch for your changes with <code>git checkout -b feature/your-feature-name</code>. Use descriptive branch names that reflect the changes you're making.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">04</span>
+                        <div class="step-content">
+                            <h4>Make Your Changes</h4>
+                            <p>Implement your changes, following the existing code style and conventions. Test your changes locally by opening the HTML files in a browser. Ensure your changes are responsive and work across different themes.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">05</span>
+                        <div class="step-content">
+                            <h4>Commit & Push</h4>
+                            <p>Stage your changes with <code>git add .</code>, commit with a clear message using <code>git commit -m "feat: add your feature description"</code>, and push to your fork with <code>git push origin feature/your-feature-name</code>.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">06</span>
+                        <div class="step-content">
+                            <h4>Open a Pull Request</h4>
+                            <p>Navigate to the original repository on GitHub and open a Pull Request from your branch. Provide a clear description of your changes, screenshots if applicable, and reference any related issues. We'll review it promptly!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="section" id="architecture">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🏗️ Architecture</span>
+                <h2 class="section-title">Project Structure</h2>
+                <p class="section-subtitle">A bird's-eye view of how the Web Development Mastery platform is organized.</p>
+            </div>
+
+            <div class="architecture-block animate-in">
+<span class="folder">Web-Development-Mastery/</span>
+├── <span class="folder">HTML/</span>                      <span class="comment">── HTML Mastery module</span>
+│   ├── <span class="file">index.html</span>              <span class="comment">── Main tutorial page</span>
+│   ├── <span class="file">support.html</span>            <span class="comment">── Support & Help</span>
+│   └── <span class="file">developer.html</span>          <span class="comment">── Developer Hub</span>
+├── <span class="folder">CSS/</span>                       <span class="comment">── CSS Mastery module</span>
+│   ├── <span class="file">index.html</span>              <span class="comment">── Main tutorial page</span>
+│   ├── <span class="file">support.html</span>            <span class="comment">── Support & Help</span>
+│   └── <span class="file">developer.html</span>          <span class="comment">── Developer Hub</span>
+├── <span class="folder">JS/</span>                        <span class="comment">── JavaScript Mastery module</span>
+│   ├── <span class="file">index.html</span>              <span class="comment">── Main tutorial page</span>
+│   ├── <span class="file">support.html</span>            <span class="comment">── Support & Help</span>
+│   └── <span class="file">developer.html</span>          <span class="comment">── Developer Hub</span>
+├── <span class="folder">React/</span>                     <span class="comment">── React Mastery module</span>
+│   ├── <span class="file">index.html</span>              <span class="comment">── Main tutorial + sandbox</span>
+│   ├── <span class="file">support.html</span>            <span class="comment">── Support & Help (this page)</span>
+│   ├── <span class="file">developer.html</span>          <span class="comment">── Developer Hub (you are here)</span>
+│   └── <span class="file">react-logo.svg</span>          <span class="comment">── React favicon/logo</span>
+├── <span class="file">index.html</span>                  <span class="comment">── Platform landing page</span>
+├── <span class="file">Payment-Ramsandesh.jpeg</span>     <span class="comment">── UPI donation QR code</span>
+└── <span class="file">README.md</span>                   <span class="comment">── Project documentation</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="section" id="social">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">🌐 Social</span>
+                <h2 class="section-title">Connect With Me</h2>
+                <p class="section-subtitle">Follow along on your favorite platform for updates, tutorials, and behind-the-scenes.</p>
+            </div>
+
+            <div class="social-grid">
+                <!-- YouTube -->
+                <div class="social-card youtube animate-in">
+                    <div class="social-icon-wrap">▶</div>
+                    <h3>YouTube</h3>
+                    <p class="social-handle">@Sanskar-in</p>
+                    <p>Video tutorials, coding walkthroughs, project breakdowns, and live coding sessions for developers of all levels.</p>
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" class="social-btn">Subscribe →</a>
+                </div>
+
+                <!-- GitHub -->
+                <div class="social-card github animate-in">
+                    <div class="social-icon-wrap">⌨</div>
+                    <h3>GitHub</h3>
+                    <p class="social-handle">Sanskar-in</p>
+                    <p>All source code, open-source projects, contributions, and development activity. Star the repo and contribute!</p>
+                    <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" class="social-btn">Follow →</a>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="social-card linkedin animate-in">
+                    <div class="social-icon-wrap">in</div>
+                    <h3>LinkedIn</h3>
+                    <p class="social-handle">sanskar-in</p>
+                    <p>Professional updates, career insights, web development industry trends, and networking with fellow developers.</p>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" class="social-btn">Connect →</a>
+                </div>
+
+                <!-- X (Twitter) -->
+                <div class="social-card twitter animate-in">
+                    <div class="social-icon-wrap">𝕏</div>
+                    <h3>X (Twitter)</h3>
+                    <p class="social-handle">@Sanskar_in</p>
+                    <p>Quick dev tips, project announcements, tech discussions, and engaging with the global developer community.</p>
+                    <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" class="social-btn">Follow →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-label">✉️ Contact</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Reach out for collaborations, questions, feedback, or just to say hello.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Primary Email -->
+                <div class="contact-card animate-in">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-info">
+                        <h4>Primary Email</h4>
+                        <p>For general inquiries and collaborations</p>
+                        <a href="mailto:sanskaryadavfrom2012to2026@gmail.com">sanskaryadavfrom2012to2026@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- Support Email -->
+                <div class="contact-card animate-in">
+                    <div class="contact-icon">🛟</div>
+                    <div class="contact-info">
+                        <h4>Support Email</h4>
+                        <p>For platform support and bug reports</p>
+                        <a href="mailto:supportramsandesh@gmail.com">supportramsandesh@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- Gumroad -->
+                <div class="contact-card animate-in">
+                    <div class="contact-icon">☕</div>
+                    <div class="contact-info">
+                        <h4>Gumroad</h4>
+                        <p>Support the project via digital products</p>
+                        <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">ramsandesh.gumroad.com</a>
+                    </div>
+                </div>
+
+                <!-- GitHub Issues -->
+                <div class="contact-card animate-in">
+                    <div class="contact-icon">🐛</div>
+                    <div class="contact-info">
+                        <h4>GitHub Issues</h4>
+                        <p>Report bugs or request features</p>
+                        <a href="https://github.com/Sanskar-in/Web-Development-Mastery/issues" target="_blank" rel="noopener noreferrer">Open an Issue →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section class="section" id="donate">
+        <div class="container">
+            <div class="donate-section">
+                <div class="donate-card animate-in">
+                    <span class="donate-icon">💖</span>
+                    <h2>Support the Developer</h2>
+                    <p>Building and maintaining a free, open-source platform takes time, effort, and resources. Your donations help keep React Mastery alive, fund hosting costs, and enable new features. Every contribution — big or small — makes a difference.</p>
+                    <div class="donate-buttons">
+                        <button class="btn btn-primary" onclick="openDonateOverlay()">
+                            ❤️ Donate via UPI
+                        </button>
+                        <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            ☕ Support on Gumroad
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donateOverlay">
+        <div class="donate-modal">
+            <button class="modal-close" onclick="closeDonateOverlay()" title="Close" aria-label="Close donation modal">✕</button>
+            <h3>💖 Donate via UPI</h3>
+            <p>Scan the QR code below with any UPI app to make a donation. Every contribution counts!</p>
+            <div class="qr-container">
+                <img src="Payment-Ramsandesh.jpeg" alt="UPI QR Code for Donation" loading="lazy">
+            </div>
+            <p class="qr-label">Scan with Google Pay, PhonePe, Paytm, or any UPI app</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <img src="react-logo.svg" alt="React Logo">
+                    <span>React Mastery</span>
+                </div>
+                <p class="footer-desc">A comprehensive, interactive learning platform for mastering React.js — from fundamentals to advanced patterns. Free, open-source, and built with ❤️ by Sanskar Yadav.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Modules</h4>
+                <ul>
+                    <li><a href="../HTML/index.html">📝 HTML Mastery</a></li>
+                    <li><a href="../CSS/index.html">🎨 CSS Mastery</a></li>
+                    <li><a href="../JS/index.html">⚡ JS Mastery</a></li>
+                    <li><a href="index.html">⚛️ React Mastery</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="support.html">🛟 Support & Help</a></li>
+                    <li><a href="developer.html">👨‍💻 Developer Hub</a></li>
+                    <li><a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">📂 GitHub Repo</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">☕ Gumroad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com">📧 Primary Email</a></li>
+                    <li><a href="mailto:supportramsandesh@gmail.com">📧 Support Email</a></li>
+                    <li><a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer">▶️ YouTube</a></li>
+                    <li><a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer">𝕏 Twitter / X</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024–2026 React Mastery by Sanskar Yadav. Made with ❤️ for the developer community.</p>
+            <div class="footer-social">
+                <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">▶</a>
+                <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">⌨</a>
+                <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">in</a>
+                <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="X Twitter">𝕏</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        /* ===== Theme Toggle ===== */
+        (function() {
+            const themeKey = 'reactMasteryTheme';
+            const saved = localStorage.getItem(themeKey);
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        })();
+
+        const themeToggle = document.getElementById('themeToggle');
+
+        function updateThemeIcon() {
+            const current = document.documentElement.getAttribute('data-theme');
+            themeToggle.textContent = current === 'dark' ? '🌙' : '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('reactMasteryTheme', next);
+            updateThemeIcon();
+        });
+
+        updateThemeIcon();
+
+        /* ===== Particle System (30 particles) ===== */
+        (function() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const left = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 20;
+                const opacity = Math.random() * 0.4 + 0.2;
+
+                particle.style.left = left + '%';
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.animationDuration = duration + 's';
+                particle.style.animationDelay = delay + 's';
+                particle.style.setProperty('--max-opacity', opacity);
+
+                container.appendChild(particle);
+            }
+        })();
+
+        /* ===== Donate Overlay ===== */
+        function openDonateOverlay() {
+            document.getElementById('donateOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDonateOverlay() {
+            document.getElementById('donateOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('donateOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeDonateOverlay();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDonateOverlay();
+            }
+        });
+
+        /* ===== Scroll Animations ===== */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        /* ===== Tech Stack Bar Animation ===== */
+        const techObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target.querySelector('.tech-bar');
+                    if (bar) {
+                        const width = bar.getAttribute('data-width');
+                        setTimeout(() => {
+                            bar.style.width = width + '%';
+                        }, 200);
+                    }
+                    techObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('[data-tech]').forEach(el => {
+            techObserver.observe(el);
+        });
+
+        /* ===== Nav Scroll Effect ===== */
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = 'var(--shadow-md)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
