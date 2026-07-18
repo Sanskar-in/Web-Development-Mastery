@@ -8903,116 +8903,653 @@ const PRESET_THEMES = [
 let currentTag = null;
 let masteredTags = new Set();
 let editor;
+let xp = 0;
+let favoriteTags = new Set();
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
+let quizTotal = 5;
 
-// Initialize the app
-function init() {
-    loadProgress();
-    initThemes();
-    
-    let savedTheme = 'dark';
-    try {
-        savedTheme = localStorage.getItem('js-theme') || 'dark';
-    } catch(e) {
-        console.warn('localStorage not available for theme');
+// ===== SIDEBAR MANAGEMENT =====
+function toggleSidebar() {
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    const btn = document.getElementById('sbOpen');
+    if (!sb) return;
+    sb.classList.toggle('open');
+    if (ov) ov.classList.toggle('active');
+    if (btn) btn.setAttribute('aria-expanded', sb.classList.contains('open'));
+}
+
+// ===== GREETING =====
+function getGreeting() {
+    const h = new Date().getHours();
+    if (h < 5) return '🌙 Burning the midnight oil';
+    if (h < 12) return '☀️ Good Morning';
+    if (h < 17) return '🌤️ Good Afternoon';
+    if (h < 21) return '🌆 Good Evening';
+    return '🌙 Night Owl Mode';
+}
+
+function updateGreeting() {
+    const el = document.getElementById('greetingWrap');
+    if (!el) return;
+    let name = '';
+    try { name = localStorage.getItem('jsMasteryUsername') || ''; } catch (e) { }
+    el.textContent = getGreeting() + (name ? ', ' + name + '!' : '!');
+}
+
+function saveUsername() {
+    const input = document.getElementById('wmUsername');
+    const name = input ? input.value.trim() : '';
+    if (name) {
+        try { localStorage.setItem('jsMasteryUsername', name); } catch (e) { }
     }
-    applyTheme(savedTheme);
-    renderTags(TAGS);
-    setupEventListeners();
-    
-    // Setup CodeMirror
-    editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-        mode: "javascript",
-        theme: "dracula",
-        lineNumbers: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-        indentUnit: 2,
-        tabSize: 2,
-        lineWrapping: true
+    try { localStorage.setItem('jsMasteryWelcomed', 'true'); } catch (e) { }
+    const modal = document.getElementById('welcomeModal');
+    if (modal) modal.close();
+    updateGreeting();
+}
+
+function skipUsername() {
+    try { localStorage.setItem('jsMasteryWelcomed', 'true'); } catch (e) { }
+    const modal = document.getElementById('welcomeModal');
+    if (modal) modal.close();
+}
+
+// ===== MASTERY RANK SYSTEM =====
+function getMasteryRank(count) {
+    if (count >= 95) return '🏆 Grandmaster';
+    if (count >= 80) return '💎 Diamond';
+    if (count >= 65) return '🥇 Expert';
+    if (count >= 50) return '🥈 Advanced';
+    if (count >= 35) return '🥉 Intermediate';
+    if (count >= 20) return '📗 Apprentice';
+    if (count >= 10) return '🌱 Beginner';
+    return '🔰 Novice';
+}
+
+function updateMasteryStats() {
+    const count = masteredTags.size;
+    const total = TAGS.length;
+    const level = Math.floor(count / 10) + 1;
+
+    const els = {
+        masteryCountStat: count,
+        masteryLevel: level,
+        sbMasteryCount: count,
+        favCountStat: favoriteTags.size,
+        readTime: Math.round(total * 2.5)
+    };
+    Object.entries(els).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
     });
 
-    if (TAGS.length > 0) {
-        selectTag(TAGS[0].id);
+    const rank = getMasteryRank(count);
+    const rankEls = ['masteryRank', 'mcRank'];
+    rankEls.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = rank;
+    });
+
+    const bar = document.getElementById('masteryProgressBar');
+    if (bar) bar.style.width = (total > 0 ? (count / total * 100) : 0) + '%';
+
+    // XP display
+    try { xp = parseInt(localStorage.getItem('js_xp')) || 0; } catch (e) { xp = 0; }
+}
+
+// ===== CONCEPT OF THE DAY =====
+function initConceptOfDay() {
+    if (TAGS.length === 0) return;
+    const dayIndex = new Date().getDate() % TAGS.length;
+    const concept = TAGS[dayIndex];
+    const card = document.getElementById('totDayCard');
+    const text = document.getElementById('totDayText');
+    const btn = document.getElementById('totDayBtn');
+    if (card && text && btn) {
+        card.style.display = 'block';
+        text.textContent = concept.title + ' — ' + (concept.description || concept.badge || '');
+        btn.onclick = () => loadTag(concept.id);
     }
 }
 
-// Intercept console.log
-const consoleOutput = document.getElementById('consoleOutput');
-const originalConsoleLog = console.log;
-const originalConsoleError = console.error;
-
-console.log = function(...args) {
-    // Call original so it still shows in devtools
-    originalConsoleLog.apply(console, args);
-    appendConsoleMsg(args, 'log');
-};
-
-console.error = function(...args) {
-    originalConsoleError.apply(console, args);
-    appendConsoleMsg(args, 'error');
-};
-
-function appendConsoleMsg(args, type) {
-    const msg = args.map(arg => {
-        if (typeof arg === 'object') {
-            try {
-                return JSON.stringify(arg, null, 2);
-            } catch(e) {
-                return arg.toString();
-            }
-        }
-        return String(arg);
-    }).join(' ');
-
-    const div = document.createElement('div');
-    div.className = `console-msg msg-\${type}`;
-    div.textContent = '> ' + msg;
-    consoleOutput.appendChild(div);
-    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+// ===== ZEN MODE =====
+function toggleZenMode() {
+    document.body.classList.toggle('zen-mode');
+    const btn = document.getElementById('zenBtn');
+    if (btn) btn.textContent = document.body.classList.contains('zen-mode') ? '👁️ Exit Zen' : '👁️ Zen Mode';
 }
 
-// Run Code
-document.getElementById('runBtn').addEventListener('click', () => {
-    // Clear output
-    consoleOutput.innerHTML = '';
-    
-    const code = editor.getValue();
-    try {
-        // Evaluate the code
-        // We use an async IIFE to support top-level await in our sandbox
-        const asyncFunc = new Function(`(async () => { 
-            try {
-                \${code}
-            } catch(e) {
-                console.error(e.name + ': ' + e.message);
+// ===== FONT SIZE =====
+function changeFontSize(delta) {
+    const root = document.documentElement;
+    const current = parseFloat(getComputedStyle(root).fontSize) || 16;
+    const newSize = Math.max(12, Math.min(22, current + delta));
+    root.style.fontSize = newSize + 'px';
+    try { localStorage.setItem('jsMasteryFontSize', newSize); } catch (e) { }
+}
+
+// ===== EXPORT / IMPORT =====
+function exportProgress() {
+    const data = {
+        mastered: [...masteredTags],
+        favorites: [...favoriteTags],
+        xp: xp,
+        theme: localStorage.getItem('js-theme') || 'dark',
+        username: localStorage.getItem('jsMasteryUsername') || '',
+        exportDate: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'js-mastery-progress.json';
+    a.click();
+}
+
+function importProgress(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.mastered) {
+                masteredTags = new Set(data.mastered);
+                saveProgress();
             }
-        })()`);
-        
-        asyncFunc();
-        
-        // Mark as mastered if successful
-        if(currentTag && !masteredTags.has(currentTag.id)) {
-            masteredTags.add(currentTag.id);
-            saveProgress();
+            if (data.favorites) {
+                favoriteTags = new Set(data.favorites);
+                try { localStorage.setItem('js-mastery-favorites', JSON.stringify([...favoriteTags])); } catch (e) { }
+            }
+            if (data.xp) {
+                xp = data.xp;
+                try { localStorage.setItem('js_xp', xp); } catch (e) { }
+            }
+            if (data.username) {
+                try { localStorage.setItem('jsMasteryUsername', data.username); } catch (e) { }
+            }
+            updateMasteryStats();
             updateProgressUI();
-            triggerCelebration();
-            document.querySelector(`[data-id="\${currentTag.id}"]`).classList.add('mastered');
+            renderSidebar();
+            updateGreeting();
+            alert('✅ Progress imported successfully!');
+        } catch (err) {
+            alert('❌ Invalid file format.');
         }
-    } catch(err) {
+    };
+    reader.readAsText(file);
+}
+
+// ===== QUIZ SYSTEM =====
+function openQuiz(e) {
+    if (e) e.preventDefault();
+    quizScore = 0;
+    quizIndex = 0;
+    const pool = TAGS.filter(t => t.quiz);
+    quizQuestions = pool.sort(() => Math.random() - 0.5).slice(0, quizTotal);
+    if (quizQuestions.length === 0) { alert('No quiz questions available.'); return; }
+    const modal = document.getElementById('quizModal');
+    if (!modal) return;
+    document.getElementById('quizResultArea').style.display = 'none';
+    document.getElementById('quizActiveArea').style.display = 'block';
+    document.getElementById('quizFooterActions').style.display = 'flex';
+    document.getElementById('quizScoreDisplay').textContent = 'Score: 0/' + quizQuestions.length;
+    showQuizQuestion();
+    modal.showModal();
+}
+
+function showQuizQuestion() {
+    if (quizIndex >= quizQuestions.length) {
+        document.getElementById('quizActiveArea').style.display = 'none';
+        document.getElementById('quizFooterActions').style.display = 'none';
+        document.getElementById('quizResultArea').style.display = 'block';
+        document.getElementById('quizFinalScore').textContent = quizScore + '/' + quizQuestions.length;
+        return;
+    }
+    const q = quizQuestions[quizIndex].quiz;
+    document.getElementById('quizQuestion').textContent = q.question;
+    const optDiv = document.getElementById('quizOptions');
+    optDiv.innerHTML = '';
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = opt;
+        btn.style.cssText = 'text-align:left;padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text);cursor:pointer;font-size:0.95rem;transition:0.2s;font-family:inherit;';
+        btn.onclick = () => selectQuizAnswer(i);
+        optDiv.appendChild(btn);
+    });
+    const nextBtn = document.getElementById('quizNextBtn');
+    if (nextBtn) { nextBtn.style.opacity = '0.5'; nextBtn.style.pointerEvents = 'none'; }
+}
+
+function selectQuizAnswer(index) {
+    const q = quizQuestions[quizIndex].quiz;
+    const btns = document.getElementById('quizOptions').children;
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].style.pointerEvents = 'none';
+        if (i === q.answer) {
+            btns[i].style.background = 'rgba(16,185,129,0.2)';
+            btns[i].style.borderColor = '#10b981';
+            btns[i].style.color = '#10b981';
+        } else if (i === index && i !== q.answer) {
+            btns[i].style.background = 'rgba(239,68,68,0.2)';
+            btns[i].style.borderColor = '#ef4444';
+            btns[i].style.color = '#ef4444';
+        }
+    }
+    if (index === q.answer) quizScore++;
+    document.getElementById('quizScoreDisplay').textContent = 'Score: ' + quizScore + '/' + quizQuestions.length;
+    const nextBtn = document.getElementById('quizNextBtn');
+    if (nextBtn) { nextBtn.style.opacity = '1'; nextBtn.style.pointerEvents = 'auto'; }
+}
+
+function nextQuizQuestion() {
+    quizIndex++;
+    showQuizQuestion();
+}
+
+function shareScore() {
+    const text = '🎯 I scored ' + quizScore + '/' + quizQuestions.length + ' on the JavaScript Mastery Quiz! Try it: https://github.com/Sanskar-in/Web-Development-Mastery';
+    navigator.clipboard.writeText(text).then(() => alert('Score copied to clipboard!'));
+}
+
+// ===== CHEAT SHEET =====
+function openCheatSheet() {
+    const modal = document.getElementById('cheatSheetModal');
+    if (modal) { renderCheatSheet(); modal.showModal(); }
+}
+
+function renderCheatSheet() {
+    const grid = document.getElementById('csGrid');
+    if (!grid) return;
+    const search = (document.getElementById('csSearch')?.value || '').toLowerCase();
+    const filtered = search ? TAGS.filter(t => t.title.toLowerCase().includes(search) || (t.badge && t.badge.toLowerCase().includes(search))) : TAGS;
+
+    grid.innerHTML = filtered.map(t => `
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:0.2s;"
+             onclick="document.getElementById('cheatSheetModal').close(); loadTag('${t.id}');"
+             onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.borderColor='var(--border)';this.style.transform=''">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <span style="font-size:1.3rem;">${t.emoji || '⚡'}</span>
+                <strong style="font-size:0.9rem;color:var(--text);">${t.title}</strong>
+            </div>
+            <span style="font-size:0.75rem;padding:3px 8px;background:color-mix(in srgb, var(--accent) 15%, transparent);color:var(--accent);border-radius:6px;font-weight:600;">${t.badge || ''}</span>
+            ${masteredTags.has(t.id) ? '<span style="float:right;color:#10b981;">✅</span>' : ''}
+        </div>
+    `).join('');
+}
+
+// ===== MASTERY CENTER =====
+function openMasteryCenter() {
+    const modal = document.getElementById('masteryCenterModal');
+    if (modal) { showMasteryTab('interview'); modal.showModal(); }
+    const rank = document.getElementById('mcRank');
+    if (rank) rank.textContent = getMasteryRank(masteredTags.size);
+}
+
+function showMasteryTab(tab) {
+    document.querySelectorAll('.extra-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.extra-tab-btn[onclick*="${tab}"]`)?.classList.add('active');
+
+    const content = document.getElementById('mcContent');
+    if (!content) return;
+
+    if (tab === 'interview') {
+        const items = TAGS.filter(t => t.quiz).slice(0, 20);
+        content.innerHTML = '<h2 style="margin-bottom:24px;color:var(--accent);">💬 Interview Questions</h2>' +
+            items.map(t => `
+                <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;">
+                    <h3 style="color:var(--text);margin-bottom:8px;">${t.emoji || '⚡'} ${t.title}</h3>
+                    <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;">${t.quiz ? t.quiz.question : 'Explain ' + t.title + ' in JavaScript.'}</p>
+                </div>
+            `).join('');
+    } else if (tab === 'best-practices') {
+        content.innerHTML = `
+            <h2 style="margin-bottom:24px;color:var(--accent);">🛡️ JavaScript Best Practices</h2>
+            ${['Use const by default, let when needed — never var', 'Use === instead of == for strict comparison', 'Use template literals instead of string concatenation', 'Handle promises with async/await and try-catch', 'Use optional chaining (?.) and nullish coalescing (??)', 'Avoid global variables — use modules and closures', 'Use destructuring for cleaner object/array access', 'Always use try-catch with JSON.parse()', 'Use Array methods (map, filter, reduce) over loops', 'Write pure functions when possible', 'Debounce expensive event handlers (scroll, resize)', 'Use Web APIs properly (Intersection Observer, etc.)', 'Keep functions small and single-purpose', 'Use meaningful variable and function names', 'Comment WHY, not WHAT'].map((tip, i) => `
+                <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:flex-start;gap:12px;">
+                    <span style="background:var(--accent);color:#000;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0;">${i + 1}</span>
+                    <span style="color:var(--text);font-size:0.92rem;line-height:1.5;">${tip}</span>
+                </div>
+            `).join('')}`;
+    } else if (tab === 'flashcards') {
+        const pool = TAGS.sort(() => Math.random() - 0.5).slice(0, 10);
+        content.innerHTML = '<h2 style="margin-bottom:24px;color:var(--accent);">🃏 Flashcards (Click to Flip)</h2>' +
+            pool.map(t => `
+                <div onclick="this.querySelector('.fc-answer').style.display=this.querySelector('.fc-answer').style.display==='block'?'none':'block'"
+                     style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;cursor:pointer;transition:0.2s;">
+                    <h3 style="color:var(--text);margin-bottom:8px;">${t.emoji || '⚡'} What is ${t.title}?</h3>
+                    <div class="fc-answer" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:var(--text-muted);font-size:0.9rem;line-height:1.6;">
+                        ${t.description || t.title + ' is a core JavaScript concept used in modern web development.'}
+                    </div>
+                </div>
+            `).join('');
+    }
+}
+
+// ===== FAVORITES =====
+function toggleFavorite(id) {
+    if (favoriteTags.has(id)) favoriteTags.delete(id);
+    else favoriteTags.add(id);
+    try { localStorage.setItem('js-mastery-favorites', JSON.stringify([...favoriteTags])); } catch (e) { }
+    updateMasteryStats();
+    renderSidebar();
+}
+
+// ===== SIDEBAR RENDERING =====
+function renderSidebar() {
+    const nav = document.getElementById('sbNav');
+    if (!nav) { renderTags(TAGS); return; }
+
+    const search = (document.getElementById('sbSearch')?.value || '').toLowerCase();
+    const filter = document.getElementById('sbFilter')?.value || 'ALL';
+
+    let filtered = TAGS;
+    if (search) filtered = filtered.filter(t => t.title.toLowerCase().includes(search) || (t.badge && t.badge.toLowerCase().includes(search)));
+    if (filter === 'FAVORITES') filtered = filtered.filter(t => favoriteTags.has(t.id));
+    else if (filter === 'MASTERED') filtered = filtered.filter(t => masteredTags.has(t.id));
+    else if (filter !== 'ALL') filtered = filtered.filter(t => t.badge === filter);
+
+    nav.innerHTML = filtered.map((t, i) => `
+        <div class="sb-item ${currentTag && currentTag.id === t.id ? 'active' : ''} ${masteredTags.has(t.id) ? 'mastered' : ''}"
+             onclick="loadTag('${t.id}')" data-id="${t.id}" title="${t.title}">
+            <span class="sb-num">${i + 1}</span>
+            <span class="sb-emoji">${t.emoji || '⚡'}</span>
+            <span class="sb-title">${t.title}</span>
+            <div class="sb-badges">
+                ${masteredTags.has(t.id) ? '<span class="sb-check">✅</span>' : ''}
+                ${favoriteTags.has(t.id) ? '<span class="sb-fav">⭐</span>' : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function applyFilters() {
+    renderSidebar();
+}
+
+function populateFilterDropdown() {
+    const select = document.getElementById('sbFilter');
+    if (!select) return;
+    const categories = [...new Set(TAGS.map(t => t.badge).filter(Boolean))];
+    select.innerHTML = '<option value="ALL">All Categories</option>' +
+        '<option value="FAVORITES">⭐ Favorites</option>' +
+        '<option value="MASTERED">✅ Mastered</option>' +
+        categories.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+}
+
+// ===== INIT =====
+function init() {
+    loadProgress();
+    try { xp = parseInt(localStorage.getItem('js_xp')) || 0; } catch (e) { xp = 0; }
+    try {
+        const savedFavs = localStorage.getItem('js-mastery-favorites');
+        if (savedFavs) favoriteTags = new Set(JSON.parse(savedFavs));
+    } catch (e) { }
+
+    // Restore font size
+    try {
+        const fs = localStorage.getItem('jsMasteryFontSize');
+        if (fs) document.documentElement.style.fontSize = fs + 'px';
+    } catch (e) { }
+
+    // Greeting
+    updateGreeting();
+
+    // Welcome modal
+    try {
+        if (!localStorage.getItem('jsMasteryWelcomed')) {
+            const modal = document.getElementById('welcomeModal');
+            if (modal) setTimeout(() => modal.showModal(), 800);
+        }
+    } catch (e) { }
+
+    // Populate sidebar filter dropdown
+    populateFilterDropdown();
+
+    // Render sidebar
+    renderSidebar();
+
+    // Init themes
+    initThemes();
+
+    let savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('js-theme') || 'dark'; } catch (e) { }
+    applyTheme(savedTheme);
+
+    // Mastery stats
+    updateMasteryStats();
+
+    // Concept of the day
+    initConceptOfDay();
+
+    // Stats
+    const totalEl = document.getElementById('totalTagsStat');
+    if (totalEl) totalEl.textContent = TAGS.length;
+    const totalDesc = document.getElementById('totalTagsDesc');
+    if (totalDesc) totalDesc.textContent = TAGS.length;
+
+    // Sidebar search listener
+    const sbSearch = document.getElementById('sbSearch');
+    if (sbSearch) sbSearch.addEventListener('input', () => renderSidebar());
+
+    // Sidebar filter listener
+    const sbFilter = document.getElementById('sbFilter');
+    if (sbFilter) sbFilter.addEventListener('change', () => renderSidebar());
+
+    // Sidebar close
+    const sbClose = document.getElementById('sbClose');
+    if (sbClose) sbClose.addEventListener('click', toggleSidebar);
+
+    // Content area — build it dynamically since new index.html uses #content div
+    buildContentArea();
+
+    // Init CodeMirror
+    const codeEditorEl = document.getElementById('codeEditor');
+    if (codeEditorEl) {
+        editor = CodeMirror.fromTextArea(codeEditorEl, {
+            mode: "javascript",
+            theme: "dracula",
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            indentUnit: 2,
+            tabSize: 2,
+            lineWrapping: true
+        });
+
+        editor.on('change', () => {
+            const autoRun = document.getElementById('auto-run');
+            if (autoRun && autoRun.checked) runCode();
+        });
+    }
+
+    setupEventListeners();
+
+    if (TAGS.length > 0) {
+        loadTag(TAGS[0].id);
+    }
+}
+
+// ===== BUILD CONTENT AREA =====
+function buildContentArea() {
+    const content = document.getElementById('content');
+    if (!content) return;
+    if (content.children.length > 0) return;
+
+    content.innerHTML = `
+        <section id="explanationPanel" class="explanation-panel" style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;margin:0 0 20px;overflow:hidden;"></section>
+
+        <section class="editor-section" style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+            <div class="editor-toolbar" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-tertiary);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-weight:700;font-size:0.9rem;color:var(--text);">📝 Code Editor (JavaScript)</span>
+                    <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+                        <input type="checkbox" id="auto-run" style="accent-color:var(--accent);cursor:pointer;"> Auto-Run
+                    </label>
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <button id="runBtn" style="background:var(--accent);color:#000;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:bold;font-family:inherit;font-size:0.85rem;transition:0.2s;">▶ Run</button>
+                    <button id="copyCodeBtn" style="background:var(--bg-quaternary);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:0.85rem;">📋 Copy</button>
+                    <button id="clearConsoleBtn" style="background:var(--bg-quaternary);color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:0.85rem;">🗑️ Clear</button>
+                </div>
+            </div>
+            <textarea id="codeEditor"></textarea>
+        </section>
+
+        <section class="preview-section" style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;margin-top:20px;overflow:hidden;">
+            <div style="padding:12px 16px;background:var(--bg-tertiary);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-weight:700;font-size:0.9rem;color:var(--text);">💻 Console Output</span>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <span style="width:10px;height:10px;background:#ef4444;border-radius:50%;display:inline-block;"></span>
+                    <span style="width:10px;height:10px;background:#f59e0b;border-radius:50%;display:inline-block;"></span>
+                    <span style="width:10px;height:10px;background:#10b981;border-radius:50%;display:inline-block;"></span>
+                </div>
+            </div>
+            <div id="consoleOutput" style="padding:12px 16px;background:var(--bg);font-family:'Fira Code',monospace;font-size:0.82rem;color:var(--text-muted);min-height:100px;max-height:300px;overflow-y:auto;"></div>
+        </section>
+
+        <div style="display:flex;gap:12px;margin-top:20px;justify-content:center;flex-wrap:wrap;">
+            <button id="markCompleteBtn" onclick="markCompleted()" style="background:linear-gradient(135deg,var(--accent),var(--accent-secondary));color:#000;border:none;padding:14px 28px;border-radius:12px;cursor:pointer;font-weight:bold;font-size:1rem;font-family:inherit;transition:0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.2);"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(0,0,0,0.3)'"
+                onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">✅ Mark as Mastered</button>
+        </div>
+
+        <!-- Celebration Overlay -->
+        <div id="celebrationOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center;">
+            <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:20px;padding:40px;text-align:center;max-width:400px;width:90%;">
+                <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+                <h2 style="color:var(--accent);margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;">Concept Mastered!</h2>
+                <p style="color:var(--text-muted);margin-bottom:24px;">You've earned XP! Keep going!</p>
+                <button id="nextConceptBtn" style="background:var(--accent);color:#000;border:none;padding:14px 24px;border-radius:12px;cursor:pointer;font-weight:bold;font-size:1rem;font-family:inherit;">Next Concept ➔</button>
+            </div>
+        </div>
+    `;
+}
+
+// ===== LOAD TAG (replaces selectTag) =====
+function loadTag(id) {
+    currentTag = TAGS.find(t => t.id === id);
+    if (!currentTag) return;
+
+    // Update sidebar active state
+    document.querySelectorAll('.sb-item, .tag-item').forEach(el => {
+        el.classList.remove('active');
+        if (el.dataset.id === id) el.classList.add('active');
+    });
+
+    // Update explanation panel
+    const panel = document.getElementById('explanationPanel');
+    if (panel) {
+        const isFav = favoriteTags.has(id);
+        panel.innerHTML = `
+            <div style="padding:24px;background:var(--bg-tertiary);border-bottom:1px solid var(--border);">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <span style="font-size:2rem;">${currentTag.emoji || '⚡'}</span>
+                        <div>
+                            <span style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);background:color-mix(in srgb, var(--accent) 12%, transparent);padding:3px 10px;border-radius:6px;">${currentTag.badge || ''}</span>
+                            <h2 style="font-size:1.5rem;font-weight:800;margin-top:6px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;">${currentTag.title}</h2>
+                        </div>
+                    </div>
+                    <button onclick="toggleFavorite('${id}')" style="background:none;border:1px solid var(--border);color:${isFav ? '#f59e0b' : 'var(--text-muted)'};padding:8px 14px;border-radius:8px;cursor:pointer;font-size:1rem;transition:0.2s;" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '⭐ Saved' : '☆ Save'}</button>
+                </div>
+            </div>
+            <div style="padding:24px;line-height:1.8;color:var(--text);font-size:0.95rem;">
+                ${currentTag.content}
+            </div>
+        `;
+    }
+
+    // Set editor code
+    if (editor) {
+        const consoleOutput = document.getElementById('consoleOutput');
+        if (consoleOutput) consoleOutput.innerHTML = '';
+        editor.setValue(currentTag.defaultCode || '// Write your JavaScript code here\nconsole.log("Hello, JavaScript!");');
+    }
+
+    // Close sidebar on mobile
+    if (window.innerWidth < 768) {
+        const sb = document.getElementById('sidebar');
+        if (sb && sb.classList.contains('open')) toggleSidebar();
+    }
+
+    // Scroll to top of content
+    const content = document.getElementById('content');
+    if (content) content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// For legacy compat
+function selectTag(id) { loadTag(id); }
+
+// ===== RUN CODE =====
+function runCode() {
+    const consoleOutput = document.getElementById('consoleOutput');
+    if (consoleOutput) consoleOutput.innerHTML = '';
+
+    const code = editor ? editor.getValue() : '';
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+
+    function appendMsg(args, type) {
+        const msg = args.map(arg => {
+            if (typeof arg === 'object') {
+                try { return JSON.stringify(arg, null, 2); } catch (e) { return String(arg); }
+            }
+            return String(arg);
+        }).join(' ');
+        const div = document.createElement('div');
+        div.style.cssText = 'padding:4px 0;border-bottom:1px solid var(--border);' +
+            (type === 'error' ? 'color:#ef4444;' : type === 'warn' ? 'color:#f59e0b;' : 'color:var(--text);');
+        div.textContent = (type === 'error' ? '❌ ' : type === 'warn' ? '⚠️ ' : '> ') + msg;
+        if (consoleOutput) { consoleOutput.appendChild(div); consoleOutput.scrollTop = consoleOutput.scrollHeight; }
+    }
+
+    console.log = (...args) => { originalLog.apply(console, args); appendMsg(args, 'log'); };
+    console.error = (...args) => { originalError.apply(console, args); appendMsg(args, 'error'); };
+    console.warn = (...args) => { originalWarn.apply(console, args); appendMsg(args, 'warn'); };
+
+    try {
+        const asyncFunc = new Function(`(async () => {
+            try { ${code} } catch(e) { console.error(e.name + ': ' + e.message); }
+        })()`);
+        asyncFunc();
+    } catch (err) {
         console.error(err.name + ": " + err.message);
     }
-});
 
-document.getElementById('clearConsoleBtn').addEventListener('click', () => {
-    consoleOutput.innerHTML = '';
-});
+    // Restore
+    setTimeout(() => {
+        console.log = originalLog;
+        console.error = originalError;
+        console.warn = originalWarn;
+    }, 2000);
+}
 
-document.getElementById('copyCodeBtn').addEventListener('click', () => {
-    navigator.clipboard.writeText(editor.getValue());
-    const btn = document.getElementById('copyCodeBtn');
-    btn.textContent = "✅";
-    setTimeout(() => btn.textContent = "📋", 2000);
-});
+// ===== MARK COMPLETED =====
+function markCompleted() {
+    if (!currentTag || masteredTags.has(currentTag.id)) return;
+    masteredTags.add(currentTag.id);
+    xp += 10;
+    try { localStorage.setItem('js_xp', xp); } catch (e) { }
+    saveProgress();
+    updateProgressUI();
+    updateMasteryStats();
+    renderSidebar();
+    triggerCelebration();
+}
+
+function triggerConfetti() {
+    if (typeof confetti === 'function') {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899'] });
+    }
+}
+
+
 
 // Render Sidebar Tags
 function renderTags(tagsToRender) {
@@ -9065,36 +9602,58 @@ function selectTag(id) {
 }
 
 function setupEventListeners() {
-    // Search
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = TAGS.filter(t => t.title.toLowerCase().includes(term) || t.badge.toLowerCase().includes(term));
-        renderTags(filtered);
-    });
+    // Search (legacy compat for old index)
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = TAGS.filter(t => t.title.toLowerCase().includes(term) || t.badge.toLowerCase().includes(term));
+            renderTags(filtered);
+        });
+    }
 
-    // Filters
+    // Filters (legacy compat)
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
-            
             const filter = e.target.dataset.filter;
             if (filter === 'all') renderTags(TAGS);
             else renderTags(TAGS.filter(t => t.badge === filter));
         });
     });
 
-    // Theme selector
-    document.getElementById('themeSelector').addEventListener('change', (e) => {
-        applyTheme(e.target.value);
+    // Theme selector (legacy)
+    const themeSelector = document.getElementById('themeSelector');
+    if (themeSelector) {
+        themeSelector.addEventListener('change', (e) => applyTheme(e.target.value));
+    }
+
+    // Run button
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'runBtn' || e.target.closest('#runBtn')) {
+            runCode();
+        }
+        if (e.target.id === 'copyCodeBtn' || e.target.closest('#copyCodeBtn')) {
+            if (editor) navigator.clipboard.writeText(editor.getValue());
+            const btn = document.getElementById('copyCodeBtn');
+            if (btn) { btn.textContent = '✅ Copied!'; setTimeout(() => btn.textContent = '📋 Copy', 2000); }
+        }
+        if (e.target.id === 'clearConsoleBtn' || e.target.closest('#clearConsoleBtn')) {
+            const co = document.getElementById('consoleOutput');
+            if (co) co.innerHTML = '';
+        }
     });
 
     // Next button on celebration
-    document.getElementById('nextConceptBtn').addEventListener('click', () => {
-        document.getElementById('celebrationOverlay').classList.remove('active');
-        const currentIndex = TAGS.findIndex(t => t.id === currentTag.id);
-        if (currentIndex < TAGS.length - 1) {
-            selectTag(TAGS[currentIndex + 1].id);
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'nextConceptBtn' || e.target.closest('#nextConceptBtn')) {
+            const overlay = document.getElementById('celebrationOverlay');
+            if (overlay) { overlay.style.display = 'none'; }
+            const currentIndex = TAGS.findIndex(t => t.id === currentTag.id);
+            if (currentIndex < TAGS.length - 1) {
+                loadTag(TAGS[currentIndex + 1].id);
+            }
         }
     });
 }
@@ -9136,13 +9695,10 @@ function updateProgressUI() {
 
 function triggerCelebration() {
     const overlay = document.getElementById('celebrationOverlay');
-    overlay.classList.add('active');
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899']
-    });
+    if (overlay) {
+        overlay.style.display = 'flex';
+    }
+    triggerConfetti();
 }
 
 // Themes

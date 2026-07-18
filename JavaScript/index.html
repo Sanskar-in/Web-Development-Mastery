@@ -1,363 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript Mastery by Sanskar</title>
-  <!-- CodeMirror for Code Editing -->
+  <meta name="description" content="100 JavaScript Concepts Explained In-Depth with Live Sandbox & Interactive Code — by Sanskar">
+  <meta name="keywords" content="JavaScript, JS, Web Development, Programming, Sanskar, ES6, Async, Promises, DOM">
+  <meta name="author" content="Sanskar Developer">
+  <meta name="theme-color" content="#eab308">
+  
+  <meta property="og:title" content="JavaScript Mastery — 100 Concepts | By Sanskar Developer">
+  <meta property="og:description" content="Master JavaScript with 100 interactive concepts, live code sandbox, and complete reference guide.">
+  <meta property="og:type" content="website">
+  
+  <title>JavaScript Mastery — 100 Concepts | By Sanskar Developer</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
-
-  <link rel="stylesheet" href="style.css">
+  
+  <link rel="icon" href="css_logo.svg" type="image/svg+xml">
+  
+  <style>
+    /* Inline Styles for Critical UI / Modals */
+    :root {
+      --accent: #eab308;
+      --accent-secondary: #fef08a;
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --bg3: #334155;
+      --bg4: #475569;
+      --text: #f8fafc;
+      --text2: #cbd5e1;
+      --text3: #94a3b8;
+      --border: #334155;
+    }
+    
+    .donate-btn, .top-donate-btn {
+      background: linear-gradient(135deg, #ef4444, #ec4899);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .donate-btn:hover, .top-donate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+    #donate-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .donate-modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    #donate-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    #donate-overlay.active .donate-modal {
+      transform: translateY(0);
+    }
+    .donate-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .donate-close:hover {
+      color: var(--text);
+    }
+    dialog#welcomeModal::backdrop {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+    }
+  </style>
 </head>
+<body>
+  <a href="#content" class="skip-link">Skip to content</a>
 
-<body data-theme="dark">
-  <!-- SPLASH SCREEN -->
   <div id="splash-screen">
     <img src="../splash.png" alt="Web Development Mastery Logo" class="splash-logo">
     <div class="splash-title">JavaScript Mastery</div>
     <div class="splash-subtitle">Initializing V8 Sandbox...</div>
   </div>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <div class="logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text">JS Mastery</span>
-      </div>
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">☰</button>
-      <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search concepts (e.g., closures, async)..."
-          aria-label="Search JavaScript concepts">
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="progress-container">
-        <span id="progressText">0 / 0 Concepts Mastered</span>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-      </div>
-      <button onclick="document.getElementById('themeModal').showModal()" class="theme-gallery-btn"
-        style="background:var(--bg-tertiary); color:var(--text); border:1px solid var(--border); padding:8px 16px; border-radius:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.3s;">Theme
-        Gallery 🎨</button>
-      <a href="https://rzp.io/l/Sanskar" class="donate-btn" target="_blank" rel="noopener noreferrer">🍩 Buy me a
-        Donut</a>
-      <a href="../Follow-Sanskar.html" class="donate-btn"
-        style="background: linear-gradient(135deg, #a78bfa, #3b82f6); margin-left: 10px; color: white; border: none; box-shadow: 0 4px 15px rgba(167, 139, 250, 0.4);"
-        rel="noopener noreferrer">✨ Follow Sanskar</a>
-    </div>
-  </nav>
 
-  <div class="app-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-          <h2>Concepts</h2>
-          <button id="sbClose" class="sb-close" aria-label="Close sidebar">✕</button>
+  <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-secondary));z-index:10000;width:0%;transition:width 0.1s;"></div>
+
+  <aside id="sidebar">
+    <div class="sb-header">
+      <h2>JS Concepts ⚡</h2>
+      <button id="sbClose" aria-label="Close sidebar">×</button>
+    </div>
+    
+    <div class="sb-search-container">
+      <input type="text" id="sbSearch" placeholder="🔍 Search concepts...">
+      <select id="sbFilter">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
+    
+    <nav id="sbNav" aria-label="Sidebar navigation"></nav>
+    
+    <div class="sb-footer">
+      <div class="mastery-progress-section">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px;color:var(--text2);">
+          <span>Mastery Progress</span>
+          <span id="sbMasteryCount">0%</span>
         </div>
-        <div class="sidebar-filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="BASICS">Basics</button>
-          <button class="filter-btn" data-filter="ES6+">ES6+</button>
-          <button class="filter-btn" data-filter="DOM">DOM</button>
-          <button class="filter-btn" data-filter="ASYNC">Async</button>
+        <div class="progress-track" style="background:var(--bg3);height:6px;border-radius:3px;overflow:hidden;">
+          <div id="masteryProgressBar" style="height:100%;width:0%;background:var(--accent);transition:width 0.5s;"></div>
         </div>
       </div>
-      <ul id="tagList" class="tag-list">
-        <!-- List items populated by JS -->
-      </ul>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="workspace">
-        <!-- Explanation Panel -->
-        <div class="explanation-panel" id="explanationPanel">
-          <div class="placeholder-msg">
-            <span class="placeholder-icon">⚡</span>
-            <h2>Select a JavaScript concept from the sidebar to begin!</h2>
-            <p>Explore syntax, APIs, asynchronous programming, and DOM manipulation.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:15px;">
+        <button class="donate-btn" onclick="openDonate()" style="width:100%;justify-content:center;">❤️ Support Developer</button>
+        <div style="display:flex;gap:10px;">
+          <button onclick="document.getElementById('themeModal').showModal()" style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;cursor:pointer;">🎨 Themes</button>
+          <div style="display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+            <button onclick="changeFontSize(-1)" style="background:none;border:none;color:var(--text);padding:8px;cursor:pointer;border-right:1px solid var(--border);">A-</button>
+            <button onclick="changeFontSize(1)" style="background:none;border:none;color:var(--text);padding:8px;cursor:pointer;">A+</button>
           </div>
         </div>
-
-        <!-- Live Editor & Output Panel -->
-        <div class="editor-panel">
-          <div class="panel-header">
-            <h3>Interactive Code Sandbox</h3>
-            <button id="runBtn" class="run-btn">▶️ Run Code</button>
-          </div>
-
-          <div class="code-section">
-            <div class="code-header">
-              <span>script.js</span>
-              <button id="copyCodeBtn" class="icon-btn" aria-label="Copy Code">📋</button>
-            </div>
-            <textarea id="codeEditor"></textarea>
-          </div>
-
-          <div class="preview-section">
-            <div class="preview-header">
-              <span>Console / Output</span>
-              <button id="clearConsoleBtn" class="icon-btn" aria-label="Clear Console">🗑️</button>
-            </div>
-            <div class="console-output" id="consoleOutput">
-              <!-- JS logs will appear here -->
-            </div>
-          </div>
+        <div style="display:flex;gap:10px;">
+          <button onclick="exportData()" style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;cursor:pointer;font-size:12px;">📤 Export</button>
+          <button onclick="document.getElementById('importFile').click()" style="flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;cursor:pointer;font-size:12px;">📥 Import</button>
+          <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
         </div>
       </div>
-    </main>
-  </div>
-
-  <!-- Celebration Overlay -->
-  <div id="celebrationOverlay" class="celebration-overlay">
-    <div class="celebration-content">
-      <h1>🎉 Congratulations! 🎉</h1>
-      <p>You have mastered this JavaScript Concept!</p>
-      <button id="nextConceptBtn" class="primary-btn">Next Concept ➡️</button>
     </div>
-  </div>
+  </aside>
 
-  <!-- ===== PREMIUM FOOTER ===== -->
-  <footer id="siteFooter"
-    style="background:var(--bg2); border-top:1px solid var(--border); margin-top:60px; font-family:'Inter','Plus Jakarta Sans',sans-serif;">
+  <div id="overlay" onclick="toggleSidebar()" role="presentation"></div>
 
-    <!-- Main Footer Grid -->
-    <div
-      style="max-width:1300px; margin:0 auto; padding:48px 32px 32px; display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:40px;">
-
-      <!-- Column 1: Brand & Social -->
-      <div>
-        <div
-          style="font-size:1.3rem; font-weight:800; color:var(--text); margin-bottom:6px; font-family:'Plus Jakarta Sans',sans-serif;">
-          🚀 Sanskar Yadav</div>
-        <p style="color:var(--text2); font-size:0.88rem; line-height:1.7; margin:0 0 20px;">Full-Stack Developer,
-          Creator & Educator. Building premium web experiences and sharing knowledge with the world.</p>
-
-        <div
-          style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text2); margin-bottom:12px;">
-          Follow Sanskar on</div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <!-- YouTube -->
-          <a href="https://www.youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer"
-            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
-            onmouseover="this.style.background='#ef4444';this.style.borderColor='#ef4444';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(239,68,68,0.4)'"
-            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-            </svg>
-            YouTube
-          </a>
-          <!-- GitHub -->
-          <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer"
-            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
-            onmouseover="this.style.background='#333';this.style.borderColor='#666';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)'"
-            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.transform='';this.style.boxShadow=''">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-            </svg>
-            GitHub
-          </a>
-          <!-- X / Twitter -->
-          <a href="https://www.x.com/Sanskar_in" target="_blank" rel="noopener noreferrer"
-            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
-            onmouseover="this.style.background='#1d9bf0';this.style.borderColor='#1d9bf0';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(29,155,240,0.4)'"
-            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-            X (Twitter)
-          </a>
-          <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/sanskar-in/" target="_blank" rel="noopener noreferrer"
-            style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; font-size:0.82rem; font-weight:600; transition:all 0.2s;"
-            onmouseover="this.style.background='#0a66c2';this.style.borderColor='#0a66c2';this.style.color='#fff';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(10,102,194,0.4)'"
-            onmouseout="this.style.background='var(--bg3)';this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform='';this.style.boxShadow=''">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-            LinkedIn
-          </a>
-        </div>
+  <main id="mainWrap">
+    <button id="sbOpen" aria-label="Open sidebar">☰</button>
+    
+    <div style="position:absolute;top:20px;right:20px;display:flex;align-items:center;gap:15px;z-index:100;">
+      <div class="social-cluster" style="display:flex;gap:10px;">
+        <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener" aria-label="YouTube" style="color:var(--text2);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener" aria-label="GitHub" style="color:var(--text2);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+        <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:var(--text2);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener" aria-label="X" style="color:var(--text2);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
       </div>
-
-      <!-- Column 2: Contact -->
-      <div>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">📬 Contact</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <!-- Phone -->
-          <!-- <a href="tel:+919795753292"
-              style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.85rem; transition:color 0.2s;"
-              onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">
-              <span
-                style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📱</span>
-              +91 97957 53292
-            </a> -->
-          <!-- Gmail -->
-          <a href="mailto:sanskaryadavfrom2012to2026@gmail.com"
-            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s; word-break:break-all;"
-            onmouseover="this.style.color='#ea4335'" onmouseout="this.style.color='var(--text2)'">
-            <span
-              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📧</span>
-            sanskaryadavfrom2012to2026@gmail.com
-          </a>
-          <!-- Support Gmail -->
-          <a href="mailto:supportramsandesh@gmail.com"
-            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s;"
-            onmouseover="this.style.color='#ea4335'" onmouseout="this.style.color='var(--text2)'">
-            <span
-              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">🛟</span>
-            supportramsandesh@gmail.com
-          </a>
-          <!-- Outlook -->
-          <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com"
-            style="display:flex; align-items:center; gap:10px; color:var(--text2); text-decoration:none; font-size:0.82rem; transition:color 0.2s; word-break:break-all;"
-            onmouseover="this.style.color='#0078d4'" onmouseout="this.style.color='var(--text2)'">
-            <span
-              style="width:32px; height:32px; border-radius:8px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📨</span>
-            sanskaryadavfromghosimau2026-27@outlook.com
-          </a>
-        </div>
-      </div>
-
-      <!-- Column 3: E-Books & Store -->
-      <div>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">📚 E-Books & Store
-        </div>
-        <p style="color:var(--text2); font-size:0.85rem; line-height:1.7; margin:0 0 16px;">Get premium CSS, HTML &
-          Web Development e-books, cheat sheets, and resources on Gumroad.</p>
-        <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer"
-          style="display:inline-flex; align-items:center; gap:8px; padding:12px 22px; background:linear-gradient(135deg, #ff90e8, #ff6b9d); color:#000; text-decoration:none; font-size:0.88rem; font-weight:700; border-radius:12px; transition:all 0.25s; box-shadow:0 4px 15px rgba(255,107,157,0.3);"
-          onmouseover="this.style.transform='translateY(-3px) scale(1.02)';this.style.boxShadow='0 8px 25px rgba(255,107,157,0.5)'"
-          onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(255,107,157,0.3)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#000">
-            <path
-              d="M10.2 0C4.6 0 0 4.6 0 10.2v3.6C0 19.4 4.6 24 10.2 24h3.6c5.6 0 10.2-4.6 10.2-10.2V10.2C24 4.6 19.4 0 13.8 0h-3.6zm3.3 6.5c1.1 0 2.1.4 2.8 1.2.8.8 1.2 1.8 1.2 2.8v3c0 1.1-.4 2.1-1.2 2.8-.7.8-1.7 1.2-2.8 1.2H10c-2.2 0-4-1.8-4-4v-3c0-2.2 1.8-4 4-4h3.5z" />
-          </svg>
-          Browse E-Books on Gumroad →
-        </a>
-      </div>
-
-      <!-- Column 4: Quick Links -->
-      <div>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:16px;">🔗 Quick Links</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <a href="../Follow-Sanskar.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Follow Sanskar
-          </a>
-          <a href="../about.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> About Sanskar
-          </a>
-          <a href="../support.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Support & Help
-          </a>
-          <a href="../developer.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Developer Hub
-          </a>
-          <a href="../privacy.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Privacy Policy
-          </a>
-          <a href="../terms.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Terms of Service
-          </a>
-          <a href="../thanks.html"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> Thank You
-          </a>
-          <a href="https://github.com/Sanskar-in/Web-Development-Mastery/blob/main/Web%20Development%20Mastery/404.html"
-            target="_blank"
-            style="color:var(--text2); text-decoration:none; font-size:0.85rem; padding:6px 0; transition:all 0.2s; display:flex; align-items:center; gap:8px;"
-            onmouseover="this.style.color='var(--accent)';this.style.paddingLeft='8px'"
-            onmouseout="this.style.color='var(--text2)';this.style.paddingLeft='0'">
-            <span style="opacity:0.6;">→</span> 404 Page (Fallback)
-          </a>
-        </div>
-      </div>
-
+      <a href="../Follow-Sanskar.html" style="color:var(--text);text-decoration:none;font-weight:500;font-size:14px;background:var(--bg3);padding:6px 12px;border-radius:6px;border:1px solid var(--border);">Follow Sanskar</a>
+      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
     </div>
 
-    <!-- Bottom Bar -->
-    <div
-      style="border-top:1px solid var(--border); padding:16px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; max-width:1300px; margin:0 auto;">
-      <div style="display:flex; gap:20px; align-items:center; font-size:0.82rem; color:var(--text2);">
-        <span style="display:flex; align-items:center; gap:6px;">
-          <span style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block;"></span>
-          v2.0 Premium
-        </span>
-        <span style="opacity:0.4;">|</span>
-        <span>100/100 Tags Indexed</span>
+    <header>
+      <div class="logo-wrap">
+        <span style="font-size:32px;">⚡</span>
       </div>
-      <div style="font-weight:600; font-size:0.82rem; color:var(--text);">© 2026 Sanskar Yadav — All Rights Reserved
-      </div>
-      <div style="font-size:0.78rem; color:var(--text2);">Made with ❤️ in India</div>
-      <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
-    </div>
-
-  </footer>
-
-  <!-- THEME GALLERY MODAL -->
-  <dialog id="themeModal">
-    <div class="tm-head">
-      <h2>🎨 Theme Gallery &amp; Customizer</h2>
-      <button class="tm-close" onclick="document.getElementById('themeModal').close()">✕</button>
-    </div>
-
-    <h3 style="margin-bottom:12px;font-size:1.1rem;color:var(--text2)">✨ 25+ Premium Presets</h3>
-    <div class="tm-grid" id="themeGrid">
-      <!-- Preset buttons injected by JS -->
-    </div>
-
-    <div class="custom-theme-box">
-      <h3>🛠️ Create Custom Theme</h3>
-      <p style="font-size:0.85rem;color:var(--text3);margin-bottom:12px;">Mix your own colors. Changes apply instantly!
+      <div id="greetingWrap" style="font-size:14px;color:var(--accent);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;"></div>
+      <h1>JavaScript Mastery</h1>
+      <p style="color:var(--text2);max-width:600px;margin:15px auto;font-size:16px;line-height:1.6;">
+        <span id="totalTagsDesc">100</span> Concepts Explained In-Depth with Live Sandbox & Interactive Code — by Sanskar
       </p>
-      <div class="ct-grid">
-        <div class="ct-item"><span>Background (bg)</span><input type="color" id="ct-bg" value="#0a0a1a"></div>
-        <div class="ct-item"><span>Card / UI (bg2)</span><input type="color" id="ct-bg2" value="#12122a"></div>
-        <div class="ct-item"><span>Text Color</span><input type="color" id="ct-text" value="#d0d0ee"></div>
-        <div class="ct-item"><span>Primary Accent</span><input type="color" id="ct-accent" value="#6c63ff"></div>
-        <div class="ct-item"><span>Secondary Accent</span><input type="color" id="ct-accent2" value="#3ecfcf"></div>
-        <div class="ct-item" style="flex:1;display:flex;justify-content:flex-end;align-items:flex-end;">
-          <button onclick="saveCustomTheme()" class="save-ct-btn">💾 Save Custom</button>
+      
+      <div id="hdr-stats" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:25px 0;">
+        <div style="background:var(--bg2);border:1px solid var(--border);padding:10px 20px;border-radius:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:var(--text);" id="totalTagsStat">100</div>
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;">Concepts</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);padding:10px 20px;border-radius:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:var(--accent);" id="masteryLevel">0%</div>
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;">Level</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);padding:10px 20px;border-radius:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:var(--text);" id="masteryCountStat">0</div>
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;">Mastered</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);padding:10px 20px;border-radius:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:#f43f5e;" id="favCountStat">0</div>
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;">Favorites</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);padding:10px 20px;border-radius:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:#38bdf8;" id="readTime">45m</div>
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;">Min Read</div>
+        </div>
+      </div>
+      
+      <div id="masteryRank" style="display:inline-block;background:linear-gradient(90deg, rgba(234, 179, 8, 0.1), rgba(234, 179, 8, 0.2));border:1px solid var(--accent);color:var(--accent);padding:8px 16px;border-radius:20px;font-weight:600;font-size:14px;margin-bottom:20px;">
+        Rank: Novice Developer
+      </div>
+      
+      <div id="totDayCard" style="background:var(--bg2);border:1px solid var(--border);padding:15px 25px;border-radius:12px;max-width:500px;margin:0 auto 30px;cursor:pointer;transition:transform 0.2s, border-color 0.2s;" onclick="openTotDay()">
+        <div style="font-size:12px;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:5px;">✨ Concept of the Day</div>
+        <div id="totDayTitle" style="font-weight:600;color:var(--text);font-size:16px;">Loading...</div>
+      </div>
+      
+      <div class="action-buttons" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <button onclick="openQuiz(event)" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">🎯</span> Test Knowledge</button>
+        <button onclick="openCheatSheet()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">📜</span> Cheat Sheet</button>
+        <button onclick="openMasteryCenter()" style="background:var(--accent);border:1px solid var(--accent);color:#000;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">🎓</span> Mastery Center</button>
+        <button onclick="setTimeout(function(){window.print();},100)" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">🖨️</span> Save as PDF</button>
+        <button id="zenBtn" onclick="toggleZenMode()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">👁️</span> Zen Mode</button>
+        <button onclick="document.getElementById('historyModal').showModal()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">⏳</span> History</button>
+        <button onclick="document.getElementById('shortcutsModal').showModal()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;"><span style="font-size:18px;">⌨️</span> Shortcuts</button>
+      </div>
+    </header>
+
+    <div id="content" role="region" aria-label="JavaScript concept reference content"></div>
+
+    <footer id="siteFooter" style="background:var(--bg2);border-top:1px solid var(--border);padding:60px 20px 20px;margin-top:60px;">
+      <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:40px;margin-bottom:40px;">
+        
+        <div>
+          <h3 style="color:var(--text);font-size:20px;margin-bottom:15px;display:flex;align-items:center;gap:10px;">🚀 Sanskar Yadav</h3>
+          <p style="color:var(--text2);font-size:14px;line-height:1.6;margin-bottom:20px;">
+            Full-Stack Developer, Open Source Contributor, and Creator of Web Development Mastery. Dedicated to building high-quality, accessible, and interactive learning resources.
+          </p>
+          <div style="display:flex;gap:15px;">
+            <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener" style="color:var(--text2);transition:color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener" style="color:var(--text2);transition:color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+            <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener" style="color:var(--text2);transition:color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+            <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener" style="color:var(--text2);transition:color 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="color:var(--text);font-size:18px;margin-bottom:15px;">Contact & Support</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">sanskaryadavfrom2012to2026@gmail.com</a></li>
+            <li><a href="mailto:supportramsandesh@gmail.com" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">supportramsandesh@gmail.com</a></li>
+            <li><a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">sanskaryadavfromghosimau2026-27@outlook.com</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="color:var(--text);font-size:18px;margin-bottom:15px;">E-Books & Store</h3>
+          <p style="color:var(--text3);font-size:14px;margin-bottom:15px;">Get premium resources, templates, and comprehensive guides.</p>
+          <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg, #ff90e8, #ff6b6b);color:#000;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;transition:transform 0.2s;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+            Visit Gumroad
+          </a>
+        </div>
+
+        <div>
+          <h3 style="color:var(--text);font-size:18px;margin-bottom:15px;">Quick Links</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <li><a href="../Follow-Sanskar.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Follow Sanskar</a></li>
+            <li><a href="../about.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">About</a></li>
+            <li><a href="../support.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Support</a></li>
+            <li><a href="../developer.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Developer</a></li>
+            <li><a href="../privacy.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Privacy</a></li>
+            <li><a href="../terms.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Terms</a></li>
+            <li><a href="../thank-you.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">Thank You</a></li>
+            <li><a href="../404.html" style="color:var(--text3);text-decoration:none;font-size:14px;transition:color 0.2s;">404 Error</a></li>
+          </ul>
+        </div>
+        
+      </div>
+      
+      <div style="border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;color:var(--text3);font-size:14px;max-width:1200px;margin:0 auto;">
+        <div>v2.0 Premium • 100/100 Concepts Indexed</div>
+        <div>&copy; 2026 Sanskar Yadav. Made with <span style="color:#ef4444;">❤️</span> in India.</div>
+        <button onclick="openDonate()" style="background:none;border:none;color:var(--accent);font-weight:600;cursor:pointer;text-decoration:underline;">Support the Project</button>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Welcome Modal -->
+  <dialog id="welcomeModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:400px;width:90%;color:var(--text);box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <div style="text-align:center;">
+      <h2 style="font-size:24px;margin-bottom:15px;color:var(--accent);">Welcome to JavaScript Mastery! 👋</h2>
+      <p style="color:var(--text2);margin-bottom:20px;font-size:15px;line-height:1.5;">Enter your name to personalize your learning experience and track your mastery progress.</p>
+      <input type="text" id="wmUsername" placeholder="Your Name" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-bottom:20px;font-size:16px;box-sizing:border-box;">
+      <div style="display:flex;gap:10px;">
+        <button onclick="saveName()" style="flex:2;background:var(--accent);color:#000;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;font-size:16px;">Save & Continue</button>
+        <button onclick="document.getElementById('welcomeModal').close()" style="flex:1;background:var(--bg3);color:var(--text);border:none;padding:12px;border-radius:8px;font-weight:500;cursor:pointer;font-size:16px;">Skip</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Theme Gallery Modal -->
+  <dialog id="themeModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:800px;width:90%;color:var(--text);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h2 style="margin:0;display:flex;align-items:center;gap:10px;">🎨 Theme Gallery & Customizer</h2>
+      <button onclick="document.getElementById('themeModal').close()" style="background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;">&times;</button>
+    </div>
+    <p style="color:var(--accent);font-weight:600;margin-bottom:20px;">✨ 25+ Premium Presets</p>
+    <div id="themeGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:15px;margin-bottom:30px;max-height:300px;overflow-y:auto;padding-right:10px;">
+      <!-- Populated by JS -->
+    </div>
+    
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px;">
+      <h3 style="margin-top:0;margin-bottom:15px;font-size:16px;">Custom Theme Builder</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:15px;margin-bottom:15px;">
+        <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);">Background <input type="color" id="ct-bg" value="#0f172a" style="border:none;background:none;width:30px;height:30px;cursor:pointer;"></label>
+        <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);">Surface <input type="color" id="ct-bg2" value="#1e293b" style="border:none;background:none;width:30px;height:30px;cursor:pointer;"></label>
+        <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);">Text <input type="color" id="ct-text" value="#f8fafc" style="border:none;background:none;width:30px;height:30px;cursor:pointer;"></label>
+        <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);">Accent <input type="color" id="ct-accent" value="#eab308" style="border:none;background:none;width:30px;height:30px;cursor:pointer;"></label>
+        <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--text2);">Accent 2 <input type="color" id="ct-accent2" value="#fef08a" style="border:none;background:none;width:30px;height:30px;cursor:pointer;"></label>
+      </div>
+      <button onclick="applyCustomTheme()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;">Save Custom Theme</button>
+    </div>
+  </dialog>
+
+  <!-- Cheat Sheet Modal -->
+  <dialog id="cheatSheetModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:1000px;width:90%;height:80vh;color:var(--text);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h2 style="margin:0;display:flex;align-items:center;gap:10px;">📜 JavaScript Concepts Cheat Sheet</h2>
+      <button onclick="document.getElementById('cheatSheetModal').close()" style="background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;">&times;</button>
+    </div>
+    <input type="text" id="csSearch" placeholder="Search cheat sheet..." style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);margin-bottom:20px;font-size:16px;box-sizing:border-box;" onkeyup="filterCheatSheet()">
+    <div id="csGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:20px;overflow-y:auto;height:calc(100% - 130px);padding-right:10px;">
+      <!-- Populated by JS -->
+    </div>
+  </dialog>
+
+  <!-- Mastery Center Modal -->
+  <dialog id="masteryCenterModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:0;max-width:1000px;width:90%;height:80vh;color:var(--text);overflow:hidden;">
+    <div style="display:flex;height:100%;">
+      <div style="width:250px;background:var(--bg3);border-right:1px solid var(--border);padding:20px;display:flex;flex-direction:column;">
+        <h2 style="font-size:18px;margin-top:0;margin-bottom:20px;color:var(--accent);">Mastery Center</h2>
+        <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+          <button onclick="loadMasteryContent('interview')" style="text-align:left;background:transparent;border:none;color:var(--text);padding:10px;border-radius:6px;cursor:pointer;transition:background 0.2s;">💬 Interview Q&A</button>
+          <button onclick="loadMasteryContent('best-practices')" style="text-align:left;background:transparent;border:none;color:var(--text);padding:10px;border-radius:6px;cursor:pointer;transition:background 0.2s;">🛡️ Best Practices</button>
+          <button onclick="loadMasteryContent('flashcards')" style="text-align:left;background:transparent;border:none;color:var(--text);padding:10px;border-radius:6px;cursor:pointer;transition:background 0.2s;">🃏 Flashcards</button>
+        </div>
+        <div id="mcRank" style="margin-top:20px;padding:15px;background:var(--bg);border-radius:8px;text-align:center;font-weight:600;color:var(--accent);font-size:14px;border:1px solid var(--border);">
+          Rank: Novice
+        </div>
+      </div>
+      <div style="flex:1;padding:30px;overflow-y:auto;position:relative;">
+        <button onclick="document.getElementById('masteryCenterModal').close()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;">&times;</button>
+        <div id="mcContent">
+          <!-- Populated by JS -->
         </div>
       </div>
     </div>
   </dialog>
 
-  <!-- Scripts -->
+  <!-- Quiz Modal -->
+  <dialog id="quizModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:600px;width:90%;color:var(--text);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h2 style="margin:0;display:flex;align-items:center;gap:10px;">🎯 JavaScript Quiz</h2>
+      <div id="quizScoreDisplay" style="font-weight:600;color:var(--accent);background:var(--bg);padding:5px 10px;border-radius:6px;border:1px solid var(--border);">Score: 0</div>
+    </div>
+    <div id="quizActiveArea">
+      <div id="quizQuestion" style="font-size:18px;font-weight:500;margin-bottom:20px;line-height:1.5;">Loading question...</div>
+      <div id="quizOptions" style="display:flex;flex-direction:column;gap:10px;">
+        <!-- Options populated by JS -->
+      </div>
+    </div>
+    <div id="quizResultArea" style="display:none;text-align:center;padding:20px 0;">
+      <h3 style="font-size:24px;margin-bottom:10px;color:var(--accent);">Quiz Complete!</h3>
+      <div id="quizFinalScore" style="font-size:48px;font-weight:700;margin-bottom:20px;">0/0</div>
+      <div style="display:flex;justify-content:center;gap:10px;">
+        <button onclick="shareScore()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;">Share Score</button>
+        <button onclick="startQuiz()" style="background:var(--accent);border:none;color:#000;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;">Play Again</button>
+        <button onclick="document.getElementById('quizModal').close()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;cursor:pointer;">Close</button>
+      </div>
+    </div>
+    <div id="quizFooter" style="display:flex;justify-content:space-between;margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
+      <button onclick="document.getElementById('quizModal').close()" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:8px;">Close</button>
+      <button id="quizNextBtn" onclick="nextQuizQuestion()" style="background:var(--accent);border:none;color:#000;padding:8px 20px;border-radius:6px;font-weight:600;cursor:pointer;display:none;">Next Question</button>
+    </div>
+  </dialog>
+
+  <!-- History Modal -->
+  <dialog id="historyModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:800px;width:90%;max-height:80vh;overflow-y:auto;color:var(--text);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+      <h2 style="margin:0;display:flex;align-items:center;gap:10px;">⏳ Evolution of JavaScript</h2>
+      <button onclick="document.getElementById('historyModal').close()" style="background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;">&times;</button>
+    </div>
+    <div class="timeline" style="position:relative;padding-left:30px;border-left:2px solid var(--border);">
+      
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">1995</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">Creation (Mocha → LiveScript → JavaScript)</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">Brendan Eich created the language in just 10 days for Netscape Navigator.</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">1999</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">ES3 (Standardization)</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">Regular expressions, better string handling, try/catch exception handling added.</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">2009</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">ES5 & Node.js</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">"strict mode", JSON support, Array methods (forEach, map, filter). Node.js brings JS to the backend.</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">2015</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">ES6 (ECMAScript 2015) Revolution</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">let/const, arrow functions, classes, template literals, promises, modules. The biggest update in JS history.</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">2017</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">Async/Await</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">ES8 introduces async/await, revolutionizing asynchronous programming and escaping "callback hell".</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:30px;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">2020</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">Optional Chaining & Nullish Coalescing</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">ES11 brings `?.` and `??`, making property access and default values much cleaner.</p>
+      </div>
+
+      <div style="position:relative;margin-bottom:0;">
+        <div style="position:absolute;left:-39px;top:0;width:16px;height:16px;border-radius:50%;background:var(--accent);border:4px solid var(--bg2);"></div>
+        <div style="font-weight:700;color:var(--accent);margin-bottom:5px;">2023-25</div>
+        <h3 style="margin-top:0;margin-bottom:5px;font-size:18px;">Modern JS & Ecosystem</h3>
+        <p style="color:var(--text2);margin:0;font-size:14px;line-height:1.5;">Array mutation methods (toSorted, toReversed), Records/Tuples proposals, and TypeScript dominance.</p>
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- Shortcuts Modal -->
+  <dialog id="shortcutsModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:30px;max-width:500px;width:90%;color:var(--text);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h2 style="margin:0;display:flex;align-items:center;gap:10px;">⌨️ Keyboard Shortcuts</h2>
+      <button onclick="document.getElementById('shortcutsModal').close()" style="background:none;border:none;color:var(--text2);font-size:24px;cursor:pointer;">&times;</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:15px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <span style="color:var(--text2);">Search Palette</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">Ctrl+K</kbd>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <span style="color:var(--text2);">Take a Quiz</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">Q</kbd>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <span style="color:var(--text2);">Toggle Zen Mode</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">Z</kbd>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <span style="color:var(--text2);">Toggle Sidebar</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">M</kbd>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:10px;">
+        <span style="color:var(--text2);">Print / Save PDF</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">S</kbd>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="color:var(--text2);">Close Everything</span>
+        <kbd style="background:var(--bg3);padding:4px 8px;border-radius:4px;font-family:monospace;border:1px solid var(--border);">Esc</kbd>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Cmd+K Modal -->
+  <dialog id="cmdKModal" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:0;max-width:600px;width:90%;color:var(--text);margin-top:10vh;vertical-align:top;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+    <div style="padding:15px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+      <span style="color:var(--text3);">🔍</span>
+      <input type="text" id="cmdKInput" placeholder="Search 100 concepts... (Esc to close)" style="flex:1;background:transparent;border:none;color:var(--text);font-size:18px;outline:none;" onkeyup="handleCmdKSearch(event)">
+    </div>
+    <div id="cmdKResults" style="max-height:400px;overflow-y:auto;padding:10px 0;">
+      <!-- Populated by JS -->
+    </div>
+    <div style="padding:10px 15px;border-top:1px solid var(--border);font-size:12px;color:var(--text3);display:flex;justify-content:space-between;">
+      <span>Use ↑↓ to navigate, Enter to select</span>
+      <span>100 Concepts Indexed</span>
+    </div>
+  </dialog>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+
+  <!-- Welcome Notification Banner -->
+  <div id="welcomeBanner" style="position:fixed;bottom:20px;right:20px;background:var(--bg2);border:1px solid var(--accent);border-radius:12px;padding:20px;max-width:350px;box-shadow:0 10px 25px rgba(0,0,0,0.5);transform:translateX(120%);transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);z-index:9999;">
+    <button onclick="dismissBanner()" style="position:absolute;top:10px;right:10px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;">&times;</button>
+    <div style="display:flex;gap:15px;align-items:flex-start;">
+      <div style="font-size:24px;background:var(--bg);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;">👋</div>
+      <div>
+        <h4 style="margin:0 0 5px 0;color:var(--text);font-size:16px;">Welcome!</h4>
+        <p style="margin:0;color:var(--text2);font-size:13px;line-height:1.5;">I'm Sanskar. I've curated these 100 JavaScript concepts to help you master the language. Enjoy the interactive sandbox!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reading Tracker & Scroll to Top -->
+  <div id="readingTracker" style="position:fixed;bottom:30px;right:30px;width:50px;height:50px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:all 0.3s;z-index:9000;box-shadow:0 4px 12px rgba(0,0,0,0.3);" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg class="progress-ring" width="50" height="50" style="position:absolute;top:-1px;left:-1px;transform:rotate(-90deg);">
+      <circle class="progress-ring__circle" stroke="var(--accent)" stroke-width="3" fill="transparent" r="23" cx="25" cy="25" style="transition:stroke-dashoffset 0.1s;stroke-dasharray:144.513;stroke-dashoffset:144.513;"></circle>
+    </svg>
+    <span style="color:var(--text);font-size:20px;">↑</span>
+  </div>
+
+  <!-- Donate QR Overlay -->
+  <div id="donate-overlay" onclick="if(event.target===this) closeDonate()">
+    <div class="donate-modal">
+      <button class="donate-close" onclick="closeDonate()">&times;</button>
+      <h2 style="margin-top:0;color:var(--text);font-size:24px;margin-bottom:10px;">Support the Developer ❤️</h2>
+      <p style="color:var(--text2);font-size:14px;margin-bottom:20px;">If this mastery guide helped you, consider supporting my work to keep it free and updated.</p>
+      <div style="background:var(--bg);padding:15px;border-radius:12px;display:inline-block;margin-bottom:20px;border:1px solid var(--border);">
+        <img src="../Payment-Ramsandesh.jpeg" alt="Donate QR Code" style="width:200px;height:200px;border-radius:8px;display:block;">
+      </div>
+      <p style="margin-bottom:20px;font-size:14px;color:var(--text2);">Scan the QR Code to donate via UPI</p>
+      <a href="https://rzp.io/l/Sanskar" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg, #3b82f6, #2563eb);color:white;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;transition:opacity 0.2s;">
+        Pay via Razorpay
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Show welcome banner after delay
+    setTimeout(() => {
+      if(!localStorage.getItem('jsBannerDismissed')) {
+        document.getElementById('welcomeBanner').style.transform = 'translateX(0)';
+      }
+    }, 5000);
+
+    function dismissBanner() {
+      document.getElementById('welcomeBanner').style.transform = 'translateX(120%)';
+      localStorage.setItem('jsBannerDismissed', 'true');
+    }
+
+    // Donate Modal Functions
+    function openDonate() {
+      const overlay = document.getElementById('donate-overlay');
+      overlay.style.display = 'flex';
+      // trigger reflow
+      void overlay.offsetWidth;
+      overlay.classList.add('active');
+    }
+
+    function closeDonate() {
+      const overlay = document.getElementById('donate-overlay');
+      overlay.classList.remove('active');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 300);
+    }
+
+    // Scroll Progress & Tracker
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+      
+      const tracker = document.getElementById('readingTracker');
+      const circle = document.querySelector('.progress-ring__circle');
+      
+      if(winScroll > 300) {
+        tracker.style.opacity = '1';
+        tracker.style.visibility = 'visible';
+      } else {
+        tracker.style.opacity = '0';
+        tracker.style.visibility = 'hidden';
+      }
+      
+      if(circle) {
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const offset = circumference - (scrolled / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+      }
+    });
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl+K for Search Palette
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const modal = document.getElementById('cmdKModal');
+        if(!modal.open) {
+          modal.showModal();
+          document.getElementById('cmdKInput').focus();
+        } else {
+          modal.close();
+        }
+      }
+      // Esc to close all modals & donate
+      if (e.key === 'Escape') {
+        closeDonate();
+      }
+      
+      // Prevent running shortcuts if user is typing in an input/textarea
+      if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      switch(e.key.toLowerCase()) {
+        case 'q':
+          openQuiz(e);
+          break;
+        case 'z':
+          toggleZenMode();
+          break;
+        case 'm':
+          toggleSidebar();
+          break;
+        case 's':
+          e.preventDefault();
+          window.print();
+          break;
+        case 'h':
+          document.getElementById('historyModal').showModal();
+          break;
+        case '?':
+          document.getElementById('shortcutsModal').showModal();
+          break;
+      }
+    });
+  </script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "JavaScript Mastery — 100 Concepts",
+    "description": "Master JavaScript with 100 interactive concepts, live code sandbox, and complete reference guide.",
+    "author": {
+      "@type": "Person",
+      "name": "Sanskar Yadav",
+      "url": "https://github.com/Sanskar-in"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Web Development Mastery",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://github.com/Sanskar-in.png"
+      }
+    },
+    "learningResourceType": "Interactive Resource"
+  }
+  </script>
+
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
-  <!-- Canvas Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="script.js"></script>
 </body>
-
 </html>
