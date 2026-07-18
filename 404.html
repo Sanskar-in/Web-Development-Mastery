@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found | Web Development Mastery</title>
+    <meta name="description" content="Page not found — Web Development Mastery by Sanskar Developer">
+    <meta name="robots" content="noindex, follow">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-shapes {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0; overflow: hidden; pointer-events: none;
+        }
+        .shape {
+            position: absolute; border-radius: 50%;
+            filter: blur(100px); opacity: 0.5;
+            animation: drift 15s infinite alternate ease-in-out;
+        }
+        .shape-1 { width: 600px; height: 600px; background: #6c63ff; top: -200px; left: -150px; }
+        .shape-2 { width: 500px; height: 500px; background: #3ecfcf; bottom: -100px; right: -100px; animation-delay: -5s; }
+        .shape-3 { width: 400px; height: 400px; background: #bf5af2; top: 40%; left: 60%; animation-delay: -3s; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 40px) scale(1.15); }
+        }
+
+        /* Particles */
+        .particle {
+            position: fixed; border-radius: 50%;
+            pointer-events: none; opacity: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+        }
+
+        /* Glassmorphic Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 32px;
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        nav a {
+            color: #f8fafc; text-decoration: none; font-weight: 600;
+            font-size: 0.9rem; transition: color 0.2s;
+        }
+        nav a:hover { color: #6c63ff; }
+        .logo span { color: #6c63ff; font-weight: 800; font-size: 1.2rem; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { font-size: 0.85rem; font-weight: 500; }
+
+        /* 404 Container */
+        .container-404 {
+            position: relative; z-index: 2;
+            text-align: center; padding: 40px 20px;
+            max-width: 700px; width: 90%;
+        }
+
+        /* Glitch 404 */
+        .glitch-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(8rem, 20vw, 14rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #6c63ff, #3ecfcf, #bf5af2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            line-height: 1;
+            animation: glitch 4s ease-in-out infinite;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @keyframes glitch {
+            0%, 95%, 100% { transform: translate(0); }
+            96% { transform: translate(-3px, 2px); }
+            97% { transform: translate(3px, -2px); }
+            98% { transform: translate(-2px, -3px); }
+            99% { transform: translate(2px, 3px); }
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: '404';
+            position: absolute; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #6c63ff, #3ecfcf, #bf5af2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glitch-text::before {
+            animation: glitchBefore 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+        .glitch-text::after {
+            animation: glitchAfter 3s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitchBefore {
+            0%, 92%, 100% { transform: translate(0); }
+            93% { transform: translate(-5px, -2px); }
+            95% { transform: translate(5px, 2px); }
+            97% { transform: translate(-3px, 1px); }
+        }
+        @keyframes glitchAfter {
+            0%, 90%, 100% { transform: translate(0); }
+            91% { transform: translate(5px, 2px); }
+            93% { transform: translate(-5px, -2px); }
+            96% { transform: translate(3px, -1px); }
+        }
+
+        .oops-heading {
+            font-size: 1.8rem; font-weight: 700; margin: 20px 0 12px;
+            color: #f8fafc;
+        }
+
+        /* Typing effect */
+        .typing-subtitle {
+            font-size: 1rem; color: #94a3b8; margin-bottom: 30px;
+            min-height: 24px; font-family: 'Outfit', monospace;
+        }
+        .typing-cursor {
+            display: inline-block; width: 2px; height: 1em;
+            background: #6c63ff; margin-left: 2px;
+            animation: blink 0.8s ease-in-out infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 28px; border: none; border-radius: 12px;
+            font-weight: 700; font-size: 1rem; cursor: pointer;
+            background: linear-gradient(135deg, #6c63ff, #bf5af2);
+            color: #fff; text-decoration: none;
+            box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+            transition: all 0.3s; font-family: inherit;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(108,99,255,0.4); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 28px; border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; background: rgba(255,255,255,0.05);
+            color: #f8fafc; text-decoration: none;
+            transition: all 0.3s; font-family: inherit;
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+
+        /* Redirect countdown */
+        .redirect-info {
+            font-size: 0.85rem; color: #64748b; margin-bottom: 30px;
+        }
+        .redirect-info span { color: #6c63ff; font-weight: 700; }
+
+        /* Easter Egg */
+        .easter-egg {
+            display: none;
+            background: rgba(108,99,255,0.1);
+            border: 1px solid rgba(108,99,255,0.3);
+            border-radius: 12px; padding: 20px; margin: 20px auto;
+            max-width: 500px; text-align: left;
+        }
+        .easter-egg h3 { color: #6c63ff; margin-bottom: 8px; font-size: 0.95rem; }
+        .easter-egg p { color: #94a3b8; font-size: 0.85rem; line-height: 1.6; }
+
+        /* Donate */
+        .donate-btn-fixed {
+            position: fixed; bottom: 30px; left: 30px; z-index: 100;
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            color: #fff; border: none; padding: 12px 20px;
+            border-radius: 12px; font-weight: 700; cursor: pointer;
+            font-size: 0.85rem; font-family: inherit;
+            box-shadow: 0 4px 15px rgba(244,63,94,0.3);
+            transition: all 0.3s;
+        }
+        .donate-btn-fixed:hover { transform: translateY(-3px) scale(1.05); }
+
+        .donate-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            z-index: 10000; align-items: center; justify-content: center;
+        }
+        .donate-overlay.active { display: flex; }
+        .donate-modal {
+            background: #1e293b; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; padding: 40px; text-align: center;
+            max-width: 420px; width: 90%; position: relative;
+        }
+        .donate-modal img { width: 200px; height: 200px; border-radius: 12px; margin: 16px 0; }
+        .donate-close {
+            position: absolute; top: 12px; right: 16px;
+            background: none; border: none; color: #94a3b8;
+            font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* Support box */
+        .support-box {
+            border: 2px dashed rgba(108,99,255,0.3);
+            border-radius: 16px; padding: 24px; margin: 20px auto;
+            max-width: 500px;
+        }
+        .support-box h3 { color: #6c63ff; font-size: 0.95rem; margin-bottom: 8px; }
+        .support-box p { color: #94a3b8; font-size: 0.85rem; line-height: 1.6; }
+
+        /* Footer */
+        footer {
+            position: relative; z-index: 2;
+            width: 100%; text-align: center;
+            padding: 24px 20px; margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        footer p { color: #64748b; font-size: 0.82rem; }
+        footer a { color: #6c63ff; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .glitch-text { font-size: clamp(5rem, 18vw, 10rem); }
+            .oops-heading { font-size: 1.4rem; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .donate-btn-fixed { bottom: 16px; left: 16px; padding: 10px 16px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Nav -->
+    <nav>
+        <a href="index.html" class="logo"><span>{ }</span> Web Dev Mastery</a>
+        <div class="nav-links">
+            <a href="HTML/index.html">HTML</a>
+            <a href="CSS/index.html">CSS</a>
+            <a href="JavaScript/index.html">JavaScript</a>
+            <a href="React/index.html">React</a>
+            <a href="Follow-Sanskar.html">✨ Follow Sanskar</a>
+        </div>
+    </nav>
+
+    <!-- 404 Content -->
+    <div class="container-404">
+        <div class="glitch-text" id="glitch404" title="Click me 5 times!">404</div>
+        <h2 class="oops-heading">Oops! Page Not Found</h2>
+        <div class="typing-subtitle" id="typingText"></div>
+
+        <div class="btn-group">
+            <a href="index.html" class="btn-primary">🏠 Return to Dashboard</a>
+            <button class="btn-secondary" onclick="history.back()">← Go Back</button>
+        </div>
+
+        <div class="redirect-info">
+            Auto-redirecting in <span id="countdown">30</span> seconds...
+        </div>
+
+        <div class="easter-egg" id="easterEgg">
+            <h3>🎉 You found the Easter Egg!</h3>
+            <p id="funFact"></p>
+        </div>
+
+        <div class="support-box">
+            <h3>💡 Support This Project</h3>
+            <p>Web Development Mastery is free and open-source. Consider donating to help us create more premium content and keep the platform running.</p>
+            <button onclick="openDonate()" style="margin-top:12px;background:linear-gradient(135deg,#6c63ff,#bf5af2);color:#fff;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:600;font-family:inherit;font-size:0.85rem;">🍩 Donate Now</button>
+        </div>
+    </div>
+
+    <!-- Donate Button Fixed -->
+    <button class="donate-btn-fixed" onclick="openDonate()">🍩 Donate</button>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donateOverlay" onclick="if(event.target===this) closeDonate()">
+        <div class="donate-modal">
+            <button class="donate-close" onclick="closeDonate()">✕</button>
+            <h2 style="color:#f8fafc;font-size:1.4rem;margin-bottom:6px;">Support Web Dev Mastery</h2>
+            <p style="color:#94a3b8;font-size:0.9rem;">Scan the QR code or use the link below</p>
+            <img src="Payment-Ramsandesh.jpeg" alt="Donation QR Code">
+            <div style="margin-top:12px;">
+                <a href="https://rzp.io/l/Sanskar" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:linear-gradient(135deg,#6c63ff,#3ecfcf);color:#fff;padding:12px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:0.95rem;box-shadow:0 4px 15px rgba(108,99,255,0.3);">💳 Donate via Razorpay</a>
+            </div>
+            <p style="margin-top:12px;color:#64748b;font-size:0.8rem;">Thank you for your generosity! 🙏</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 <a href="about.html">Web Development Mastery</a> by <strong><a href="Follow-Sanskar.html">Sanskar Yadav</a></strong>. All Rights Reserved.</p>
+        <p style="margin-top:6px;">Open Source • Made with ❤️ in India</p>
+        <p style="margin-top:8px;">
+            <a href="about.html">About</a> · <a href="support.html">Support</a> · <a href="developer.html">Developer</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>
+        </p>
+    </footer>
+
+    <script>
+        // Particles
+        (function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                const colors = ['#6c63ff', '#3ecfcf', '#bf5af2', '#ec4899', '#f59e0b'];
+                p.style.cssText = `
+                    width:${size}px;height:${size}px;
+                    left:${Math.random()*100}%;
+                    background:${colors[Math.floor(Math.random()*colors.length)]};
+                    animation-duration:${Math.random()*8+6}s;
+                    animation-delay:${Math.random()*10}s;
+                `;
+                document.body.appendChild(p);
+            }
+        })();
+
+        // Typing effect
+        const messages = [
+            'This page seems to have wandered off into the void...',
+            'Error 404: The bits got lost in cyberspace...',
+            'Looks like this URL returned undefined...',
+            'The DOM node for this page doesn\'t exist...',
+            'This route was never registered in our router...',
+            'The server searched everywhere but found nothing...',
+            'This file was accidentally garbage collected...'
+        ];
+        let msgIndex = 0, charIndex = 0, isDeleting = false;
+        const typingEl = document.getElementById('typingText');
+
+        function typeEffect() {
+            const msg = messages[msgIndex];
+            if (isDeleting) {
+                typingEl.innerHTML = msg.substring(0, charIndex) + '<span class="typing-cursor"></span>';
+                charIndex--;
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    msgIndex = (msgIndex + 1) % messages.length;
+                    setTimeout(typeEffect, 500);
+                    return;
+                }
+            } else {
+                typingEl.innerHTML = msg.substring(0, charIndex) + '<span class="typing-cursor"></span>';
+                charIndex++;
+                if (charIndex > msg.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 30 : 60);
+        }
+        typeEffect();
+
+        // Countdown redirect
+        let countdownVal = 30;
+        const countdownEl = document.getElementById('countdown');
+        const countdownTimer = setInterval(() => {
+            countdownVal--;
+            countdownEl.textContent = countdownVal;
+            if (countdownVal <= 0) {
+                clearInterval(countdownTimer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+
+        // Easter egg
+        const funFacts = [
+            'The first website ever created is still online at info.cern.ch — it was built in 1991 by Tim Berners-Lee!',
+            'JavaScript was created in just 10 days by Brendan Eich in May 1995 at Netscape.',
+            'The first CSS specification was published in December 1996 — and it only had 59 properties!',
+            'HTML stands for HyperText Markup Language and was first proposed in 1989.',
+            'Over 97% of all websites use JavaScript on the client side as of 2025.'
+        ];
+        let clickCount = 0;
+        document.getElementById('glitch404').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 5) {
+                const egg = document.getElementById('easterEgg');
+                egg.style.display = 'block';
+                document.getElementById('funFact').textContent = funFacts[Math.floor(Math.random() * funFacts.length)];
+                clickCount = 0;
+            }
+        });
+
+        // Donate
+        function openDonate() {
+            document.getElementById('donateOverlay').classList.add('active');
+        }
+        function closeDonate() {
+            document.getElementById('donateOverlay').classList.remove('active');
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDonate();
+        });
+    </script>
+</body>
+</html>
