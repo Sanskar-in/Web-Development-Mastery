@@ -145,6 +145,7 @@
             font-weight: 800;
             font-size: 1.35rem;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
@@ -201,6 +202,7 @@
             font-size: clamp(2rem, 5vw, 3.4rem);
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.7rem;
@@ -229,6 +231,7 @@
             margin-bottom: 1.8rem;
             text-align: center;
             background: linear-gradient(135deg, var(--accent2), var(--accent));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -286,6 +289,8 @@
             font-size: 1.9rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent3));
+            background-clip: text;
+            /* standard property for compatibility */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.3rem;
@@ -455,6 +460,7 @@
             font-size: 2.2rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -479,6 +485,7 @@
             font-weight: 700;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -515,6 +522,7 @@
             font-weight: 700;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -694,6 +702,7 @@
             font-size: 1.4rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
@@ -1132,21 +1141,26 @@
         <div class="glass-card contributing-card">
             <h3>How to Contribute on GitHub</h3>
             <ol>
-                <li><strong>Fork the Repository</strong> — Visit <a href="https://github.com/Sanskar-in" target="_blank"
-                        style="color:var(--accent2);">github.com/Sanskar-in</a> and click the "Fork" button to create
+                <li><strong>Fork the Repository</strong> — Visit <a
+                        href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank"
+                        style="color:var(--accent2);">github.com/Sanskar-in/Web-Development-Mastery</a> and click the
+                    "Fork" button to create
                     your own copy of the repository.</li>
                 <li><strong>Clone Your Fork</strong> — Run
-                    <code>git clone https://github.com/YOUR-USERNAME/Web-Development-Mastery.git</code> to get the code
-                    on your local machine.</li>
+                    <code>git clone https://github.com/Sanskar-in/Web-Development-Mastery.git</code> to get the code
+                    on your local machine.
+                </li>
                 <li><strong>Create a Branch</strong> — Create a feature branch with
-                    <code>git checkout -b feature/your-feature-name</code> to keep your changes organized.</li>
+                    <code>git checkout -b feature/your-feature-name</code> to keep your changes organized.
+                </li>
                 <li><strong>Make Your Changes</strong> — Add new concepts, fix bugs, improve documentation, or enhance
                     the UI. Follow the existing code style and conventions.</li>
                 <li><strong>Test Your Changes</strong> — Open the HTML files in your browser to verify everything looks
                     and works correctly across devices.</li>
                 <li><strong>Commit & Push</strong> — Run <code>git add .</code>, then
                     <code>git commit -m "Add: brief description"</code>, and
-                    <code>git push origin feature/your-feature-name</code>.</li>
+                    <code>git push origin feature/your-feature-name</code>.
+                </li>
                 <li><strong>Open a Pull Request</strong> — Go to the original repository on GitHub and click "New Pull
                     Request". Describe your changes in detail and submit.</li>
                 <li><strong>Wait for Review</strong> — I'll review your PR, suggest changes if needed, and merge it once
