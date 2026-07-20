@@ -4,7 +4,7 @@ const filePath = 'index.html';
 const cssPath = 'style.css';
 const jsPath = 'script.js';
 
-console.log("Reading HTML Mastery.html...");
+console.log("Reading index.html...");
 const content = fs.readFileSync(filePath, 'utf8');
 const lines = content.split(/\r?\n/);
 

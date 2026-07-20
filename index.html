@@ -1,443 +1,1640 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Development Mastery | By Sanskar Developer</title>
-    <meta name="description"
-        content="Master HTML, CSS, and JavaScript with 100+ deep dive concepts, live sandboxes, and premium code examples. By Sanskar Yadav.">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
+    <title>Web Development Mastery — HTML, CSS, JS & React | By Sanskar Developer</title>
+    <meta name="description" content="The ultimate open-source web development learning platform. Master HTML, CSS, JavaScript, and React with 500+ concepts, live code sandboxes, and premium design.">
+    <meta name="keywords" content="Web Development, HTML, CSS, JavaScript, React, Learn to Code, Frontend, Free Course, Sanskar Developer">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="theme-color" content="#0b0f19">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Web Development Mastery — HTML, CSS, JS & React | By Sanskar Developer">
+    <meta property="og:description" content="The ultimate open-source web development learning platform. Master HTML, CSS, JavaScript, and React with 500+ concepts, live code sandboxes, and premium design.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="splash.png">
+    <meta property="og:url" content="https://github.com/Sanskar-in/Web-Development-Mastery">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Web Development Mastery",
+      "url": "https://github.com/Sanskar-in/Web-Development-Mastery",
+      "author": {
+        "@type": "Person",
+        "name": "Sanskar Yadav"
+      }
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="splash.png">
+
+    <!-- ALL CSS INLINE -->
     <style>
-        * {
+        /* 1. CSS RESET + ROOT VARIABLES */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
+        :root {
+            --bg: #0b0f19;
+            --bg2: #131825;
+            --bg3: #1e293b;
+            --text: #f8fafc;
+            --text2: #94a3b8;
+            --text3: #64748b;
+            --accent1: #6c63ff;
+            --accent2: #3ecfcf;
+            --accent3: #bf5af2;
+            --accent4: #f97316;
+            --border: rgba(255, 255, 255, 0.08);
+            --card-glass: rgba(255, 255, 255, 0.03);
+            
+            --html-color: #f97316;
+            --css-color: #3b82f6;
+            --js-color: #eab308;
+            --react-color: #61dafb;
+        }
+
+        /* 2. BODY */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0b0f19;
-            color: #f8fafc;
+            background-color: var(--bg);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            scroll-behavior: smooth;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
         }
 
-        /* Abstract Animated Background */
+        /* 3. ANIMATED BACKGROUND */
         .bg-shapes {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 0;
-            overflow: hidden;
+            z-index: -1;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .shape {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(120px);
             opacity: 0.5;
-            animation: drift 15s infinite alternate ease-in-out;
+            animation: drift 18s infinite alternate ease-in-out;
         }
 
         .shape-1 {
-            width: 600px;
-            height: 600px;
-            background: #6c63ff;
-            top: -200px;
-            left: -100px;
+            background-color: var(--accent1);
+            width: 40vw;
+            height: 40vw;
+            top: -10vw;
+            left: -10vw;
             animation-delay: 0s;
         }
 
         .shape-2 {
-            width: 500px;
-            height: 500px;
-            background: #3ecfcf;
-            bottom: -150px;
-            right: -100px;
+            background-color: var(--accent2);
+            width: 35vw;
+            height: 35vw;
+            bottom: -5vw;
+            right: -10vw;
             animation-delay: -5s;
         }
 
         .shape-3 {
-            width: 400px;
-            height: 400px;
-            background: #bf5af2;
+            background-color: var(--accent3);
+            width: 30vw;
+            height: 30vw;
             top: 40%;
-            left: 40%;
-            transform: translate(-50%, -50%);
+            left: 30%;
             animation-delay: -10s;
+        }
+
+        .shape-4 {
+            background-color: var(--accent4);
+            width: 25vw;
+            height: 25vw;
+            bottom: 20%;
+            left: -5%;
+            animation-delay: -15s;
         }
 
         @keyframes drift {
             0% {
                 transform: translate(0, 0) scale(1);
             }
-
+            33% {
+                transform: translate(5vw, -5vh) scale(1.1);
+            }
+            66% {
+                transform: translate(-3vw, 8vh) scale(0.9);
+            }
             100% {
-                transform: translate(50px, 50px) scale(1.1);
+                transform: translate(8vw, 3vh) scale(1.05);
             }
         }
 
-        /* Navbar */
-        nav {
-            position: relative;
-            z-index: 10;
+        /* 4. FLOATING PARTICLES */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* 5. SPLASH SCREEN */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
+
+        #splash-screen img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.4);
+        }
+
+        #splash-screen h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #splash-screen p {
+            color: var(--accent2);
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* 6. GLASSMORPHIC STICKY NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 5%;
-            background: rgba(11, 15, 25, 0.4);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #a78bfa, #3ecfcf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+        }
+        
+        .nav-logo .logo-icon {
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
             align-items: center;
+            gap: 28px;
         }
 
         .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text2);
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: #fff;
-        }
-
-        .follow-btn {
-            background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-            color: white !important;
-            padding: 10px 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .follow-btn:hover {
+            color: var(--text);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.5);
         }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            z-index: 10;
+        .btn-follow {
+            background: linear-gradient(135deg, var(--accent1), var(--accent3));
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-follow:hover {
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+            transform: translateY(-2px) scale(1.05) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-nav {
+            display: none;
+            background-color: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px;
+            border-radius: 8px;
+            color: var(--text2);
+            font-weight: 500;
             text-align: center;
-            padding: 100px 20px 80px;
+            transition: background 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+
+        /* 7. HERO SECTION */
+        .hero {
             max-width: 900px;
             margin: 0 auto;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #3ecfcf;
-            margin-bottom: 24px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #a78bfa, #3b82f6, #3ecfcf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-inline: auto;
-        }
-
-        /* Module Cards */
-        .modules-grid {
-            position: relative;
-            z-index: 10;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
+            padding: 100px 24px 60px;
             text-align: center;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .card::before {
+        .hero-badge {
+            background: rgba(62, 207, 207, 0.1);
+            border: 1px solid rgba(62, 207, 207, 0.3);
+            color: var(--accent2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(62, 207, 207, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(to right, var(--accent1), var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text2);
+            margin-bottom: 48px;
+            height: 36px;
+            font-weight: 400;
+        }
+
+        .typing-text {
+            color: var(--text);
+            font-weight: 600;
+            border-right: 2px solid var(--accent1);
+            padding-right: 4px;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent1); }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: var(--card-glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            padding: 16px 24px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 140px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.15);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            color: white;
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 12px 30px rgba(108, 99, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-donate {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-donate:hover {
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* 8. MODULES GRID */
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 100px 24px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-heading h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            border-radius: 4px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .module-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--card-color-1), var(--card-color-2));
-            opacity: 0.5;
-            transition: opacity 0.3s;
+            z-index: 2;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        .module-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        .card:hover::before {
-            opacity: 1;
-        }
+        .module-html::before { background: var(--html-color); }
+        .module-css::before { background: var(--css-color); }
+        .module-js::before { background: var(--js-color); }
+        .module-react::before { background: var(--react-color); }
+        
+        .module-card:hover.module-html { box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15); }
+        .module-card:hover.module-css { box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15); }
+        .module-card:hover.module-js { box-shadow: 0 20px 40px rgba(234, 179, 8, 0.15); }
+        .module-card:hover.module-react { box-shadow: 0 20px 40px rgba(97, 218, 251, 0.15); }
 
-        .card-icon {
+        .module-icon-wrapper {
             width: 80px;
             height: 80px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            background: var(--card-glass);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 40px;
             margin-bottom: 24px;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
         }
 
-        .card h2 {
-            color: #fff;
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 12px;
+        .module-card h3 {
             font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
 
-        .card p {
-            color: #94a3b8;
-            font-size: 1rem;
-            line-height: 1.5;
+        .module-card p {
+            color: var(--text2);
+            line-height: 1.6;
             margin-bottom: 24px;
             flex-grow: 1;
         }
 
-        .card-stats {
+        .module-stats {
             display: flex;
             gap: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #cbd5e1;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
-        .card-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 700;
+        .module-stat-pill {
+            background: rgba(0,0,0,0.2);
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+
+        .module-btn {
             width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .btn-html { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); }
+        .btn-css { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        .btn-js { background: linear-gradient(135deg, #eab308, #ca8a04); box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3); }
+        .btn-react { background: linear-gradient(135deg, #61dafb, #087ea4); color: #000; box-shadow: 0 4px 15px rgba(97, 218, 251, 0.3); }
+        
+        .module-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* 9. FEATURES SECTION */
+        .features-section {
+            background: linear-gradient(to bottom, var(--bg) 0%, var(--bg2) 100%);
+            padding: 100px 0;
+            border-top: 1px solid var(--border);
+        }
+        
+        .features-title {
+            background: linear-gradient(to right, var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 20px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .feature-card p {
+            color: var(--text2);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 10. CREATOR SECTION */
+        .creator-section {
+            padding: 100px 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .creator-card {
+            background: rgba(19, 24, 37, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 48px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .creator-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent3));
+        }
+
+        .creator-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            background: var(--bg3);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .creator-avatar::after {
+            content: '';
+            position: absolute;
+            top: -3px; bottom: -3px; left: -3px; right: -3px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent3));
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .creator-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .creator-card p {
+            color: var(--text2);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-pill {
+            background: var(--card-glass);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s;
         }
 
-        .card:hover .card-btn {
-            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
-            border-color: transparent;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        .social-pill:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        /* Specific Cards */
-        .card-html {
-            --card-color-1: #f97316;
-            --card-color-2: #ea580c;
-        }
-
-        .card-css {
-            --card-color-1: #3b82f6;
-            --card-color-2: #2563eb;
-        }
-
-        .card-js {
-            --card-color-1: #eab308;
-            --card-color-2: #ca8a04;
-        }
-
-        .card-react {
-            --card-color-1: #61dafb;
-            --card-color-2: #087ea4;
-        }
-
-        /* Footer */
+        /* 11. PREMIUM 4-COLUMN FOOTER */
         footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(11, 15, 25, 0.8);
-            color: #64748b;
-            font-size: 0.9rem;
+            background-color: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 80px 20px 24px;
+        }
+        
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
-        footer a {
-            color: #94a3b8;
-            text-decoration: none;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
             font-weight: 600;
-            transition: color 0.2s;
+            margin-bottom: 24px;
+            color: var(--text);
         }
 
-        footer a:hover {
-            color: #3ecfcf;
+        .footer-brand h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-brand .logo-icon {
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-brand p {
+            color: var(--text2);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 300px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-glass);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            transition: all 0.3s;
+        }
+
+        .footer-social-icon:hover {
+            background: var(--accent1);
+            color: white;
+            border-color: var(--accent1);
+            transform: translateY(-3px);
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col a {
+            color: var(--text2);
+            font-size: 14px;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent2);
+            padding-left: 4px;
+        }
+        
+        .footer-col .email-link {
+            word-break: break-all;
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--text3);
+        }
+        
+        .footer-col .email-link:hover {
+            color: var(--accent1);
+            padding-left: 0;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            color: var(--text3);
+            font-size: 14px;
+        }
+        
+        .footer-badge {
+            background: rgba(255,255,255,0.05);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+
+        /* 12. DONATE OVERLAY */
+        #donate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #donate-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .donate-modal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        #donate-overlay.active .donate-modal {
+            transform: scale(1);
+        }
+
+        .close-donate {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .close-donate:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .donate-modal h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .donate-modal p {
+            color: var(--text2);
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .qr-code-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 16px;
+            margin: 0 auto 32px;
+            display: block;
+            border: 2px solid var(--border);
+            padding: 8px;
+            background: white;
+        }
+
+        /* 13. SCROLL-TO-TOP BUTTON */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        #scrollTopBtn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #scrollTopBtn:hover {
+            background: var(--accent1);
+            border-color: var(--accent1);
+            transform: translateY(-5px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .nav-links {
+            .nav-links, .btn-follow {
                 display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 40px;
+            }
+            .hero-stats {
+                gap: 12px;
+            }
+            .stat-card {
+                min-width: 120px;
+                padding: 12px 16px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .creator-card {
+                padding: 32px 20px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
+            .stat-card {
+                width: 100%;
+            }
+            .donate-modal {
+                padding: 30px 20px;
+            }
+            .qr-code-img {
+                width: 160px;
+                height: 160px;
             }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Background Animation -->
+    <!-- 3. ANIMATED BACKGROUND -->
     <div class="bg-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <span>{ }</span>
-            Web Dev Mastery
+    <!-- 4. FLOATING PARTICLES (Container for JS) -->
+    <div id="particles-container" class="particles-container"></div>
+
+    <!-- 5. SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <img src="splash.png" alt="Web Development Mastery Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+PHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiM2YzYzZmYiIHJ4PSIyMCIvPjwvc3ZnPg=='">
+            <h2>Web Development Mastery</h2>
+            <p>Loading Platform...</p>
         </div>
-        <div class="nav-links">
-            <a href="HTML/index.html">HTML</a>
-            <a href="CSS/index.html">CSS</a>
-            <a href="JavaScript/index.html">JavaScript</a>
-            <a href="React/index.html">React</a>
-            <a href="Follow-Sanskar.html" class="follow-btn">✨ Follow Sanskar</a>
+    </div>
+
+    <!-- 6. GLASSMORPHIC STICKY NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">{ }</span>
+                Web Dev Mastery
+            </a>
+            
+            <div class="nav-links">
+                <a href="#modules">HTML</a>
+                <a href="#modules">CSS</a>
+                <a href="#modules">JavaScript</a>
+                <a href="#modules">React</a>
+                <a href="#about">About</a>
+                <a href="#support">Support</a>
+            </div>
+
+            <a href="https://github.com/Sanskar-in" target="_blank" class="btn btn-follow nav-links">✨ Follow Sanskar</a>
+            
+            <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Nav -->
+        <div id="mobileNav" class="mobile-nav">
+            <a href="#modules" class="mobile-link">HTML Mastery</a>
+            <a href="#modules" class="mobile-link">CSS Mastery</a>
+            <a href="#modules" class="mobile-link">JavaScript Mastery</a>
+            <a href="#modules" class="mobile-link">React Mastery</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="javascript:void(0)" onclick="openDonate()" class="mobile-link">Support Platform</a>
+            <a href="https://github.com/Sanskar-in" target="_blank" class="mobile-link" style="color: var(--accent1);">✨ Follow Sanskar</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-badge">v2.0 Premium Edition</div>
-        <h1>Master Web Development <span>Like a Pro</span></h1>
-        <p>The ultimate open-source reference guide. Dive deep into HTML semantics, master 200+ CSS properties, and
-            explore the complete JavaScript sandbox with live code execution.</p>
-    </section>
+    <!-- 7. HERO SECTION -->
+    <main>
+        <section class="hero">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                v2.0 Premium Edition • Open Source
+            </div>
+            
+            <h1>Master Web Development <br><span class="gradient-text">Like a Pro</span></h1>
+            
+            <div class="hero-subtitle">
+                <span id="typing-text" class="typing-text"></span>
+            </div>
+            
+            <div class="hero-stats" id="stats-container">
+                <div class="stat-card">
+                    <span class="stat-value" data-target="500">0</span>
+                    <span class="stat-label">Concepts</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" data-target="4">0</span>
+                    <span class="stat-label">Modules</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" data-target="100">0</span>
+                    <span class="stat-label">% Free</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">Open Source</span>
+                </div>
+            </div>
+            
+            <div class="hero-ctas">
+                <a href="#modules" class="btn btn-primary">Start Learning →</a>
+                <a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Star on GitHub
+                </a>
+                <button onclick="openDonate()" class="btn btn-donate">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><line x1="12" y1="18" x2="12" y2="22"></line><line x1="12" y1="2" x2="12" y2="6"></line></svg>
+                    Donate
+                </button>
+            </div>
+        </section>
 
-    <!-- Modules Grid -->
-    <section class="modules-grid">
-        <!-- HTML Card -->
-        <a href="HTML/index.html" class="card card-html">
-            <div class="card-icon" style="color: #f97316;">🌐</div>
-            <h2>HTML Mastery</h2>
-            <p>Master semantic structure, forms, tables, media, and accessibility tags in HTML5.</p>
-            <div class="card-stats"><span>100+ Tags</span> • <span>Full Guide</span></div>
-            <div class="card-btn">Start Learning HTML →</div>
-        </a>
+        <!-- 8. MODULES GRID -->
+        <section id="modules" class="section-container">
+            <div class="section-heading">
+                <h2>Choose Your Path</h2>
+            </div>
+            
+            <div class="modules-grid">
+                <!-- HTML Module -->
+                <div class="module-card module-html">
+                    <div class="module-icon-wrapper">🌐</div>
+                    <h3>HTML Mastery</h3>
+                    <p>Master the foundation of the web. Learn semantic HTML5, accessible markup, forms, media, and SEO best practices to structure robust web pages.</p>
+                    <div class="module-stats">
+                        <span class="module-stat-pill">100+ Tags</span>
+                        <span class="module-stat-pill">Full Guide</span>
+                    </div>
+                    <a href="HTML/index.html" class="module-btn btn-html">Start Learning →</a>
+                </div>
 
-        <!-- CSS Card -->
-        <a href="CSS/index.html" class="card card-css">
-            <div class="card-icon" style="color: #3b82f6;">🎨</div>
-            <h2>CSS Mastery</h2>
-            <p>Discover 200 CSS properties with interactive examples, responsive design, and Flexbox/Grid.</p>
-            <div class="card-stats"><span>200 Properties</span> • <span>Live Demos</span></div>
-            <div class="card-btn">Start Learning CSS →</div>
-        </a>
+                <!-- CSS Module -->
+                <div class="module-card module-css">
+                    <div class="module-icon-wrapper">🎨</div>
+                    <h3>CSS Mastery</h3>
+                    <p>Style the web with modern CSS. Dive deep into Flexbox, Grid, animations, variables, responsive design, and glassmorphism techniques.</p>
+                    <div class="module-stats">
+                        <span class="module-stat-pill">200 Properties</span>
+                        <span class="module-stat-pill">Live Demos</span>
+                    </div>
+                    <a href="CSS/index.html" class="module-btn btn-css">Start Learning →</a>
+                </div>
 
-        <!-- React Card -->
-        <a href="React/index.html" class="card card-react">
-            <div class="card-icon" style="color: #61dafb;">⚛️</div>
-            <h2>React Mastery</h2>
-            <p>Master component architecture, React Hooks, Context API, and state management in an interactive
-                environment.</p>
-            <div class="card-stats"><span>100+ Concepts</span> &bull; <span>Live Sandbox</span></div>
-            <div class="card-btn">Start Learning React &rarr;</div>
-        </a>
+                <!-- JS Module -->
+                <div class="module-card module-js">
+                    <div class="module-icon-wrapper">⚡</div>
+                    <h3>JavaScript Mastery</h3>
+                    <p>Add interactivity and logic. Understand ES6+, DOM manipulation, asynchronous programming, fetch API, and modern JS patterns.</p>
+                    <div class="module-stats">
+                        <span class="module-stat-pill">100 Concepts</span>
+                        <span class="module-stat-pill">Live Sandbox</span>
+                    </div>
+                    <a href="JavaScript/index.html" class="module-btn btn-js">Start Learning →</a>
+                </div>
 
-        <!-- JS Card -->
-        <a href="JavaScript/index.html" class="card card-js">
-            <div class="card-icon" style="color: #eab308;">⚡</div>
-            <h2>JS Mastery</h2>
-            <p>Execute code directly in the browser! Learn DOM manipulation, Async/Await, and ES6+ features.</p>
-            <div class="card-stats"><span>100 Concepts</span> • <span>Live Sandbox</span></div>
-            <div class="card-btn">Start Learning JS →</div>
-        </a>
-    </section>
+                <!-- React Module -->
+                <div class="module-card module-react">
+                    <div class="module-icon-wrapper">⚛️</div>
+                    <h3>React Mastery</h3>
+                    <p>Build scalable UIs with the industry standard. Master components, hooks, state management, routing, and modern React architecture.</p>
+                    <div class="module-stats">
+                        <span class="module-stat-pill">100+ Concepts</span>
+                        <span class="module-stat-pill">Live Sandbox</span>
+                    </div>
+                    <a href="React/index.html" class="module-btn btn-react">Start Learning →</a>
+                </div>
+            </div>
+        </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 Web Development Mastery by <strong><a href="Follow-Sanskar.html">Sanskar Yadav</a></strong>. All
-            Rights Reserved.</p>
-        <p style="margin-top: 8px;">Open Source • Made with ❤️ in India</p>
+        <!-- 9. FEATURES SECTION -->
+        <section id="about" class="features-section">
+            <div class="section-container" style="padding: 0 24px;">
+                <div class="section-heading">
+                    <h2 class="features-title">✨ Why This Platform?</h2>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h4>Zero Dependencies</h4>
+                        <p>No build tools, no npm, no server required. Just open the files in your browser and start learning immediately without setup friction.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h4>Premium Dark UI</h4>
+                        <p>Glassmorphic design with custom styling, smooth animations, and a beautiful dark mode that's easy on the eyes during long coding sessions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h4>Live Code Sandbox</h4>
+                        <p>Write and execute code directly in the browser with instant feedback. Practice concepts immediately without switching windows.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4>Progress Tracking</h4>
+                        <p>Master concepts step-by-step, earn XP, and track your learning journey comprehensively across all four modules.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Quiz System</h4>
+                        <p>Test your knowledge with interactive quizzes. Score tracking helps identify areas for improvement and reinforces learning.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h4>Fully Responsive</h4>
+                        <p>Perfect experience on desktop, tablet, and mobile devices. Learn to code anywhere, anytime, on any screen size.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. CREATOR SECTION -->
+        <section class="creator-section">
+            <div class="creator-card">
+                <div class="creator-avatar">👨‍💻</div>
+                <h3>Built by Sanskar Yadav</h3>
+                <p>Full-Stack Web Developer from India 🇮🇳. Passionate about creating free, premium educational content and open-source tools for the global developer community.</p>
+                <div class="social-links">
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" class="social-pill">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        YouTube
+                    </a>
+                    <a href="https://github.com/Sanskar-in" target="_blank" class="social-pill">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" class="social-pill">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://x.com/Sanskar_in" target="_blank" class="social-pill">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
+                        X
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 11. PREMIUM 4-COLUMN FOOTER -->
+    <footer id="support">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col footer-brand">
+                    <h4><span class="logo-icon">{ }</span> Web Dev Mastery</h4>
+                    <p>The ultimate open-source web development learning platform. Master frontend technologies through interactive, premium-designed modules.</p>
+                    <div class="footer-socials">
+                        <a href="https://youtube.com/@Sanskar-in" class="footer-social-icon" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+                        <a href="https://github.com/Sanskar-in" class="footer-social-icon" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <a href="https://linkedin.com/in/sanskar-in" class="footer-social-icon" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                        <a href="https://x.com/Sanskar_in" class="footer-social-icon" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#about">About Platform</a></li>
+                        <li><a href="#support">Support & FAQ</a></li>
+                        <li><a href="https://github.com/Sanskar-in" target="_blank">Developer Profile</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Thank You Page</a></li>
+                        <li><a href="#">404 Not Found</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Modules -->
+                <div class="footer-col">
+                    <h5>Modules</h5>
+                    <ul>
+                        <li><a href="HTML/index.html">HTML Mastery</a></li>
+                        <li><a href="CSS/index.html">CSS Mastery</a></li>
+                        <li><a href="JavaScript/index.html">JavaScript Mastery</a></li>
+                        <li><a href="React/index.html">React Mastery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Support -->
+                <div class="footer-col">
+                    <h5>Contact & Support</h5>
+                    <ul>
+                        <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com" class="email-link">sanskaryadavfrom2012to2026@gmail.com</a></li>
+                        <li><a href="mailto:supportramsandesh@gmail.com" class="email-link">supportramsandesh@gmail.com</a></li>
+                        <li><a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com" class="email-link">sanskaryadavfromghosimau2026-27@outlook.com</a></li>
+                        <li><a href="javascript:void(0)" onclick="openDonate()" style="color: var(--accent2); margin-top: 8px; display: inline-block;">🍩 Donate to Project</a></li>
+                        <li><a href="https://ramsandesh.gumroad.com" target="_blank" style="color: var(--accent1); display: inline-block;">🛍️ Gumroad Store</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-badge">v2.0 Premium Edition</div>
+                <p>&copy; 2026 Sanskar Yadav. All rights reserved.</p>
+                <p>Made with ❤️ in India 🇮🇳</p>
+                <button onclick="openDonate()" class="btn btn-donate" style="padding: 8px 16px; font-size: 14px;">Support Project</button>
+            </div>
+        </div>
     </footer>
 
-</body>
+    <!-- 12. DONATE OVERLAY -->
+    <div id="donate-overlay">
+        <div class="donate-modal">
+            <button class="close-donate" onclick="closeDonate()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3>Support Web Dev Mastery</h3>
+            <p>Scan the QR or use the secure payment link below to support free education.</p>
+            
+            <img src="Payment-Ramsandesh.jpeg" alt="QR Code" class="qr-code-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+PHJlY3Qgdz0iMjAwIiBoPSIyMDAiIGZpbGw9IiNlZWVlZWUiLz48dGV4dCB4PSIxMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2NjY2NjYiPlFSIENvZGUgTWlzc2luZzwvdGV4dD48L3N2Zz4='">
+            
+            <a href="https://rzp.io/l/Sanskar" target="_blank" class="btn btn-primary" style="width: 100%;">
+                Donate via Razorpay
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+        </div>
+    </div>
 
+    <!-- 13. SCROLL-TO-TOP BUTTON -->
+    <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+
+    <!-- 14. SCRIPTS -->
+    <script>
+        // Splash Screen Auto-Hide
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.visibility = 'hidden';
+                    splash.style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Generate Particles
+            const particlesContainer = document.getElementById('particles-container');
+            const colors = ['#6c63ff', '#3ecfcf', '#bf5af2', '#f8fafc', '#3b82f6'];
+            
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 8 + 2; // 2px to 10px
+                const left = Math.random() * 100; // 0% to 100%
+                const animDuration = Math.random() * 15 + 10; // 10s to 25s
+                const delay = Math.random() * 10; // 0s to 10s
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animDuration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.backgroundColor = color;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        });
+
+        // Typing Effect for Hero Subtitle
+        const typingElement = document.getElementById('typing-text');
+        const phrases = [
+            '500+ Concepts Deep-Dived',
+            '4 Complete Modules',
+            'Live Code Sandboxes',
+            'Zero Dependencies'
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typingSpeed = 2000; // Pause at end of word
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typingSpeed = 500; // Pause before new word
+            }
+            
+            setTimeout(typeEffect, typingSpeed);
+        }
+        
+        // Start typing effect after splash screen
+        setTimeout(typeEffect, 1500);
+
+        // Mobile Hamburger Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Scroll Events (Navbar styling, Scroll-To-Top)
+        const navbar = document.querySelector('.navbar');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            // Navbar border shadow
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            
+            // Scroll to top button
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Counter Animation for Stats
+        const statValues = document.querySelectorAll('.stat-value[data-target]');
+        let animated = false;
+        
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !animated) {
+                animated = true;
+                statValues.forEach(stat => {
+                    const target = +stat.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            stat.textContent = Math.ceil(current) + '+';
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            stat.textContent = target + (target === 100 ? '%' : '+');
+                        }
+                    };
+                    
+                    updateCounter();
+                });
+            }
+        }, { threshold: 0.5 });
+        
+        const statsContainer = document.getElementById('stats-container');
+        if(statsContainer) observer.observe(statsContainer);
+
+        // Donate Modal Functions
+        const donateOverlay = document.getElementById('donate-overlay');
+        
+        function openDonate() {
+            donateOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            if(mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            }
+        }
+        
+        function closeDonate() {
+            donateOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+        
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && donateOverlay.classList.contains('active')) {
+                closeDonate();
+            }
+        });
+        
+        // Close on clicking outside modal
+        donateOverlay.addEventListener('click', (e) => {
+            if (e.target === donateOverlay) {
+                closeDonate();
+            }
+        });
+
+    </script>
+</body>
 </html>

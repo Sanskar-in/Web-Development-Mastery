@@ -51,4 +51,4 @@ Set-Content -Path $filePath -Value $outHtml -Encoding UTF8
 Write-Host "✅ Success! The CSS and JS have been perfectly separated."
 Write-Host "-> Created: Using Style for HTML Mastery.css"
 Write-Host "-> Created: Using JS for HTML Mastery.js"
-Write-Host "-> Updated: HTML Mastery.html"
+Write-Host "-> Updated: index.html"
