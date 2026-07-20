@@ -1,8 +1,35 @@
-# 🚀 Web Development Mastery — Complete HTML Learning Platform
+# 🚀 Web Development Mastery — Complete Web Development Learning Platform
 
-A premium, state-of-the-art interactive learning platform designed to help developers master 100 HTML tags through in-depth explanations, real-time code execution, persistent progress tracking, gamified mechanics, accessibility compliance, and custom aesthetics. 
+### HTML · CSS · JavaScript · React — 500+ Concepts | By Sanskar Developer
+
+A premium, state-of-the-art interactive learning platform designed to help developers master **HTML** (100+ tags), **CSS** (200 properties), **JavaScript** (100 concepts), and **React** (100+ concepts) through in-depth explanations, real-time code execution, live sandboxes, persistent progress tracking, gamified mechanics, quiz systems, and premium dark UI with 25+ themes.
 
 This platform requires **no compilation, no server setup, and no dependencies**. It operates entirely in the client browser using vanilla technologies (HTML5, JavaScript, CSS3), making it lightweight, easily shareable, and highly responsive.
+
+## ✨ Live Modules
+
+| Module | Concepts | Features | Accent Color |
+|--------|----------|----------|-------------|
+| 🌐 **HTML Mastery** | 100+ Tags | Live Preview, Sidebar, Quiz, Cheat Sheet | `#f97316` Orange |
+| 🎨 **CSS Mastery** | 200 Properties | Live Preview, Property Explorer, Mastery Center | `#3b82f6` Blue |
+| ⚡ **JavaScript Mastery** | 100 Concepts | Live Sandbox, Console Output, Code Editor | `#eab308` Gold |
+| ⚛️ **React Mastery** | 100+ Concepts | Live Sandbox, Component Architecture | `#61dafb` Cyan |
+
+## 🎯 Key Features
+
+- 🚀 **Zero Dependencies** — No build tools, no npm, no server. Just open and learn
+- 🎨 **Premium Dark UI** — Glassmorphic design with 25+ themes and micro-animations
+- 💻 **Live Code Sandbox** — Write and execute code directly in the browser
+- 📊 **Progress Tracking** — Master concepts, earn XP, level up (Novice → Grandmaster)
+- 🎯 **Quiz System** — Test knowledge with interactive quizzes and score sharing
+- 📜 **Cheat Sheets** — Searchable quick-reference grids for every module
+- 🎓 **Mastery Center** — Interview Q&A, Best Practices, Flashcards
+- ⌨️ **Command Palette** — Ctrl+K search across all concepts
+- 🧘 **Zen Mode** — Distraction-free learning
+- 📱 **Fully Responsive** — Perfect on desktop, tablet, and mobile
+- 🌙 **Theme Gallery** — 25+ curated presets + custom theme builder
+- 📤 **Export/Import** — Save and restore your progress across devices
+
 
 ---
 
