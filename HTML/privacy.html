@@ -1,724 +1,1359 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Privacy Policy for HTML Full Mastery. We respect your privacy and store all data locally.">
-  <meta property="og:title" content="Privacy Policy | HTML Full Mastery">
-  <meta property="og:type" content="website">
-  <title>Privacy Policy | HTML Full Mastery</title>
-  <link rel="icon" href="privacy_logo.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg: #07080f;
-      --bg2: #111827;
-      --bg3: #1f2937;
-      --text: #f1f5f9;
-      --text2: #94a3b8;
-      --accent: #818cf8;
-      --accent2: #34d399;
-      --accent3: #f472b6;
-      --border: rgba(255, 255, 255, 0.08);
-      --hdrBg: linear-gradient(135deg, #7c3aed, #6366f1, #818cf8)
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for HTML Full Mastery — learn how we collect, use, and protect your data. Transparent practices by Sanskar Yadav.">
+    <meta name="keywords" content="HTML Full Mastery, Privacy Policy, Data Protection, Sanskar Yadav, Web Development">
+    <meta name="author" content="Sanskar Yadav">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Privacy Policy | HTML Full Mastery">
+    <meta property="og:description" content="Learn how HTML Full Mastery handles your data with transparency and care.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Privacy Policy | HTML Full Mastery">
+    <meta name="twitter:description" content="Privacy Policy for HTML Full Mastery by Sanskar Yadav.">
+    <title>Privacy Policy | HTML Full Mastery</title>
+    <link rel="icon" href="html_logo.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CSS VARIABLES & THEME ==================== */
+        :root {
+            --accent: #f97316;
+            --accent-hover: #ea580c;
+            --accent-glow: rgba(249, 115, 22, 0.3);
+            --accent-soft: rgba(249, 115, 22, 0.1);
+            --gradient-primary: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%);
+            --gradient-header: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #122a4a 70%, #0a1628 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --shadow-xl: 0 12px 48px rgba(0,0,0,0.25);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    [data-theme="light"] {
-      --bg: #f8fafc;
-      --bg2: #fff;
-      --bg3: #e2e8f0;
-      --text: #0f172a;
-      --text2: #475569;
-      --accent: #6366f1;
-      --accent2: #059669;
-      --accent3: #ec4899;
-      --border: rgba(0, 0, 0, 0.1);
-      --hdrBg: linear-gradient(135deg, #8b5cf6, #6366f1, #818cf8)
-    }
+        [data-theme="dark"] {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(25, 35, 55, 0.95);
+            --bg-surface: #1a2332;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(249, 115, 22, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --nav-bg: rgba(10, 15, 26, 0.92);
+            --toc-bg: rgba(17, 24, 39, 0.6);
+            --footer-bg: #060a12;
+            --orb-opacity: 0.12;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box
-    }
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --bg-surface: #f1f5f9;
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: rgba(249, 115, 22, 0.25);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(248, 250, 252, 0.92);
+            --toc-bg: rgba(241, 245, 249, 0.8);
+            --footer-bg: #0f172a;
+            --orb-opacity: 0.06;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.4s, color 0.4s
-    }
+        /* ==================== RESET & BASE ==================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .theme-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: all 0.3s;
-      backdrop-filter: blur(10px)
-    }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
 
-    .theme-btn:hover {
-      transform: scale(1.1);
-      border-color: var(--accent)
-    }
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: background var(--transition-base), color var(--transition-base);
+        }
 
-    nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center
-    }
+        ::selection {
+            background: var(--accent);
+            color: #0a0f1a;
+        }
 
-    nav a {
-      color: var(--text2);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: color 0.2s
-    }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
 
-    nav a:hover {
-      color: var(--accent)
-    }
+        a:hover {
+            color: var(--accent-hover);
+        }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--text) !important
-    }
+        /* ==================== FLOATING ORBS ==================== */
+        .orb-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .nav-logo img {
-      width: 30px;
-      border-radius: 6px
-    }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: var(--orb-opacity);
+            animation: orbFloat 20s ease-in-out infinite;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center
-    }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #f97316, transparent 70%);
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
 
-    .nav-active {
-      color: var(--accent) !important;
-      font-weight: 700
-    }
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #ea580c, transparent 70%);
+            top: 50%;
+            right: -8%;
+            animation-delay: -5s;
+            animation-duration: 22s;
+        }
 
-    .hero {
-      background: var(--hdrBg);
-      padding: 60px 24px 50px;
-      text-align: center;
-      position: relative;
-      overflow: hidden
-    }
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #c2410c, transparent 70%);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -10s;
+            animation-duration: 28s;
+        }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: linear-gradient(transparent, var(--bg))
-    }
+        .orb-4 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #fdba74, transparent 70%);
+            top: 30%;
+            left: 60%;
+            animation-delay: -15s;
+            animation-duration: 20s;
+        }
 
-    .hero h1 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 10px
-    }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.9); }
+            75% { transform: translate(40px, 20px) scale(1.05); }
+        }
 
-    .hero p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 1.05rem
-    }
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-base);
+        }
 
-    .meta-bar {
-      max-width: 900px;
-      margin: -16px auto 0;
-      padding: 0 24px;
-      position: relative;
-      z-index: 2;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap
-    }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    .meta-pill {
-      padding: 8px 16px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      backdrop-filter: blur(10px)
-    }
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
 
-    .content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 48px 24px;
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 40px
-    }
+        .nav-back:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            transform: translateX(-3px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
 
-    .toc {
-      position: sticky;
-      top: 24px;
-      align-self: start
-    }
+        .nav-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .toc h3 {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text2);
-      margin-bottom: 12px;
-      font-weight: 700
-    }
+        .nav-brand img {
+            width: 28px;
+            height: 28px;
+            animation: spin 8s linear infinite;
+        }
 
-    .toc a {
-      display: block;
-      padding: 8px 12px;
-      color: var(--text2);
-      text-decoration: none;
-      font-size: 0.85rem;
-      border-left: 2px solid var(--border);
-      transition: all 0.2s;
-      margin-bottom: 2px
-    }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-    .toc a:hover,
-    .toc a.active {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: rgba(129, 140, 248, 0.05)
-    }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
 
-    .policy-section {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 20px;
-      scroll-margin-top: 24px
-    }
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+        }
 
-    .s-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px
-    }
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: rotate(20deg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
 
-    .s-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent3));
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.9rem;
-      flex-shrink: 0
-    }
+        .donate-btn-nav {
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-md);
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    .s-header h2 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700
-    }
+        .donate-btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
 
-    .policy-section p {
-      color: var(--text2);
-      line-height: 1.8;
-      font-size: 0.92rem;
-      margin-bottom: 10px
-    }
+        /* ==================== HEADER ==================== */
+        .page-header {
+            margin-top: 70px;
+            padding: 5rem 2rem 4rem;
+            background: var(--gradient-header);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
 
-    .policy-section ul {
-      color: var(--text2);
-      padding-left: 20px;
-      line-height: 1.8;
-      font-size: 0.92rem
-    }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
 
-    /* Privacy Score */
-    .score-card {
-      background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(129, 140, 248, 0.1));
-      border: 1px solid var(--accent2);
-      border-radius: 18px;
-      padding: 28px;
-      text-align: center;
-      margin-bottom: 32px
-    }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+            pointer-events: none;
+        }
 
-    .score-ring {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 16px;
-      position: relative
-    }
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: pulse 3s ease-in-out infinite;
+        }
 
-    .score-ring svg {
-      transform: rotate(-90deg)
-    }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
 
-    .score-ring circle {
-      fill: none;
-      stroke-width: 8;
-      stroke-linecap: round
-    }
+        .header-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
 
-    .score-ring .bg {
-      stroke: var(--bg3)
-    }
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    .score-ring .fg {
-      stroke: var(--accent2);
-      stroke-dasharray: 283;
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset 1.5s ease-out
-    }
+        .effective-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-    .score-val {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--accent2)
-    }
+        /* ==================== MAIN CONTENT ==================== */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
 
-    .score-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-      color: var(--accent2)
-    }
+        /* ==================== TABLE OF CONTENTS ==================== */
+        .toc {
+            background: var(--toc-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transition: all var(--transition-base);
+        }
 
-    .score-card p {
-      color: var(--text2);
-      font-size: 0.88rem
-    }
+        .toc:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
 
-    /* Data flow */
-    .data-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin: 20px 0
-    }
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .df-node {
-      padding: 14px 22px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      text-align: center;
-      font-size: 0.88rem;
-      font-weight: 600
-    }
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.5rem;
+        }
 
-    .df-node.safe {
-      border-color: var(--accent2);
-      color: var(--accent2)
-    }
+        .toc-list li a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
 
-    .df-arrow {
-      font-size: 1.4rem;
-      color: var(--accent2)
-    }
+        .toc-list li a::before {
+            content: '→';
+            color: var(--accent);
+            font-weight: 700;
+            transition: transform var(--transition-fast);
+        }
 
-    .df-node.blocked {
-      border-color: #ef4444;
-      color: #ef4444;
-      text-decoration: line-through;
-      opacity: 0.5
-    }
+        .toc-list li a:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            transform: translateX(4px);
+        }
 
-    .footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      margin-top: 48px;
-      color: var(--text2);
-      font-size: 0.85rem
-    }
+        .toc-list li a:hover::before {
+            transform: translateX(3px);
+        }
 
-    @media(max-width:768px) {
-      .content {
-        grid-template-columns: 1fr
-      }
+        /* ==================== SECTION CARDS ==================== */
+        .policy-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
 
-      .toc {
-        position: static;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px
-      }
+        .policy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
 
-      .toc a {
-        border-left: none;
-        border-bottom: 2px solid var(--border);
-        padding: 6px 12px
-      }
+        .policy-section:hover {
+            border-color: var(--border-color);
+            background: var(--bg-card-hover);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
 
-      .toc h3 {
-        width: 100%
-      }
+        .policy-section:hover::before {
+            opacity: 1;
+        }
 
-      .meta-bar {
-        justify-content: center
-      }
-    }
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
 
-    /* Donate Button */
-    .donate-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-      margin-top: 20px;
-    }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
 
-    .donate-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-    }
+        .section-title .emoji {
+            font-size: 1.3rem;
+        }
 
-    .donate-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      z-index: 1001;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
+        .policy-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
 
-    .donate-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
+        .policy-section p:last-child {
+            margin-bottom: 0;
+        }
 
-    .donate-modal {
-      background: var(--bg2, #111827);
-      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 420px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      transform: scale(0.9);
-      transition: transform 0.3s;
-    }
+        .policy-section ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 0;
+        }
 
-    .donate-overlay.active .donate-modal {
-      transform: scale(1);
-    }
+        .policy-section ul li {
+            position: relative;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
 
-    .donate-modal h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text, #f1f5f9);
-      margin-bottom: 8px;
-    }
+        .policy-section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
 
-    .donate-modal p {
-      color: var(--text2, #94a3b8);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
+        .highlight-box {
+            background: var(--accent-soft);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
 
-    .donate-modal img {
-      width: 100%;
-      max-width: 280px;
-      border-radius: 12px;
-      border: 3px solid var(--border, rgba(255, 255, 255, 0.08));
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
+        .highlight-box strong {
+            color: var(--accent);
+        }
 
-    .donate-close {
-      margin-top: 24px;
-      padding: 10px 28px;
-      border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text2, #94a3b8);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
-    .donate-close:hover {
-      background: var(--bg3, #1f2937);
-      color: var(--text, #f1f5f9);
-    }
+        .contact-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            transition: all var(--transition-fast);
+        }
 
-    .top-donate-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border: none;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
-    }
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
 
-    .top-donate-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-    }
-  </style>
+        .contact-card .label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-card .value {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        /* ==================== DONATE OVERLAY ==================== */
+        .donate-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .donate-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donate-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-xl), 0 0 60px var(--accent-glow);
+            animation: modalSlide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .donate-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-close:hover {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .donate-modal h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .donate-modal p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-qr {
+            width: 100%;
+            max-width: 280px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .donate-action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .donate-action-btn.primary {
+            background: var(--gradient-primary);
+            color: #0a0f1a;
+        }
+
+        .donate-action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .donate-action-btn.secondary {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .donate-action-btn.secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* ==================== FOOTER ==================== */
+        .site-footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-subtle);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-brand-text {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #0a0f1a;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition-fast);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            transform: translateX(3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2.5rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .page-header {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .policy-section {
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donate-modal {
+                padding: 1.5rem;
+            }
+
+            .nav-back span {
+                display: none;
+            }
+        }
+
+        /* ==================== SCROLLBAR ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
-
-  <button class="theme-btn" onclick="toggleTheme()">🌙</button>
-
-  <nav>
-    <a href="index.html" class="nav-logo"><img src="html_logo.svg" alt="Logo">HTML Mastery</a>
-    <div class="nav-links">
-      <a href="about.html">About</a>
-      <a href="support.html">Support</a>
-      <a href="privacy.html" class="nav-active">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <button class="top-donate-btn" onclick="openDonate()">❤️ Donate</button>
-      <div class="social-cluster-nav" style="display:inline-flex; gap:12px; margin-left:16px; align-items:center;">
-        <a href="https://www.youtube.com/@Sanskar-in" target="_blank" style="color:var(--text2); transition:color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text2)'" title="YouTube"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-        <a href="https://github.com/Sanskar-in" target="_blank" style="color:var(--text2); transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text2)'" title="GitHub"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
-        <a href="https://www.linkedin.com/in/sanskar-in" target="_blank" style="color:var(--text2); transition:color 0.2s;" onmouseover="this.style.color='#0a66c2'" onmouseout="this.style.color='var(--text2)'" title="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="https://www.x.com/Sanskar_in" target="_blank" style="color:var(--text2); transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text2)'" title="X (Twitter)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-    </div>
-    </div>
-  </nav>
-
-  <div class="hero">
-    <h1>🛡️ Privacy Policy</h1>
-    <p>Your privacy is our top priority. We believe in transparency and user control.</p>
-  </div>
-  <div class="meta-bar">
-    <span class="meta-pill">📅 Last Updated: May 15, 2026</span>
-    <span class="meta-pill">📌 Version 2.0</span>
-    <span class="meta-pill">🌍 Applies Globally</span>
-  </div>
-
-  <div class="content">
-    <div class="toc">
-      <h3>Contents</h3>
-      <a href="#s1" class="active">Data Collection</a>
-      <a href="#s2">Local Storage</a>
-      <a href="#s3">Third-Party Services</a>
-      <a href="#s4">Data Security</a>
-      <a href="#s5">Your Rights</a>
-      <a href="#s6">Contact</a>
+    <!-- Floating Orbs -->
+    <div class="orb-container" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
     </div>
 
-    <div class="sections">
-      <div class="score-card">
-        <div class="score-ring">
-          <svg width="100" height="100">
-            <circle class="bg" cx="50" cy="50" r="45" />
-            <circle class="fg" cx="50" cy="50" r="45" />
-          </svg>
-          <div class="score-val">100</div>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-back" id="nav-back-btn" aria-label="Back to HTML Full Mastery">
+                <span>←</span>
+                <span>Back</span>
+            </a>
+            <div class="nav-brand">
+                <img src="html_logo.svg" alt="HTML Logo">
+                <span>HTML Full Mastery</span>
+            </div>
         </div>
-        <h3>Your Privacy Score: 100/100</h3>
-        <p>We collect zero personal data. Everything stays on your device.</p>
-      </div>
-
-      <div class="data-flow">
-        <div class="df-node">👤 You</div>
-        <span class="df-arrow">→</span>
-        <div class="df-node safe">💾 Your Device (localStorage)</div>
-        <span class="df-arrow">→</span>
-        <div class="df-node blocked">☁️ Cloud Server</div>
-      </div>
-
-      <!-- Privacy-focused Inline Support Box -->
-      <div class="reveal"
-        style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08)); border: 1.5px dashed rgba(245, 158, 11, 0.3); border-radius: 20px; padding: 36px 24px; text-align: center; margin: 30px 0 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); backdrop-filter: blur(10px);">
-        <h3
-          style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-top: 0; margin-bottom: 10px;">
-          💖 Love 100% Private, Local-First Tech?</h3>
-        <p style="color: var(--text2); font-size: 0.95rem; max-width: 540px; margin: 0 auto 20px; line-height: 1.6;">
-          HTML Full Mastery runs completely on your browser without any telemetry or cloud databases tracking your
-          keystrokes. Keeping this educational resource free, private, and ad-free requires community love. Consider a
-          micro-donation today!</p>
-        <button onclick="openDonate()" class="donate-btn" style="margin-top: 0; padding: 12px 30px;">❤️ Donate Sanskar
-          (Ram Sandesh)</button>
-      </div>
-
-      <div class="policy-section" id="s1">
-        <div class="s-header">
-          <div class="s-num">1</div>
-          <h2>Information Collection</h2>
+        <div class="nav-right">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle Dark/Light Mode">
+                🌙
+            </button>
+            <button class="donate-btn-nav" id="donate-nav-btn" aria-label="Support us with a donation">
+                ❤️ Donate
+            </button>
         </div>
-        <p>HTML Full Mastery is an educational web application. <strong>We do not collect any personal data.</strong> No
-          registration is required, no cookies track you, and no analytics services monitor your behavior.</p>
-        <p>Any information you provide (such as your name in the welcome screen) is stored exclusively on your device
-          and is never transmitted to any server.</p>
-      </div>
+    </nav>
 
-      <div class="policy-section" id="s2">
-        <div class="s-header">
-          <div class="s-num">2</div>
-          <h2>Local Storage Usage</h2>
-        </div>
-        <p>We use your browser's localStorage to save:</p>
-        <ul>
-          <li>Theme preferences and color customizations</li>
-          <li>Your display name (if provided)</li>
-          <li>Code editor autosave content</li>
-          <li>Layout preferences (editor orientation)</li>
-        </ul>
-        <p>This data never leaves your device. You can clear it anytime via your browser settings.</p>
-      </div>
-
-      <div class="policy-section" id="s3">
-        <div class="s-header">
-          <div class="s-num">3</div>
-          <h2>Third-Party Services</h2>
-        </div>
-        <p>We load the following external resources for functionality:</p>
-        <ul>
-          <li><strong>Google Fonts</strong> — For typography (Inter, Plus Jakarta Sans, Fira Code)</li>
-          <li><strong>CodeMirror CDN</strong> — For the code editor engine</li>
-        </ul>
-        <p>These services may log standard HTTP request data (IP address, browser type). We have no control over their
-          data practices. No personal identification is included in these requests.</p>
-      </div>
-
-      <div class="policy-section" id="s4">
-        <div class="s-header">
-          <div class="s-num">4</div>
-          <h2>Data Security</h2>
-        </div>
-        <p>Since all data is stored locally on your device, your information is as secure as your device itself. We
-          recommend:</p>
-        <ul>
-          <li>Keeping your browser updated to the latest version</li>
-          <li>Using a secure device with proper authentication</li>
-          <li>Clearing localStorage if using a shared computer</li>
-        </ul>
-      </div>
-
-      <div class="policy-section" id="s5">
-        <div class="s-header">
-          <div class="s-num">5</div>
-          <h2>Your Rights</h2>
-        </div>
-        <p>You have complete control over your data:</p>
-        <ul>
-          <li><strong>Access:</strong> All data is visible in your browser's Developer Tools → Application → Local
-            Storage</li>
-          <li><strong>Delete:</strong> Clear all data by clearing your browser's localStorage for this site</li>
-          <li><strong>Portability:</strong> Your data is standard JSON and can be exported</li>
-          <li><strong>Opt-out:</strong> Disable JavaScript to prevent localStorage usage (some features will be limited)
-          </li>
-        </ul>
-      </div>
-
-      <div class="policy-section" id="s6">
-        <div class="s-header">
-          <div class="s-num">6</div>
-          <h2>Contact Us</h2>
-        </div>
-        <p>If you have questions about this privacy policy, contact us at:</p>
-        <p>📧 <a href="mailto:sanskaryadavfrom2012to2026@gmail.com"
-            style="color:var(--accent)">sanskaryadavfrom2012to2026@gmail.com</a></p>
-        <p>📧 <a href="mailto:supportramsandesh@gmail.com" style="color:var(--accent)">supportramsandesh@gmail.com</a>
+    <!-- Page Header -->
+    <header class="page-header">
+        <span class="header-icon">🔒</span>
+        <h1 class="header-title">Privacy Policy</h1>
+        <p class="header-subtitle">
+            Your privacy matters to us. This policy explains how HTML Full Mastery collects, uses, and protects your information.
         </p>
-      </div>
+        <div class="effective-date">
+            📅 Effective Date: July 2026
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Table of Contents -->
+        <nav class="toc fade-up" aria-label="Table of Contents">
+            <div class="toc-title">📑 Table of Contents</div>
+            <ol class="toc-list">
+                <li><a href="#information-collect">Information We Collect</a></li>
+                <li><a href="#how-we-use">How We Use Information</a></li>
+                <li><a href="#third-party">Third-Party Services</a></li>
+                <li><a href="#cookies">Cookies & Local Storage</a></li>
+                <li><a href="#data-security">Data Security</a></li>
+                <li><a href="#children-privacy">Children's Privacy</a></li>
+                <li><a href="#changes-policy">Changes to Policy</a></li>
+                <li><a href="#contact-info">Contact Information</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Information We Collect -->
+        <section class="policy-section fade-up" id="information-collect">
+            <div class="section-number">1</div>
+            <h2 class="section-title"><span class="emoji">📋</span> Information We Collect</h2>
+            <p>
+                HTML Full Mastery is committed to transparency about the data we handle. As a free, open-source educational platform, we collect minimal information necessary to deliver an optimal learning experience.
+            </p>
+            <ul>
+                <li><strong>Browser Preferences:</strong> Your selected theme (dark/light mode) is stored locally on your device using browser localStorage. This data never leaves your device.</li>
+                <li><strong>Usage Analytics:</strong> We may collect anonymized, aggregated data about page views and interactions to improve our content quality and user experience.</li>
+                <li><strong>Device Information:</strong> Standard technical data such as browser type, operating system, screen resolution, and language preferences may be automatically collected when you visit our pages.</li>
+                <li><strong>Donation Information:</strong> If you choose to support us via Razorpay or UPI, payment processing is handled entirely by third-party providers. We do not store credit card numbers or sensitive financial data on our servers.</li>
+                <li><strong>Contact Communications:</strong> If you reach out to us via email, we retain the communication to respond and improve our services.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Note:</strong> We do not require user accounts, passwords, or personal registration to access any content on HTML Full Mastery.
+            </div>
+        </section>
+
+        <!-- Section 2: How We Use Information -->
+        <section class="policy-section fade-up" id="how-we-use">
+            <div class="section-number">2</div>
+            <h2 class="section-title"><span class="emoji">🔧</span> How We Use Information</h2>
+            <p>
+                The limited information we collect serves specific, legitimate purposes aligned with delivering excellent educational content:
+            </p>
+            <ul>
+                <li><strong>Personalization:</strong> Remembering your theme preference ensures a consistent, comfortable browsing experience across visits without requiring you to reconfigure settings.</li>
+                <li><strong>Content Improvement:</strong> Anonymized usage data helps us understand which tutorials are most popular, where learners spend the most time, and how we can enhance our curriculum.</li>
+                <li><strong>Communication:</strong> Email correspondence is used solely to respond to your inquiries, provide support, and share updates if you've opted in.</li>
+                <li><strong>Security:</strong> Technical data helps us identify and prevent malicious activity, maintain site performance, and troubleshoot issues.</li>
+                <li><strong>Legal Compliance:</strong> We may use information as required by applicable laws and regulations to fulfill our legal obligations.</li>
+            </ul>
+            <p>
+                We never sell, rent, or trade your personal information to third parties for marketing purposes. Your trust is the foundation of our community.
+            </p>
+        </section>
+
+        <!-- Section 3: Third-Party Services -->
+        <section class="policy-section fade-up" id="third-party">
+            <div class="section-number">3</div>
+            <h2 class="section-title"><span class="emoji">🌐</span> Third-Party Services</h2>
+            <p>
+                HTML Full Mastery integrates with carefully selected third-party services to enhance performance and functionality. Each service has its own privacy practices:
+            </p>
+            <ul>
+                <li>
+                    <strong>Google Fonts:</strong> We use Google Fonts to deliver high-quality typography. When you load a page, your browser may connect to Google's servers to download font files. Google may collect standard web server logs including IP addresses. 
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy →</a>
+                </li>
+                <li>
+                    <strong>CDN Services:</strong> Content Delivery Networks (CDNs) are used to serve static assets (images, scripts) quickly from servers geographically closest to you. CDN providers may log access data for performance and security purposes.
+                </li>
+                <li>
+                    <strong>Razorpay (Donations):</strong> If you choose to make a voluntary donation, payment processing is handled by Razorpay, a PCI-DSS compliant payment gateway. Razorpay collects and processes your payment information under its own privacy policy. We receive only transaction confirmations — never your card details.
+                    <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener noreferrer">Razorpay's Privacy Policy →</a>
+                </li>
+                <li>
+                    <strong>GitHub:</strong> Our source code is hosted on GitHub. If you interact with our repository (star, fork, or contribute), GitHub's privacy policy governs that interaction.
+                    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's Privacy Policy →</a>
+                </li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Important:</strong> We carefully vet all third-party integrations and only partner with services that maintain industry-standard privacy and security practices.
+            </div>
+        </section>
+
+        <!-- Section 4: Cookies & Local Storage -->
+        <section class="policy-section fade-up" id="cookies">
+            <div class="section-number">4</div>
+            <h2 class="section-title"><span class="emoji">🍪</span> Cookies & Local Storage</h2>
+            <p>
+                HTML Full Mastery uses minimal client-side storage to enhance your experience. Here's a complete breakdown of what we store:
+            </p>
+            <ul>
+                <li><strong>Theme Preference (localStorage):</strong> We store your dark/light mode preference using the key <code style="font-family: var(--font-mono); background: var(--accent-soft); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem;">htmlMasteryTheme</code> in your browser's localStorage. This is a simple string value ("dark" or "light") that persists between sessions.</li>
+                <li><strong>No Tracking Cookies:</strong> We do not set any tracking cookies, advertising cookies, or cross-site cookies. Your browsing activity on our site is not tracked for advertising purposes.</li>
+                <li><strong>Third-Party Cookies:</strong> Some third-party services (such as Google Fonts) may set their own cookies according to their respective policies. We have no control over these cookies.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Control:</strong> You can clear your localStorage at any time through your browser's developer tools (Application → Local Storage) or browser settings. This will simply reset your theme to the default dark mode.
+            </div>
+        </section>
+
+        <!-- Section 5: Data Security -->
+        <section class="policy-section fade-up" id="data-security">
+            <div class="section-number">5</div>
+            <h2 class="section-title"><span class="emoji">🛡️</span> Data Security</h2>
+            <p>
+                We take the security of your information seriously and implement appropriate technical and organizational measures to protect it:
+            </p>
+            <ul>
+                <li><strong>HTTPS Encryption:</strong> All communications between your browser and our servers are encrypted using TLS/SSL protocols, ensuring data in transit is protected from interception.</li>
+                <li><strong>Minimal Data Collection:</strong> Our strongest security measure is collecting as little data as possible. Data that doesn't exist cannot be breached.</li>
+                <li><strong>Open Source Transparency:</strong> Our codebase is publicly available on GitHub, allowing security researchers and the community to audit our code for vulnerabilities and verify our privacy claims.</li>
+                <li><strong>Regular Updates:</strong> We keep all dependencies and third-party integrations updated to their latest secure versions to protect against known vulnerabilities.</li>
+                <li><strong>Secure Payment Processing:</strong> All donation transactions are processed through PCI-DSS compliant payment processors. We never handle or store sensitive financial data directly.</li>
+            </ul>
+            <p>
+                While no method of electronic transmission or storage is 100% secure, we strive to implement commercially reasonable measures to protect your data. If you discover a security vulnerability, please contact us immediately.
+            </p>
+        </section>
+
+        <!-- Section 6: Children's Privacy -->
+        <section class="policy-section fade-up" id="children-privacy">
+            <div class="section-number">6</div>
+            <h2 class="section-title"><span class="emoji">👶</span> Children's Privacy</h2>
+            <p>
+                HTML Full Mastery is an educational platform designed for learners of all ages interested in web development. We are committed to protecting the privacy of children:
+            </p>
+            <ul>
+                <li>Our platform does not knowingly collect personal information from children under the age of 13 (or the applicable age in your jurisdiction).</li>
+                <li>We do not require registration or account creation, which means children can access our educational content without providing any personal data.</li>
+                <li>If we become aware that we have inadvertently collected personal information from a child under the relevant age threshold, we will take immediate steps to delete such information.</li>
+                <li>Parents and guardians who believe their child has provided personal information to us should contact us immediately at one of the email addresses listed in the Contact section below.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>For Parents:</strong> We encourage parents and guardians to participate in their children's online activities. HTML Full Mastery is designed to be a safe, ad-free educational resource.
+            </div>
+        </section>
+
+        <!-- Section 7: Changes to Policy -->
+        <section class="policy-section fade-up" id="changes-policy">
+            <div class="section-number">7</div>
+            <h2 class="section-title"><span class="emoji">📝</span> Changes to This Policy</h2>
+            <p>
+                We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we do:
+            </p>
+            <ul>
+                <li>The "Effective Date" at the top of this page will be updated to reflect the date of the most recent revision.</li>
+                <li>For significant changes that materially affect how we handle your information, we will provide prominent notice on our platform (e.g., a banner notification on the homepage).</li>
+                <li>Changes will be tracked in our GitHub repository, allowing you to review the exact modifications through our commit history.</li>
+                <li>Your continued use of HTML Full Mastery after the updated policy takes effect constitutes acceptance of the revised terms.</li>
+            </ul>
+            <p>
+                We encourage you to periodically review this page for the latest information on our privacy practices. Significant updates will always be communicated transparently.
+            </p>
+        </section>
+
+        <!-- Section 8: Contact Information -->
+        <section class="policy-section fade-up" id="contact-info">
+            <div class="section-number">8</div>
+            <h2 class="section-title"><span class="emoji">📬</span> Contact Information</h2>
+            <p>
+                If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to reach out through any of the following channels:
+            </p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="label">Primary Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfrom2012to2026@gmail.com">sanskaryadavfrom2012to2026@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Support Email</div>
+                    <div class="value">
+                        <a href="mailto:supportramsandesh@gmail.com">supportramsandesh@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">Outlook Email</div>
+                    <div class="value">
+                        <a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">sanskaryadavfromghosimau2026-27@outlook.com</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="label">GitHub</div>
+                    <div class="value">
+                        <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer">github.com/Sanskar-in</a>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 1.5rem;">
+                We aim to respond to all inquiries within 48 hours. For urgent matters, please reach out via multiple channels to ensure we receive your message promptly.
+            </p>
+        </section>
+    </main>
+
+    <!-- Donate Overlay -->
+    <div class="donate-overlay" id="donate-overlay">
+        <div class="donate-modal">
+            <button class="donate-close" id="donate-close" aria-label="Close donate modal">✕</button>
+            <h3>❤️ Support HTML Full Mastery</h3>
+            <p>
+                Your donation helps us create free, high-quality HTML tutorials for everyone. Every contribution makes a difference!
+            </p>
+            <img src="Payment-Ramsandesh.jpeg" alt="Scan to Donate via UPI" class="donate-qr">
+            <div class="donate-buttons">
+                <a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer" class="donate-action-btn primary">
+                    🛒 Support on Gumroad
+                </a>
+                <button class="donate-action-btn secondary" id="donate-close-btn">Maybe Later</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="footer">
-    <p>© 2026 Sanskar Yadav — All Rights Reserved. Made with ❤️ in India.</p>
-    <button class="donate-btn" onclick="openDonate()">❤️ Donate Sanskar (Ram Sandesh)</button>
-  </div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <!-- Brand & Social -->
+            <div class="footer-col">
+                <h4>HTML Full Mastery</h4>
+                <p class="footer-brand-text">
+                    A free, open-source learning platform by Sanskar Yadav. Master HTML from fundamentals to advanced patterns with hands-on projects.
+                </p>
+                <div class="footer-social">
+                    <a href="https://youtube.com/@Sanskar-in" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">YT</a>
+                    <a href="https://github.com/Sanskar-in" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">GH</a>
+                    <a href="https://linkedin.com/in/sanskar-in" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">IN</a>
+                    <a href="https://x.com/Sanskar_in" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="X">X</a>
+                </div>
+            </div>
 
-  <script>
-    const st = localStorage.getItem('htmlMasteryTheme') || 'dark';
-    document.documentElement.setAttribute('data-theme', st);
-    document.querySelector('.theme-btn').textContent = st === 'dark' ? '☀️' : '🌙';
-    function toggleTheme() { const c = document.documentElement.getAttribute('data-theme'), n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('htmlMasteryTheme', n); document.querySelector('.theme-btn').textContent = n === 'dark' ? '☀️' : '🌙' }
+            <!-- Contact -->
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:sanskaryadavfrom2012to2026@gmail.com">📧 Primary Gmail</a></li>
+                    <li><a href="mailto:supportramsandesh@gmail.com">📧 Support Gmail</a></li>
+                    <li><a href="mailto:sanskaryadavfromghosimau2026-27@outlook.com">📧 Outlook</a></li>
+                    <li><a href="https://rzp.io/l/Sanskar" target="_blank" rel="noopener noreferrer">💳 Razorpay</a></li>
+                    <li><a href="https://ramsandesh.gumroad.com" target="_blank" rel="noopener noreferrer">🛒 Gumroad</a></li>
+                </ul>
+            </div>
 
-    // TOC highlight on scroll
-    const sections = document.querySelectorAll('.policy-section');
-    const tocLinks = document.querySelectorAll('.toc a');
-    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const id = e.target.id; const link = document.querySelector(`.toc a[href="#${id}"]`); if (link) link.classList.add('active') } }) }, { threshold: 0.3, rootMargin: '-20% 0px -60% 0px' });
-    sections.forEach(s => obs.observe(s));
-  </script>
-  <!-- Donate QR Modal -->
-  <div class="donate-overlay" id="donate-overlay" onclick="closeDonate(event)">
-    <div class="donate-modal" onclick="event.stopPropagation()">
-      <h3>❤️ Donate Sanskar</h3>
-      <p>Scan the QR code below with any UPI app to support <strong>Ram Sandesh</strong>. Every contribution helps keep
-        this project alive!</p>
-      <img src="Payment-Ramsandesh.jpeg" alt="Payment QR Code - Ram Sandesh">
-      <br>
-      <button class="donate-close" onclick="closeDonate()">Close</button>
-    </div>
-  </div>
-  <script>
-    function openDonate() { document.getElementById('donate-overlay').classList.add('active'); }
-    function closeDonate(e) { if (!e || e.target.id === 'donate-overlay') document.getElementById('donate-overlay').classList.remove('active'); }
-    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var d = document.getElementById('donate-overlay'); if (d) d.classList.remove('active'); } });
-  </script>
+            <!-- Other Modules -->
+            <div class="footer-col">
+                <h4>Other Modules</h4>
+                <ul>
+                    <li><a href="../CSS/index.html">🎨 CSS</a></li>
+                    <li><a href="../JavaScript/index.html">⚡ JS</a></li>
+                    <li><a href="../React/index.html">⚛️ React</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="about.html">ℹ️ About</a></li>
+                    <li><a href="support.html">🤝 Support</a></li>
+                    <li><a href="developer.html">👨‍💻 Developer</a></li>
+                    <li><a href="privacy.html">🔒 Privacy</a></li>
+                    <li><a href="terms.html">⚖️ Terms</a></li>
+                    <li><a href="thanks.html">🎉 Thanks</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 HTML Full Mastery by Sanskar Yadav. Open-source under MIT License.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="https://github.com/Sanskar-in/Web-Development-Mastery" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        /* ==================== THEME TOGGLE ==================== */
+        (function() {
+            const THEME_KEY = 'htmlMasteryTheme';
+            const html = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+
+            /* Load saved theme or default to dark */
+            const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+            html.setAttribute('data-theme', savedTheme);
+            updateToggleIcon(savedTheme);
+
+            toggle.addEventListener('click', function() {
+                const current = html.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem(THEME_KEY, next);
+                updateToggleIcon(next);
+            });
+
+            function updateToggleIcon(theme) {
+                toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+                toggle.title = theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }
+        })();
+
+        /* ==================== DONATE OVERLAY ==================== */
+        (function() {
+            const overlay = document.getElementById('donate-overlay');
+            const navBtn = document.getElementById('donate-nav-btn');
+            const closeBtn = document.getElementById('donate-close');
+            const closeBtnAlt = document.getElementById('donate-close-btn');
+
+            function openDonate() {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDonate() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            navBtn.addEventListener('click', openDonate);
+            closeBtn.addEventListener('click', closeDonate);
+            closeBtnAlt.addEventListener('click', closeDonate);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeDonate();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeDonate();
+                }
+            });
+        })();
+
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        (function() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-up').forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        /* ==================== NAVBAR SCROLL EFFECT ==================== */
+        (function() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+        })();
+
+        /* ==================== SMOOTH SCROLL FOR TOC ==================== */
+        (function() {
+            document.querySelectorAll('.toc-list a').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        /* Add a brief highlight effect */
+                        targetElement.style.borderColor = 'var(--accent)';
+                        targetElement.style.boxShadow = '0 0 30px var(--accent-glow)';
+                        setTimeout(function() {
+                            targetElement.style.borderColor = '';
+                            targetElement.style.boxShadow = '';
+                        }, 2000);
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
-
 </html>
-
